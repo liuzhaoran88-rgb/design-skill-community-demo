@@ -270,9 +270,25 @@ const skillCases = {
 };
 
 const designerAvatars = {
-  "@ShuaiMXu": "lina.jpg?v=202607082205",
-  "@liuzhaoran88-rgb": "liuzhaoran.jpg?v=202607082205",
+  "@ShuaiMXu": "xushuai.jpg?v=202607151830",
+  "ShuaiMXu": "xushuai.jpg?v=202607151830",
+  "xushuai": "xushuai.jpg?v=202607151830",
   "xushuai.133": "xushuai.jpg?v=202607151830",
+  "@liuzhaoran88-rgb": "liuzhaoran.jpg?v=202607091310",
+  "liuzhaoran88-rgb": "liuzhaoran.jpg?v=202607091310",
+  "liuzhaoran": "liuzhaoran.jpg?v=202607091310",
+  "wangyutong.72": "wangyutong.jpg?v=202607091310",
+  "wangyutong": "wangyutong.jpg?v=202607091310",
+  "tonglingxi.1": "tonglingxi.jpg?v=202607091310",
+  "tonglingxi": "tonglingxi.jpg?v=202607091310",
+  "gaojiamin.10": "gaojiamin.jpg?v=202607091310",
+  "gaojiamin": "gaojiamin.jpg?v=202607091310",
+  "liuyewei.5": "liuyewei.jpg?v=202607091310",
+  "liuyewei": "liuyewei.jpg?v=202607091310",
+  "zhaiyouyi1": "zhaiyouyi.jpg?v=202607091310",
+  "zhaiyouyi": "zhaiyouyi.jpg?v=202607091310",
+  "zhangfengyi.687": "zhangfengyi.jpg?v=202607091310",
+  "zhangfengyi": "zhangfengyi.jpg?v=202607091310",
   "林默": "lina.jpg?v=202606221920",
   "明越": "ming.png?v=202606221920",
   "子然": "zi.jpg?v=202606221920",
@@ -441,7 +457,13 @@ function formatLifecycleDate(value) {
 }
 
 function getAvatarFor(name) {
-  return designerAvatars[name] ?? designerAvatars["子然"] ?? designerAvatars["林默"];
+  const normalized = String(name || "").trim();
+  const noAt = normalized.replace(/^@/, "");
+  return designerAvatars[normalized]
+    ?? designerAvatars[noAt]
+    ?? designerAvatars[`@${noAt}`]
+    ?? designerAvatars["子然"]
+    ?? designerAvatars["林默"];
 }
 
 function getMergedPrContributions(record) {
@@ -637,7 +659,7 @@ function getInstallCommand(packageInfo) {
 
 function getCaseOwner(skill, index) {
   const name = skill.contributors[index % skill.contributors.length] ?? "林默";
-  return { name, avatar: designerAvatars[name] ?? designerAvatars["林默"] };
+  return { name, avatar: getAvatarFor(name) };
 }
 
 function getSkillContributorAvatars(skill) {
@@ -795,6 +817,41 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDongLogo();
   initRepoCommunitySkills();
 
+  const weeklyUpdateTabs = [...document.querySelectorAll("[data-weekly-filter]")];
+  const weeklyUpdateItems = [...document.querySelectorAll(".weekly-app-update")];
+  const selectWeeklyUpdateTab = (selectedTab) => {
+    const filter = selectedTab.dataset.weeklyFilter;
+
+    weeklyUpdateTabs.forEach((tab) => {
+      const isSelected = tab === selectedTab;
+      tab.classList.toggle("is-active", isSelected);
+      tab.setAttribute("aria-selected", String(isSelected));
+      tab.tabIndex = isSelected ? 0 : -1;
+    });
+
+    weeklyUpdateItems.forEach((item) => {
+      const scene = item.querySelector("h3")?.dataset.scene;
+      item.hidden = filter !== "all" && scene !== filter;
+    });
+  };
+
+  weeklyUpdateTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectWeeklyUpdateTab(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+
+      let nextIndex = index;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = weeklyUpdateTabs.length - 1;
+      if (event.key === "ArrowLeft") nextIndex = (index - 1 + weeklyUpdateTabs.length) % weeklyUpdateTabs.length;
+      if (event.key === "ArrowRight") nextIndex = (index + 1) % weeklyUpdateTabs.length;
+
+      weeklyUpdateTabs[nextIndex].focus();
+      selectWeeklyUpdateTab(weeklyUpdateTabs[nextIndex]);
+    });
+  });
+
   document.querySelectorAll("[data-view]").forEach((button) => {
     button.addEventListener("click", () => changeView(button.dataset.view));
   });
@@ -812,6 +869,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-open-skill]").forEach((button) => {
     button.addEventListener("click", () => openDrawer(button.dataset.openSkill));
+  });
+
+  document.querySelectorAll(".skill-card[data-skill]").forEach((card) => {
+    card.setAttribute("role", "button");
+    card.tabIndex = 0;
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("button, a")) return;
+      openDrawer(card.dataset.skill);
+    });
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      openDrawer(card.dataset.skill);
+    });
   });
 
   document.querySelectorAll("[data-join-request]").forEach((button) => {

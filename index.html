@@ -9,10 +9,10 @@
     />
     <title>Nudge - 设计 Skill 共创社区</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=202607161322" />
+    <link rel="stylesheet" href="styles.css?v=202607221200" />
     <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
     <script src="assets/community-skills.js?v=202607081810" defer></script>
-    <script src="app.js?v=202607151910" defer></script>
+    <script src="app.js?v=202607221200" defer></script>
   </head>
   <body>
     <div class="app-shell">
@@ -30,11 +30,9 @@
               <p class="eyebrow">Design Productivity Community</p>
               <h1 id="community-title">设计与用研提效社区</h1>
               <p class="hero-slogan">让经验被共享，<br />让贡献被看见。</p>
-              <div class="hero-metrics" aria-label="社区数据">
-                <span><strong>126</strong> 个 Skill</span>
-                <span><strong>48</strong> 位共建者</span>
-                <span><strong>2,480</strong> 次有效使用</span>
-              </div>
+              <p class="hero-metrics" aria-label="社区数据">
+                过去 7 天，有 <strong>xx</strong> 位设计师，贡献了 <strong>xx</strong> 项提效能力。
+              </p>
               <button class="hero-learn-link" type="button" data-open-philosophy>
                 <span>了解 Skill 如何共建与迭代</span>
                 <i data-lucide="arrow-up-right" aria-hidden="true"></i>
@@ -158,9 +156,20 @@
               </div>
             </div>
 
+            <div class="weekly-update-tabs" role="tablist" aria-label="按任务场景筛选本周更新">
+              <button class="weekly-update-tab is-active" type="button" role="tab" aria-selected="true" data-weekly-filter="all">全部</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="研究规划">研究规划</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="调研执行">调研执行</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="竞品研究">竞品研究</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="数据分析">数据分析</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="体验评估">体验评估</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="洞察沉淀">洞察沉淀</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="规范建设">规范建设</button>
+            </div>
+
             <div class="weekly-app-updates-grid">
               <a class="weekly-app-update tool-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fresearch-screenshot-analyzer" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看设计透视目录">
-                <h3>设计透视（DesignPeek）</h3>
+                <h3 data-scene="竞品研究">设计透视（DesignPeek）</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">把散落的 App 竞品截图整理为可分析、可检索、可导出的研究素材。</p>
                   <p class="weekly-app-update-progress"><strong>李艺</strong><span aria-hidden="true">·</span>新增 v0.1 Tool、浏览器使用入口与 HTTP API，并补齐示例、反例、安全和部署说明。</p>
@@ -169,7 +178,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-research-plan" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看用户研究方案生成目录">
-                <h3>用户研究方案生成</h3>
+                <h3 data-scene="研究规划">用户研究方案生成</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">将模糊的研究需求先对齐为结构化 Brief，再生成可执行的研究方案。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增需求澄清与方案生成两阶段流程，并配套 Brief、研究方案和运行记录模板。</p>
@@ -178,7 +187,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Faccessibility-review" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看无障碍体验审查目录">
-                <h3>无障碍体验审查</h3>
+                <h3 data-scene="体验评估">无障碍体验审查</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">依据无障碍规范走查页面、原型或设计稿，输出分级问题与分平台整改建议。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增有素材直接审查、无素材生成工具包的双路径，并接入 POUR、控件规范与量化阈值。</p>
@@ -187,7 +196,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fanalyze-satisfaction" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看满意度诊断目录">
-                <h3>满意度诊断</h3>
+                <h3 data-scene="数据分析">满意度诊断</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">把满意度、NSS、NPS 等评分转成关键驱动、改进优先级与掉分归因。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增截面驱动分析、时间序列归因与期望感知落差三条分析路径。</p>
@@ -196,7 +205,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fbuild-experience-metrics" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看体验度量体系搭建目录">
-                <h3>体验度量体系搭建</h3>
+                <h3 data-scene="数据分析">体验度量体系搭建</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">围绕产品目标建立可持续追踪的体验北极星、护栏指标与采集口径。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 GSM 与 HEART 指标推导、指标拆解和跨版本纵向追踪方案。</p>
@@ -205,7 +214,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fcode-open-feedback" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看开放反馈分析目录">
-                <h3>开放反馈分析</h3>
+                <h3 data-scene="数据分析">开放反馈分析</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">将评价、工单、开放题等非结构化反馈整理为标签、主题趋势与核心痛点。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 VOC 编码流水线、主题频次与情感分析，并保留代表原话作为证据。</p>
@@ -214,7 +223,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fcompetitive-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看竞品分析目录">
-                <h3>竞品分析</h3>
+                <h3 data-scene="竞品研究">竞品分析</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">结合竞品素材与我方定位，识别战略意图、体验差异和可行动机会。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增按生命周期定目标、分层监控与战略意图分析的完整流程。</p>
@@ -223,7 +232,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fconversion-funnel-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看转化漏斗诊断目录">
-                <h3>转化漏斗诊断</h3>
+                <h3 data-scene="数据分析">转化漏斗诊断</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">基于分步数据定位关键路径中的主要流失环节，并下钻具体人群与场景。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增口径校验、分步转化计算、最大流失定位和分群归因流程。</p>
@@ -232,7 +241,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Ffeature-adoption-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看功能采纳分析目录">
-                <h3>功能采纳分析</h3>
+                <h3 data-scene="数据分析">功能采纳分析</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">评估新老功能的用户采纳情况，识别曝光、激活、使用与复用环节的损耗。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增四段采纳漏斗、五维采纳指标与 cohort 留存分析。</p>
@@ -241,7 +250,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-interview-guide" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看访谈提纲生成目录">
-                <h3>访谈提纲生成</h3>
+                <h3 data-scene="调研执行">访谈提纲生成</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">将定性研究目标转成可直接执行的访谈结构、主问题与追问梯度。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 ORID 提问框架、追问时机提示和受访者偏误检查。</p>
@@ -250,7 +259,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-persona" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看用户画像生成目录">
-                <h3>用户画像生成</h3>
+                <h3 data-scene="洞察沉淀">用户画像生成</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">从研究材料中聚类典型用户，并形成有证据支撑的结构化人物角色。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增用户变量聚类、核心划分变量选择与 Persona 描摹流程。</p>
@@ -259,7 +268,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-survey" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看问卷生成目录">
-                <h3>问卷生成</h3>
+                <h3 data-scene="调研执行">问卷生成</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">把研究目标、人群和测量维度转成结构完整、逻辑清晰的问卷草稿。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增题型、量表、逻辑跳转、指导语和逐条合规自检。</p>
@@ -268,7 +277,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-usability-test" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看可用性测试方案目录">
-                <h3>可用性测试方案</h3>
+                <h3 data-scene="调研执行">可用性测试方案</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">围绕测试对象与研究目标生成任务、主持脚本、记录表和度量计划。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增出声思考脚本、成功率与 SEQ/SUS 度量、招募甄别和偏误控制。</p>
@@ -277,7 +286,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fissue-prioritization" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看问题优先级排序目录">
-                <h3>问题优先级排序</h3>
+                <h3 data-scene="体验评估">问题优先级排序</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">将研究、走查与数据诊断中发现的问题统一分层、定级并形成处理顺序。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 P0–P3 分层、严重度评级与结合量化证据的排序方法。</p>
@@ -286,7 +295,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fjobs-to-be-done" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看 JTBD 需求定义目录">
-                <h3>JTBD 需求定义</h3>
+                <h3 data-scene="研究规划">JTBD 需求定义</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">把功能设想与表层诉求向上翻译为用户真正需要完成的任务。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 Job Map、四力模型、需求三层模型与 Switch 访谈编排。</p>
@@ -295,7 +304,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fjourney-map" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看用户旅程图目录">
-                <h3>用户旅程图</h3>
+                <h3 data-scene="洞察沉淀">用户旅程图</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">按用户场景与行为顺序还原完整历程，标注触点、情绪、痛点与机会。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增场景分图判断、需求机会评级与可直接分享的可视化 HTML 输出。</p>
@@ -304,7 +313,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Frun-heuristic-evaluation" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看启发式评估目录">
-                <h3>启发式评估</h3>
+                <h3 data-scene="体验评估">启发式评估</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">依据尼尔森十大启发式走查页面或设计稿，定位问题并给出严重度与建议。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增有素材直接评估、无素材生成工具包的双路径和 0–4 严重度评级。</p>
@@ -313,7 +322,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fstructure-interview-transcript" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看访谈逐字稿整理目录">
-                <h3>访谈逐字稿整理</h3>
+                <h3 data-scene="洞察沉淀">访谈逐字稿整理</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">围绕研究问题将单场访谈逐字稿降噪为有原话证据的结构化小结。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增背景、执行信息、分主题发现、痛点和待跟进项的整理骨架。</p>
@@ -322,7 +331,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fsynthesize-qualitative-insights" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看定性洞察综合目录">
-                <h3>定性洞察综合</h3>
+                <h3 data-scene="洞察沉淀">定性洞察综合</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">跨多份定性材料聚类共性主题，并提炼有证据支撑的结构化洞察。</p>
                   <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增跨场主题频次、洞察强度判断及交付稿与分析底稿双态输出。</p>
@@ -331,7 +340,7 @@
               </a>
 
               <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/.agents%2Fskills%2Fcomponent-properties-admission" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看组件属性准入目录">
-                <h3>组件属性准入</h3>
+                <h3 data-scene="规范建设">组件属性准入</h3>
                 <div class="weekly-app-update-details">
                   <p class="weekly-app-update-summary">为商详大脑组件库录入并校验可被系统读取的 Properties 属性数据。</p>
                   <p class="weekly-app-update-progress"><strong>liuyewei.5</strong><span aria-hidden="true">·</span>新增组件 instanceId 识别、属性数据写入与 component-properties.json 校验流程。</p>
