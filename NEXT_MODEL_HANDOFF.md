@@ -2,6 +2,11 @@
 
 Last updated: 2026-07-22
 
+## GitHub Links
+
+- Repository branch: https://github.com/liuzhaoran88-rgb/design-skill-community-demo/tree/codex/community-handoff-20260722
+- Live demo: https://liuzhaoran88-rgb.github.io/design-skill-community-demo/
+
 ## Project Purpose
 
 This demo is a homepage prototype for a design and research productivity community. The core goal is to move from personal productivity to organizational productivity: make Skills, tools, design specs, knowledge, workbench cases, updates, and contributor records visible, traceable, and reusable.
@@ -71,4 +76,3 @@ The ideal weekly workflow:
 - Decide how Agent/Zero will produce feedback, issue drafts, usage summaries, and case summaries.
 - Add validation for required `community.yaml` fields before content can be shown.
 - Keep public demo assets relative so GitHub Pages can load avatars and images correctly.
-
