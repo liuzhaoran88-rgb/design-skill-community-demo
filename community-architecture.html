@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>社区化规划架构</title>
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --surface-soft: #fbfbfd;
+      --ink: #111113;
+      --muted: #6e6e73;
+      --subtle: #8a8a91;
+      --line: #d9d9df;
+      --line-strong: #b9bac3;
+      --blue: #0a84ff;
+      --blue-soft: #eaf3ff;
+      --blue-line: #8ec5ff;
+      --green: #168a4a;
+      --green-soft: #eaf7ef;
+      --orange: #b96f00;
+      --orange-soft: #fff4df;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    .page {
+      width: min(1520px, 100%);
+      margin: 0 auto;
+      padding: 56px 56px 76px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 860px;
+      font-size: clamp(52px, 5.8vw, 92px);
+      line-height: 1.03;
+      font-weight: 850;
+    }
+
+    .hero-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.56;
+      font-weight: 650;
+    }
+
+    .board {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 18% 86%, rgba(10, 132, 255, 0.08), transparent 30%),
+        radial-gradient(circle at 92% 18%, rgba(10, 132, 255, 0.06), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(251, 251, 253, 0.98));
+      box-shadow: var(--shadow);
+      padding: 44px;
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(180deg, transparent, #000 12%, #000 86%, transparent);
+      pointer-events: none;
+    }
+
+    .map {
+      position: relative;
+      z-index: 1;
+      width: min(1280px, 100%);
+      height: 1040px;
+      margin: 0 auto;
+    }
+
+    .wires {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .wire {
+      fill: none;
+      stroke: #8b8c94;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .wire-soft {
+      stroke: #c4c5cc;
+      stroke-width: 1.2;
+    }
+
+    .wire-blue {
+      stroke: var(--blue-line);
+      stroke-width: 1.8;
+    }
+
+    .wire-dash {
+      stroke-dasharray: 7 8;
+    }
+
+    .node,
+    .cluster,
+    .rail,
+    .legend,
+    .flow-label {
+      position: absolute;
+    }
+
+    .cluster,
+    .node,
+    .rail {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.05);
+    }
+
+    .cluster {
+      border-radius: 28px;
+      padding: 24px;
+    }
+
+    .node {
+      border-radius: 26px;
+      padding: 26px 30px;
+    }
+
+    .node-title,
+    .cluster-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .num {
+      color: var(--subtle);
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h2,
+    h3,
+    h4,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 850;
+    }
+
+    h3 {
+      font-size: 26px;
+      line-height: 1.18;
+      font-weight: 850;
+    }
+
+    h4 {
+      font-size: 19px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.48;
+      font-weight: 650;
+    }
+
+    .object-layer {
+      left: 190px;
+      bottom: 0;
+      width: 720px;
+      min-height: 300px;
+    }
+
+    .zone-object {
+      right: 70px;
+      bottom: 0;
+      width: 260px;
+      min-height: 300px;
+      border-color: rgba(10, 132, 255, 0.34);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(234, 243, 255, 0.86));
+    }
+
+    .protocol-node {
+      left: 300px;
+      bottom: 370px;
+      width: 680px;
+      min-height: 132px;
+      border-color: rgba(10, 132, 255, 0.28);
+      background: linear-gradient(180deg, #fff, #f5faff);
+    }
+
+    .govern-node {
+      left: 24px;
+      bottom: 355px;
+      width: 210px;
+      min-height: 440px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .repo-node {
+      left: 410px;
+      bottom: 560px;
+      width: 460px;
+      min-height: 148px;
+    }
+
+    .portal-node {
+      left: 260px;
+      top: 150px;
+      width: 760px;
+      min-height: 150px;
+    }
+
+    .agent-node {
+      left: 405px;
+      top: 0;
+      width: 470px;
+      min-height: 108px;
+      border-color: rgba(22, 138, 74, 0.28);
+      background: linear-gradient(180deg, #fff, var(--green-soft));
+    }
+
+    .object-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .object-card {
+      min-height: 104px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      padding: 17px 18px;
+    }
+
+    .object-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 19px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .object-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.44;
+      font-weight: 650;
+    }
+
+    .zone-list {
+      display: grid;
+      gap: 11px;
+      margin-top: 20px;
+    }
+
+    .zone-item {
+      border: 1px solid rgba(10, 132, 255, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 13px 14px;
+      color: #1e4268;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      min-height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-soft);
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      color: #2f3035;
+      font-size: 14px;
+      font-weight: 780;
+      text-align: center;
+    }
+
+    .repo-body {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .database {
+      position: relative;
+      width: 118px;
+      height: 82px;
+      border: 1.5px solid var(--line-strong);
+      border-radius: 50% / 18%;
+      background: linear-gradient(180deg, #fff, #f1f1f5);
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      font-size: 38px;
+      font-weight: 800;
+    }
+
+    .database::before,
+    .database::after {
+      content: "";
+      position: absolute;
+      left: -1.5px;
+      right: -1.5px;
+      height: 24px;
+      border: 1.5px solid var(--line-strong);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .database::before {
+      top: -1px;
+    }
+
+    .database::after {
+      bottom: 13px;
+      border-top: 0;
+      background: transparent;
+      opacity: 0.55;
+    }
+
+    .repo-tags {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .repo-tags span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+      text-align: center;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .portal-card {
+      min-height: 62px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      color: #33343a;
+      font-size: 14px;
+      font-weight: 780;
+      text-align: center;
+    }
+
+    .govern-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .govern-item {
+      border-left: 2px solid var(--line-strong);
+      padding: 2px 0 2px 14px;
+      color: #33343a;
+      font-size: 15px;
+      line-height: 1.42;
+      font-weight: 760;
+    }
+
+    .agent-flow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .agent-pill {
+      flex: 1;
+      min-height: 42px;
+      border: 1px solid rgba(22, 138, 74, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      display: grid;
+      place-items: center;
+      color: #1d5b36;
+      font-size: 14px;
+      font-weight: 780;
+    }
+
+    .flow-label {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 760;
+      text-align: center;
+    }
+
+    .label-content-to-protocol {
+      left: 515px;
+      bottom: 323px;
+    }
+
+    .label-protocol-to-repo {
+      left: 575px;
+      bottom: 520px;
+    }
+
+    .label-repo-to-portal {
+      left: 585px;
+      top: 325px;
+    }
+
+    .label-portal-to-agent {
+      left: 575px;
+      top: 118px;
+    }
+
+    .label-loop {
+      right: 28px;
+      top: 335px;
+      max-width: 150px;
+      color: #3d6f9f;
+      text-align: left;
+    }
+
+    .upright {
+      left: 88px;
+      top: 92px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+    }
+
+    .upright-line {
+      position: relative;
+      width: 1px;
+      height: 760px;
+      background: linear-gradient(180deg, transparent, #bbbcc4 9%, #bbbcc4 91%, transparent);
+    }
+
+    .upright-line::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 0;
+      width: 11px;
+      height: 11px;
+      border-top: 2px solid #8a8b92;
+      border-left: 2px solid #8a8b92;
+      transform: rotate(45deg);
+    }
+
+    .upright-text {
+      writing-mode: vertical-rl;
+    }
+
+    .legend {
+      right: 40px;
+      top: 602px;
+      width: 180px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 18px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.04);
+    }
+
+    .legend h4 {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .legend p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .note {
+      margin-top: 26px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 24px 28px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+      font-weight: 650;
+    }
+
+    .note strong {
+      color: var(--ink);
+    }
+
+    @media (max-width: 1100px) {
+      .page {
+        padding: 36px 20px 48px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .board {
+        padding: 20px;
+        overflow-x: auto;
+      }
+
+      .map {
+        width: 1280px;
+        min-width: 1280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Community Architecture</p>
+        <h1>社区化规划架构</h1>
+      </div>
+      <p class="hero-copy">以内容对象为基础，以仓库结构化记录为事实源，让贡献、版本、关联和反馈在社区中被持续看见。</p>
+    </header>
+
+    <section class="board" aria-label="社区化规划架构图">
+      <div class="map">
+        <svg class="wires" viewBox="0 0 1280 1040" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b8c94"></path>
+            </marker>
+            <marker id="arrowBlue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#8ec5ff"></path>
+            </marker>
+          </defs>
+
+          <path class="wire" marker-end="url(#arrow)" d="M 550 742 C 550 710, 585 704, 610 676"></path>
+          <path class="wire" marker-end="url(#arrow)" d="M 970 742 C 938 706, 810 704, 735 676"></path>
+          <path class="wire" marker-end="url(#arrow)" d="M 640 668 L 640 528"></path>
+          <path class="wire" marker-end="url(#arrow)" d="M 640 512 L 640 316"></path>
+          <path class="wire" marker-end="url(#arrow)" d="M 640 150 L 640 112"></path>
+
+          <path class="wire-soft" d="M 235 554 C 255 554, 270 554, 300 554"></path>
+          <path class="wire-soft" d="M 235 468 C 292 468, 335 468, 410 468"></path>
+          <path class="wire-soft" d="M 235 318 C 248 318, 252 318, 260 318"></path>
+
+          <path class="wire-blue wire-dash" marker-end="url(#arrowBlue)" d="M 873 78 C 1160 82, 1182 350, 884 446"></path>
+          <path class="wire-blue wire-dash" marker-end="url(#arrowBlue)" d="M 1032 252 C 1134 286, 1138 484, 988 610"></path>
+        </svg>
+
+        <div class="upright">
+          <div class="upright-text">由下向上形成公共能力</div>
+          <div class="upright-line"></div>
+        </div>
+
+        <article class="node agent-node">
+          <div class="node-title">
+            <span class="num">06</span>
+            <h3>Agent / Zero 使用现场</h3>
+          </div>
+          <p class="desc">真实任务里调用 Skill、读取 Wiki、生成结果，也把问题和经验回写为可审核记录。</p>
+          <div class="agent-flow">
+            <div class="agent-pill">真实调用</div>
+            <div class="agent-pill">上下文记录</div>
+            <div class="agent-pill">反馈生成</div>
+          </div>
+        </article>
+
+        <article class="node portal-node">
+          <div class="node-title">
+            <span class="num">05</span>
+            <h3>社区呈现与发现机制</h3>
+          </div>
+          <p class="desc">把仓库里的结构化内容组织成可发现、可理解、可跳转、可归因的社区页面。</p>
+          <div class="portal-grid">
+            <div class="portal-card">首页发现</div>
+            <div class="portal-card">详情弹层</div>
+            <div class="portal-card">Zone 进度</div>
+            <div class="portal-card">贡献榜单</div>
+            <div class="portal-card">关联推荐</div>
+          </div>
+        </article>
+
+        <article class="node repo-node">
+          <div class="node-title">
+            <span class="num">04</span>
+            <h3>仓库事实源机制</h3>
+          </div>
+          <p class="desc">社区不直接制造事实，所有展示内容先沉淀为仓库记录。</p>
+          <div class="repo-body">
+            <div class="database">G</div>
+            <div class="repo-tags">
+              <span>字段校验</span>
+              <span>PR 审核</span>
+              <span>CHANGELOG</span>
+              <span>自动索引</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="node govern-node">
+          <div class="node-title">
+            <span class="num">03</span>
+            <h3>协同治理机制</h3>
+          </div>
+          <p class="desc">贯穿内容创建、审核、迭代和维护。</p>
+          <div class="govern-list">
+            <div class="govern-item">牵头人 SOP</div>
+            <div class="govern-item">共建人职责</div>
+            <div class="govern-item">Issue / PR 流程</div>
+            <div class="govern-item">版本更新规则</div>
+            <div class="govern-item">合并 / 归档 / 升级</div>
+          </div>
+        </article>
+
+        <article class="node protocol-node">
+          <div class="node-title">
+            <span class="num">02</span>
+            <h3>社区化表达协议</h3>
+          </div>
+          <p class="desc">定义每类对象必须怎么表达：谁贡献、从哪里来、解决什么问题、如何被使用、与谁关联。</p>
+          <div class="chips">
+            <div class="chip">community.yaml</div>
+            <div class="chip">zone.yaml</div>
+            <div class="chip">文档元信息</div>
+            <div class="chip">PR Checklist</div>
+          </div>
+        </article>
+
+        <article class="cluster object-layer">
+          <div class="cluster-title">
+            <span class="num">01A</span>
+            <h2>单篇内容对象</h2>
+          </div>
+          <p class="desc">每一份内容都需要最小社区化表达，让来源、贡献、版本和关联变清楚。</p>
+          <div class="object-grid">
+            <div class="object-card">
+              <strong>Skill</strong>
+              <span>调用方式、版本迭代、共建人、案例。</span>
+            </div>
+            <div class="object-card">
+              <strong>Vibe Coding 工具</strong>
+              <span>工具说明、适用场景、维护方式。</span>
+            </div>
+            <div class="object-card">
+              <strong>设计规范</strong>
+              <span>规则、边界、组件关系、验证状态。</span>
+            </div>
+            <div class="object-card">
+              <strong>设计知识</strong>
+              <span>经验方法、来源项目、判断逻辑。</span>
+            </div>
+            <div class="object-card">
+              <strong>使用案例</strong>
+              <span>真实任务、使用结果、可复用经验。</span>
+            </div>
+            <div class="object-card">
+              <strong>维护记录</strong>
+              <span>更新原因、版本变化、贡献摘要。</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="cluster zone-object">
+          <div class="cluster-title">
+            <span class="num">01B</span>
+            <h2>Zone</h2>
+          </div>
+          <p class="desc">Zone 是聚合型内容对象，负责组织一类知识的建设状态。</p>
+          <div class="zone-list">
+            <div class="zone-item">建设目标</div>
+            <div class="zone-item">内容完成度</div>
+            <div class="zone-item">核心贡献人</div>
+            <div class="zone-item">代表内容</div>
+            <div class="zone-item">待共建方向</div>
+          </div>
+        </article>
+
+        <div class="flow-label label-content-to-protocol">内容被结构化</div>
+        <div class="flow-label label-protocol-to-repo">审核入库</div>
+        <div class="flow-label label-repo-to-portal">同步呈现</div>
+        <div class="flow-label label-portal-to-agent">跳转使用</div>
+        <div class="flow-label label-loop">反馈、案例、优化建议回写仓库</div>
+
+        <aside class="legend">
+          <h4>读图方式</h4>
+          <p>灰色实线表示由下向上的建设链路；蓝色虚线表示真实使用后的回流闭环。</p>
+        </aside>
+      </div>
+    </section>
+
+    <div class="note">
+      <strong>一句话理解：</strong>社区化不是一个展示页，而是一套把内容对象结构化、把贡献过程记录化、把真实使用回流到仓库的组织能力。
+    </div>
+  </main>
+</body>
+</html>

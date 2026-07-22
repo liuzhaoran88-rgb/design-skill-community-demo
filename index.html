@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nudge 是一个面向设计团队的 Skill 共创社区 Demo。"
+    />
+    <title>Nudge - 设计 Skill 共创社区</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css?v=202607221200" />
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+    <script src="assets/community-skills.js?v=202607081810" defer></script>
+    <script src="app.js?v=202607221200" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <main class="main-content">
+        <header class="community-hero">
+          <div class="hero-utility">
+            <div class="brand-lockup" aria-label="Dong Design">
+              <img class="product-logo" id="dong-logo" src="assets/dong-design-logo-source.png" alt="" />
+              <span class="brand-name">Dong Design</span>
+            </div>
+            <span class="page-updated-at">更新于 07.16</span>
+          </div>
+          <div class="hero-main">
+            <div class="hero-copy">
+              <p class="eyebrow">Design Productivity Community</p>
+              <h1 id="community-title">设计与用研提效社区</h1>
+              <p class="hero-slogan">让经验被共享，<br />让贡献被看见。</p>
+              <p class="hero-metrics" aria-label="社区数据">
+                过去 7 天，有 <strong>xx</strong> 位设计师，贡献了 <strong>xx</strong> 项提效能力。
+              </p>
+              <button class="hero-learn-link" type="button" data-open-philosophy>
+                <span>了解 Skill 如何共建与迭代</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </button>
+            </div>
+            <section class="orbit-scene" aria-label="正在共建社区的成员">
+              <div class="orbit-arc" aria-hidden="true"></div>
+              <button class="orbit-avatar" type="button" aria-label="林默，完成 6 次真实验证" style="--x: 178px; --y: 3px; --tilt: 0deg; --size: 64px; --delay: -5s;"><img src="assets/hero-avatars/orbit-01.jpg" alt="" /><span class="orbit-tooltip"><strong>林默</strong><small>完成 6 次真实验证</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="明越，共建设计交付工具" style="--x: 239px; --y: 12px; --tilt: 0deg; --size: 72px; --delay: -2s;"><img src="assets/hero-avatars/orbit-02.png" alt="" /><span class="orbit-tooltip"><strong>明越</strong><small>共建设计交付工具</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="阿雅，提出洞察归纳需求" style="--x: 297px; --y: 52px; --tilt: 0deg; --size: 66px; --delay: -7s;"><img src="assets/hero-avatars/orbit-10.jpg" alt="" /><span class="orbit-tooltip"><strong>阿雅</strong><small>提出洞察归纳需求</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="柯南，提交 8 条可采纳反馈" style="--x: 325px; --y: 98px; --tilt: 0deg; --size: 84px; --delay: -4s;"><img src="assets/hero-avatars/orbit-04.jpg" alt="" /><span class="orbit-tooltip"><strong>柯南</strong><small>提交 8 条可采纳反馈</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="乔可，完成兼容性维护" style="--x: 349px; --y: 174px; --tilt: 0deg; --size: 62px; --delay: -8s;"><img src="assets/hero-avatars/orbit-05.jpg" alt="" /><span class="orbit-tooltip"><strong>乔可</strong><small>完成交付工具兼容性维护</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="知夏，整理 Skill 使用案例" style="--x: 328px; --y: 231px; --tilt: 0deg; --size: 78px; --delay: -1s;"><img src="assets/hero-avatars/orbit-06.jpg" alt="" /><span class="orbit-tooltip"><strong>知夏</strong><small>整理 Skill 使用案例</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="然然，补充交互测试案例" style="--x: 298px; --y: 293px; --tilt: 0deg; --size: 64px; --delay: -6s;"><img src="assets/hero-avatars/orbit-07.png" alt="" /><span class="orbit-tooltip"><strong>然然</strong><small>补充交互测试案例</small></span></button>
+              <button class="orbit-avatar" type="button" aria-label="陈一，维护组件命名助手" style="--x: 239px; --y: 326px; --tilt: 0deg; --size: 72px; --delay: -3s;"><img src="assets/hero-avatars/orbit-08.jpg" alt="" /><span class="orbit-tooltip"><strong>陈一</strong><small>维护组件命名助手</small></span></button>
+              <button class="orbit-avatar orbit-avatar-echo" type="button" aria-label="子然，持续维护规范巡检" style="--x: 181px; --y: 346px; --tilt: 0deg; --size: 58px; --delay: -9s;"><img src="assets/hero-avatars/orbit-09.jpg" alt="" /><span class="orbit-tooltip"><strong>子然</strong><small>持续维护规范巡检</small></span></button>
+            </section>
+          </div>
+          <section class="leaderboard-section hero-leaderboard" aria-labelledby="leaderboard-title" hidden>
+            <div class="impact-heading"><p class="kicker" id="leaderboard-title">本周影响力</p></div>
+            <div class="leaderboard-grid">
+              <section class="leaderboard-card" aria-labelledby="skill-rank-title">
+                <div class="rank-heading"><div><p class="kicker">提效工具</p><h3 id="skill-rank-title">提效工具影响力榜</h3></div><i data-lucide="chart-no-axes-combined" aria-hidden="true"></i></div>
+                <ol class="rank-list">
+                  <li><button class="rank-row rank-action" type="button" data-open-skill="spec-check"><span class="rank-number top-rank">01</span><span class="rank-symbol blue-symbol"><i data-lucide="scan-search" aria-hidden="true"></i></span><span class="rank-copy"><strong>规范巡检</strong><small>842 次有效使用</small></span><span class="rank-impact">46h</span></button></li>
+                  <li><button class="rank-row rank-action" type="button" data-open-skill="handoff"><span class="rank-number">02</span><span class="rank-symbol violet-symbol"><i data-lucide="file-output" aria-hidden="true"></i></span><span class="rank-copy"><strong>交付文档生成器</strong><small>516 次有效使用</small></span><span class="rank-impact">32h</span></button></li>
+                  <li><button class="rank-row rank-action" type="button" data-open-skill="insight"><span class="rank-number">03</span><span class="rank-symbol orange-symbol"><i data-lucide="lightbulb" aria-hidden="true"></i></span><span class="rank-copy"><strong>反馈洞察归纳器</strong><small>128 次有效使用</small></span><span class="rank-impact">18h</span></button></li>
+                  <li><button class="rank-row rank-action" type="button" data-open-skill="copy-check"><span class="rank-number">04</span><span class="rank-symbol green-symbol"><i data-lucide="languages" aria-hidden="true"></i></span><span class="rank-copy"><strong>文案长度预检</strong><small>94 次有效使用</small></span><span class="rank-impact">12h</span></button></li>
+                  <li><button class="rank-row rank-action" type="button" data-open-skill="naming"><span class="rank-number">05</span><span class="rank-symbol gray-symbol"><i data-lucide="blocks" aria-hidden="true"></i></span><span class="rank-copy"><strong>组件命名助手</strong><small>76 次有效使用</small></span><span class="rank-impact">9h</span></button></li>
+                </ol>
+              </section>
+
+              <section class="leaderboard-card" aria-labelledby="people-rank-title">
+                <div class="rank-heading"><div><p class="kicker">共建者</p><h3 id="people-rank-title">设计师影响力排行</h3></div><i data-lucide="users-round" aria-hidden="true"></i></div>
+                <ol class="rank-list">
+                  <li class="rank-row person-row"><span class="rank-number top-rank">01</span><img class="avatar avatar-m photo-avatar" src="assets/avatars/lina.jpg?v=202606221920" alt="林默" /><span class="rank-copy"><strong>林默</strong><small>完成 6 次真实验证，推动 3 次更新</small></span><span class="rank-impact">验证</span></li>
+                  <li class="rank-row person-row"><span class="rank-number">02</span><img class="avatar avatar-m photo-avatar" src="assets/avatars/zi.jpg?v=202606221920" alt="子然" /><span class="rank-copy"><strong>子然</strong><small>共建 2 个 Skill，持续维护规范巡检</small></span><span class="rank-impact">共建</span></li>
+                  <li class="rank-row person-row"><span class="rank-number">03</span><img class="avatar avatar-m photo-avatar" src="assets/avatars/aya.jpg?v=202606221920" alt="阿雅" /><span class="rank-copy"><strong>阿雅</strong><small>提出洞察归纳需求，并补充 4 个案例</small></span><span class="rank-impact">Idea</span></li>
+                  <li class="rank-row person-row"><span class="rank-number">04</span><img class="avatar avatar-m photo-avatar" src="assets/avatars/ke.jpg?v=202606221920" alt="柯南" /><span class="rank-copy"><strong>柯南</strong><small>提交 8 条可采纳反馈，解决 3 个问题</small></span><span class="rank-impact">反馈</span></li>
+                  <li class="rank-row person-row"><span class="rank-number">05</span><img class="avatar avatar-m photo-avatar" src="assets/avatars/qiao.jpg?v=202606221920" alt="乔可" /><span class="rank-copy"><strong>乔可</strong><small>完成交付工具的兼容性维护</small></span><span class="rank-impact">维护</span></li>
+                </ol>
+              </section>
+            </div>
+          </section>
+        </header>
+
+        <section class="page-panel active" data-panel="discover" aria-labelledby="community-title">
+          <section class="design-system-section" aria-labelledby="design-system-progress-title">
+            <div class="section-heading design-system-heading">
+              <div>
+                <p class="kicker">WEEKLY UPDATE</p>
+                <h2 id="design-system-progress-title">16.0 设计规范 MD 进展</h2>
+                <p class="section-subtitle">本周仓库新增 248 份核心规范 MD，并完成中文分类树与目录结构整理。</p>
+              </div>
+            </div>
+
+            <div class="design-system-progress">
+              <div class="design-system-overview">
+                <span class="design-system-overview-label">本周新增核心规范</span>
+                <strong>248</strong>
+                <small>份规范 MD</small>
+                <div class="design-system-week-note">
+                  <span>仓库进展</span>
+                  <p>批量录入规范框架，并完成中文分类树与目录结构整理</p>
+                </div>
+              </div>
+
+              <div class="design-system-categories" aria-label="16.0 五类核心规范本周新增数量">
+                <div class="design-system-category">
+                  <span>场域特性规范</span>
+                  <strong>126</strong>
+                </div>
+                <div class="design-system-category">
+                  <span>基础组件规范</span>
+                  <strong>49</strong>
+                </div>
+                <div class="design-system-category">
+                  <span>品牌与运营规范</span>
+                  <strong>38</strong>
+                </div>
+                <div class="design-system-category">
+                  <span>业务组件规范</span>
+                  <strong>29</strong>
+                </div>
+                <div class="design-system-category">
+                  <span>多端多人群适配</span>
+                  <strong>6</strong>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="business-brain-section" aria-labelledby="business-brain-section-title">
+            <div class="section-heading">
+              <div>
+                <p class="kicker">BENCHMARK CASES</p>
+                <h2 id="business-brain-section-title">标杆案例</h2>
+                <p class="section-subtitle">更多可复用的场景样板正在整理中。</p>
+              </div>
+            </div>
+            <div class="business-brain-card benchmark-placeholder-card">
+              <div class="benchmark-placeholder-content">
+                <div class="benchmark-placeholder-visual" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <p class="kicker">COMING SOON</p>
+                <h3>敬请期待</h3>
+              </div>
+            </div>
+          </section>
+
+          <section class="weekly-app-updates" aria-labelledby="weekly-app-updates-title">
+            <div class="section-heading weekly-app-updates-heading">
+              <div>
+                <p class="kicker">WEEKLY UPDATES</p>
+                <h2 id="weekly-app-updates-title">本周更新</h2>
+                <p class="section-subtitle">同步本周进入 Wiki 仓库或发生变更的提效能力与关键建设进展。</p>
+              </div>
+            </div>
+
+            <div class="weekly-update-tabs" role="tablist" aria-label="按任务场景筛选本周更新">
+              <button class="weekly-update-tab is-active" type="button" role="tab" aria-selected="true" data-weekly-filter="all">全部</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="研究规划">研究规划</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="调研执行">调研执行</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="竞品研究">竞品研究</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="数据分析">数据分析</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="体验评估">体验评估</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="洞察沉淀">洞察沉淀</button>
+              <button class="weekly-update-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-weekly-filter="规范建设">规范建设</button>
+            </div>
+
+            <div class="weekly-app-updates-grid">
+              <a class="weekly-app-update tool-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fresearch-screenshot-analyzer" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看设计透视目录">
+                <h3 data-scene="竞品研究">设计透视（DesignPeek）</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">把散落的 App 竞品截图整理为可分析、可检索、可导出的研究素材。</p>
+                  <p class="weekly-app-update-progress"><strong>李艺</strong><span aria-hidden="true">·</span>新增 v0.1 Tool、浏览器使用入口与 HTTP API，并补齐示例、反例、安全和部署说明。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-research-plan" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看用户研究方案生成目录">
+                <h3 data-scene="研究规划">用户研究方案生成</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">将模糊的研究需求先对齐为结构化 Brief，再生成可执行的研究方案。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增需求澄清与方案生成两阶段流程，并配套 Brief、研究方案和运行记录模板。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Faccessibility-review" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看无障碍体验审查目录">
+                <h3 data-scene="体验评估">无障碍体验审查</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">依据无障碍规范走查页面、原型或设计稿，输出分级问题与分平台整改建议。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增有素材直接审查、无素材生成工具包的双路径，并接入 POUR、控件规范与量化阈值。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fanalyze-satisfaction" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看满意度诊断目录">
+                <h3 data-scene="数据分析">满意度诊断</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">把满意度、NSS、NPS 等评分转成关键驱动、改进优先级与掉分归因。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增截面驱动分析、时间序列归因与期望感知落差三条分析路径。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fbuild-experience-metrics" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看体验度量体系搭建目录">
+                <h3 data-scene="数据分析">体验度量体系搭建</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">围绕产品目标建立可持续追踪的体验北极星、护栏指标与采集口径。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 GSM 与 HEART 指标推导、指标拆解和跨版本纵向追踪方案。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fcode-open-feedback" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看开放反馈分析目录">
+                <h3 data-scene="数据分析">开放反馈分析</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">将评价、工单、开放题等非结构化反馈整理为标签、主题趋势与核心痛点。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 VOC 编码流水线、主题频次与情感分析，并保留代表原话作为证据。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fcompetitive-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看竞品分析目录">
+                <h3 data-scene="竞品研究">竞品分析</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">结合竞品素材与我方定位，识别战略意图、体验差异和可行动机会。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增按生命周期定目标、分层监控与战略意图分析的完整流程。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fconversion-funnel-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看转化漏斗诊断目录">
+                <h3 data-scene="数据分析">转化漏斗诊断</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">基于分步数据定位关键路径中的主要流失环节，并下钻具体人群与场景。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增口径校验、分步转化计算、最大流失定位和分群归因流程。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Ffeature-adoption-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看功能采纳分析目录">
+                <h3 data-scene="数据分析">功能采纳分析</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">评估新老功能的用户采纳情况，识别曝光、激活、使用与复用环节的损耗。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增四段采纳漏斗、五维采纳指标与 cohort 留存分析。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-interview-guide" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看访谈提纲生成目录">
+                <h3 data-scene="调研执行">访谈提纲生成</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">将定性研究目标转成可直接执行的访谈结构、主问题与追问梯度。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 ORID 提问框架、追问时机提示和受访者偏误检查。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-persona" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看用户画像生成目录">
+                <h3 data-scene="洞察沉淀">用户画像生成</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">从研究材料中聚类典型用户，并形成有证据支撑的结构化人物角色。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增用户变量聚类、核心划分变量选择与 Persona 描摹流程。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-survey" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看问卷生成目录">
+                <h3 data-scene="调研执行">问卷生成</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">把研究目标、人群和测量维度转成结构完整、逻辑清晰的问卷草稿。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增题型、量表、逻辑跳转、指导语和逐条合规自检。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fgenerate-usability-test" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看可用性测试方案目录">
+                <h3 data-scene="调研执行">可用性测试方案</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">围绕测试对象与研究目标生成任务、主持脚本、记录表和度量计划。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增出声思考脚本、成功率与 SEQ/SUS 度量、招募甄别和偏误控制。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fissue-prioritization" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看问题优先级排序目录">
+                <h3 data-scene="体验评估">问题优先级排序</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">将研究、走查与数据诊断中发现的问题统一分层、定级并形成处理顺序。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 P0–P3 分层、严重度评级与结合量化证据的排序方法。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fjobs-to-be-done" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看 JTBD 需求定义目录">
+                <h3 data-scene="研究规划">JTBD 需求定义</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">把功能设想与表层诉求向上翻译为用户真正需要完成的任务。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增 Job Map、四力模型、需求三层模型与 Switch 访谈编排。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fjourney-map" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看用户旅程图目录">
+                <h3 data-scene="洞察沉淀">用户旅程图</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">按用户场景与行为顺序还原完整历程，标注触点、情绪、痛点与机会。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增场景分图判断、需求机会评级与可直接分享的可视化 HTML 输出。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Frun-heuristic-evaluation" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看启发式评估目录">
+                <h3 data-scene="体验评估">启发式评估</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">依据尼尔森十大启发式走查页面或设计稿，定位问题并给出严重度与建议。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增有素材直接评估、无素材生成工具包的双路径和 0–4 严重度评级。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fstructure-interview-transcript" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看访谈逐字稿整理目录">
+                <h3 data-scene="洞察沉淀">访谈逐字稿整理</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">围绕研究问题将单场访谈逐字稿降噪为有原话证据的结构化小结。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增背景、执行信息、分主题发现、痛点和待跟进项的整理骨架。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fsynthesize-qualitative-insights" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看定性洞察综合目录">
+                <h3 data-scene="洞察沉淀">定性洞察综合</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">跨多份定性材料聚类共性主题，并提炼有证据支撑的结构化洞察。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyanglong</strong><span aria-hidden="true">·</span>新增跨场主题频次、洞察强度判断及交付稿与分析底稿双态输出。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/.agents%2Fskills%2Fcomponent-properties-admission" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看组件属性准入目录">
+                <h3 data-scene="规范建设">组件属性准入</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">为商详大脑组件库录入并校验可被系统读取的 Properties 属性数据。</p>
+                  <p class="weekly-app-update-progress"><strong>liuyewei.5</strong><span aria-hidden="true">·</span>新增组件 instanceId 识别、属性数据写入与 component-properties.json 校验流程。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </section>
+
+          <section class="intro-row" aria-label="本周动态">
+            <div>
+              <p class="kicker">Skill</p>
+              <h2>本月精选</h2>
+              <p class="section-subtitle">把重复的设计工作，变成一次更轻松的开始。</p>
+            </div>
+          </section>
+
+          <section class="skill-grid" id="skill-grid" aria-label="精选 Skill">
+            <article class="skill-card" data-category="review" data-skill="spec-check">
+              <button class="cover-button" type="button" data-open-skill="spec-check" aria-label="查看规范巡检 Skill 详情">
+                <img
+                  src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=900&q=85"
+                  alt="设计稿与色彩样本"
+                />
+                <span class="cover-overlay"><i data-lucide="scan-search" aria-hidden="true"></i></span>
+              </button>
+              <div class="skill-card-body">
+                <div class="card-meta"><span>设计走查</span><span class="verified"><i data-lucide="badge-check" aria-hidden="true"></i> 已验证</span></div>
+                <h3>规范巡检（占位）</h3>
+                <p>快速检查设计稿中的间距、颜色与组件使用问题。</p>
+                <div class="last-contribution"><img class="avatar avatar-s photo-avatar" src="assets/avatars/ke.jpg?v=202606221920" alt="柯南" /><p><span>最新贡献 <time>2h 前</time></span><strong>柯南 · 提交 8 条反馈，已合并至 v1.4</strong></p></div>
+                <div class="card-bottom">
+                  <span class="usage">842 次有效使用</span>
+                  <button class="icon-button bookmark-button" type="button" data-bookmark aria-label="收藏规范巡检" title="收藏">
+                    <i data-lucide="bookmark" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article class="skill-card" data-category="review" data-skill="design-review">
+              <button class="cover-button" type="button" data-open-skill="design-review" aria-label="查看 Design Review Skill 详情">
+                <img
+                  src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=900&q=85"
+                  alt="设计师进行设计走查"
+                />
+                <span class="cover-overlay"><i data-lucide="scan-search" aria-hidden="true"></i></span>
+              </button>
+              <div class="skill-card-body">
+                <div class="card-meta"><span>设计走查</span><span class="verified"><i data-lucide="git-commit-horizontal" aria-hidden="true"></i> v0.8</span></div>
+                <h3>Design Review（占位）</h3>
+                <p>基于 15.0 / 16.0 规范，对 Relay 设计稿或 design.md 进行 Token 合规与体验评判。</p>
+                <div class="last-contribution"><img class="avatar avatar-s photo-avatar" src="assets/avatars/xushuai.jpg?v=202607151830" alt="xushuai.133" /><p><span>最近更新 <time>06.12</time></span><strong>xushuai.133 · 接入设计评判标准，形成双镜头 v0.8</strong></p></div>
+                <div class="card-bottom">
+                  <span class="usage">仓库已收录</span>
+                  <button class="icon-button bookmark-button" type="button" data-bookmark aria-label="收藏 Design Review" title="收藏">
+                    <i data-lucide="bookmark" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <article class="skill-card" data-category="delivery" data-skill="ruler-annotation">
+              <button class="cover-button" type="button" data-open-skill="ruler-annotation" aria-label="查看标尺标注 Skill 详情">
+                <img
+                  src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=900&q=85"
+                  alt="设计师进行尺寸与结构标注"
+                />
+                <span class="cover-overlay"><i data-lucide="ruler" aria-hidden="true"></i></span>
+              </button>
+              <div class="skill-card-body">
+                <div class="card-meta"><span>设计交付</span><span class="verified"><i data-lucide="git-commit-horizontal" aria-hidden="true"></i> v0.3</span></div>
+                <h3>标尺标注（占位）</h3>
+                <p>基于真实节点几何信息，为设计稿生成内容构成与间距尺寸标注。</p>
+                <div class="last-contribution"><img class="avatar avatar-s photo-avatar" src="assets/avatars/xushuai.jpg?v=202607151830" alt="xushuai.133" /><p><span>最近更新 <time>06.17</time></span><strong>xushuai.133 · 补充组件解剖双实例与盒模型标注约定</strong></p></div>
+                <div class="card-bottom">
+                  <span class="usage">仓库已收录</span>
+                  <button class="icon-button bookmark-button" type="button" data-bookmark aria-label="收藏标尺标注" title="收藏">
+                    <i data-lucide="bookmark" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="contribution-pulse-section" aria-labelledby="contribution-pulse-title">
+            <div class="section-heading contribution-pulse-heading">
+              <div>
+                <p class="kicker">CONTRIBUTING</p>
+                <h2 id="contribution-pulse-title">社区贡献动态</h2>
+                <p class="section-subtitle">基于 Coding 主分支的真实提交，呈现最近一个月的活跃贡献与本周新参与者。</p>
+              </div>
+            </div>
+
+            <div class="contribution-pulse-grid">
+              <article class="active-contributors" aria-labelledby="active-contributors-title">
+                <div class="contribution-panel-heading">
+                  <h3 id="active-contributors-title">近 30 天活跃贡献者</h3>
+                  <span><i aria-hidden="true"></i>提交次数</span>
+                </div>
+                <ol class="contribution-list">
+                  <li>
+                    <span class="contribution-rank">01</span>
+                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/wangyutong.jpg?v=202607091310" alt="wangyutong.72" />
+                    <strong>wangyutong.72</strong>
+                    <b>111</b>
+                  </li>
+                  <li>
+                    <span class="contribution-rank">02</span>
+                    <img class="avatar contribution-avatar photo-avatar" src="assets/hero-avatars/orbit-01.jpg?v=20260714" alt="xushuai.133" />
+                    <strong>xushuai.133</strong>
+                    <b>64</b>
+                  </li>
+                  <li>
+                    <span class="contribution-rank">03</span>
+                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/gaojiamin.jpg?v=202607091310" alt="gaojiamin.10" />
+                    <strong>gaojiamin.10</strong>
+                    <b>59</b>
+                  </li>
+                  <li>
+                    <span class="contribution-rank">04</span>
+                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/tonglingxi.jpg?v=202607091310" alt="tonglingxi.1" />
+                    <strong>tonglingxi.1</strong>
+                    <b>39</b>
+                  </li>
+                  <li>
+                    <span class="contribution-rank">05</span>
+                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/liuyewei.jpg?v=202607091310" alt="liuyewei.5" />
+                    <strong>liuyewei.5</strong>
+                    <b>21</b>
+                  </li>
+                </ol>
+              </article>
+
+              <article class="new-contributors" aria-labelledby="new-contributors-title">
+                <div class="contribution-panel-heading">
+                  <h3 id="new-contributors-title">本周新贡献者</h3>
+                  <span>首次提交</span>
+                </div>
+                <strong class="new-contributor-count">2</strong>
+                <div class="new-contributor-list">
+                  <div>
+                    <span class="new-contributor-avatar" aria-hidden="true">Y</span>
+                    <p><strong>yanghanhui.1</strong><small>首次贡献于 07.08</small></p>
+                  </div>
+                  <div>
+                    <span class="new-contributor-avatar" aria-hidden="true">W</span>
+                    <p><strong>wangyanglong</strong><small>首次贡献于 07.14</small></p>
+                  </div>
+                </div>
+                <p class="contribution-method" title="统计 Coding main 分支最近 30 天的非合并提交，并排除 spec-bot 与 skip-ci 自动提交。">
+                  <i data-lucide="info" aria-hidden="true"></i>
+                  已排除合并与自动化提交
+                </p>
+              </article>
+            </div>
+          </section>
+
+        </section>
+
+        <section class="page-panel" data-panel="requests" aria-labelledby="community-title">
+          <section class="view-heading">
+            <div><p class="kicker">需求广场</p><h2>从真实问题开始共创。</h2></div>
+            <button class="primary-button" type="button" data-open-modal><i data-lucide="plus" aria-hidden="true"></i><span>发布需求</span></button>
+          </section>
+          <section class="request-board" aria-label="共创需求列表">
+            <article class="request-card"><div class="request-card-top"><span class="status-dot active-dot"></span><span>4 人共创中</span><button class="icon-button" type="button" data-join-request aria-label="加入共创" title="加入共创"><i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div><h3>多语言文本溢出检查</h3><p>建立可批量扫描的界面文本风险检查流程。</p><div class="request-card-footer"><span>设计交付</span><span>截止 6 月 28 日</span></div></article>
+            <article class="request-card"><div class="request-card-top"><span class="status-dot"></span><span>等待认领</span><button class="icon-button" type="button" data-join-request aria-label="认领需求" title="认领需求"><i data-lucide="plus" aria-hidden="true"></i></button></div><h3>用户反馈聚类看板</h3><p>让研究、客服与设计团队使用同一种洞察归纳语言。</p><div class="request-card-footer"><span>研究洞察</span><span>32 人关注</span></div></article>
+            <article class="request-card"><div class="request-card-top"><span class="status-dot active-dot"></span><span>2 人共创中</span><button class="icon-button" type="button" data-join-request aria-label="加入共创" title="加入共创"><i data-lucide="arrow-up-right" aria-hidden="true"></i></button></div><h3>组件状态文案助手</h3><p>为组件状态生成一致、清晰且可本地化的微文案。</p><div class="request-card-footer"><span>设计系统</span><span>截止 7 月 3 日</span></div></article>
+          </section>
+        </section>
+
+        <section class="page-panel" data-panel="workspace" aria-labelledby="community-title">
+          <section class="view-heading"><div><p class="kicker">我的工作台</p><h2>正在推进的能力资产。</h2></div><button class="primary-button" type="button" data-open-modal><i data-lucide="plus" aria-hidden="true"></i><span>新建草稿</span></button></section>
+          <section class="workspace-list" aria-label="我的 Skill 项目">
+            <article class="workspace-row"><div class="workspace-icon"><i data-lucide="wand-sparkles" aria-hidden="true"></i></div><div><h3>移动端间距审查</h3><p>草稿 · 4 个测试案例</p></div><div class="progress-block"><span>完成度</span><strong>72%</strong><div class="progress-track"><span style="width:72%"></span></div></div><button class="icon-button" type="button" data-open-skill="spec-check" aria-label="打开移动端间距审查" title="打开"><i data-lucide="arrow-up-right" aria-hidden="true"></i></button></article>
+            <article class="workspace-row"><div class="workspace-icon soft-icon"><i data-lucide="messages-square" aria-hidden="true"></i></div><div><h3>评论归因整理器</h3><p>共创中 · 2 位协作者 · 等待评审</p></div><div class="progress-block"><span>完成度</span><strong>45%</strong><div class="progress-track"><span style="width:45%"></span></div></div><button class="icon-button" type="button" data-open-skill="insight" aria-label="打开评论归因整理器" title="打开"><i data-lucide="arrow-up-right" aria-hidden="true"></i></button></article>
+          </section>
+        </section>
+
+        <section class="page-panel" data-panel="collection" aria-labelledby="community-title">
+          <section class="view-heading"><div><p class="kicker">我的收藏</p><h2>为下一次任务准备的能力。</h2></div></section>
+          <section class="collection-grid" aria-label="我的 Skill 合集">
+            <article class="collection-card"><span class="collection-icon blue"><i data-lucide="scan-search" aria-hidden="true"></i></span><p>设计交付</p><h3>上线前的最后一公里</h3><span>12 个已验证 Skill</span></article>
+            <article class="collection-card"><span class="collection-icon orange"><i data-lucide="notebook-tabs" aria-hidden="true"></i></span><p>研究洞察</p><h3>把反馈变成行动</h3><span>8 个已验证 Skill</span></article>
+            <article class="collection-card"><span class="collection-icon green"><i data-lucide="layout-template" aria-hidden="true"></i></span><p>设计系统</p><h3>让规范更容易被遵守</h3><span>15 个已验证 Skill</span></article>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="modal" id="skill-modal" aria-labelledby="modal-title">
+      <form class="modal-card" id="skill-form" method="dialog">
+        <div class="modal-header"><div><p class="kicker">新建草稿</p><h2 id="modal-title">先从一个真实问题开始。</h2></div><button class="icon-button" type="button" data-close-modal aria-label="关闭" title="关闭"><i data-lucide="x" aria-hidden="true"></i></button></div>
+        <label class="field"><span>它要解决什么？</span><input id="skill-name" name="skill-name" type="text" placeholder="例如：检查设计稿的多语言文本风险" required /></label>
+        <label class="field"><span>适用场景</span><select name="scenario"><option>设计走查</option><option>交付协作</option><option>研究洞察</option><option>设计系统</option></select></label>
+        <label class="field"><span>你希望得到什么输出？</span><textarea name="output" rows="3" placeholder="描述输入、输出和你现在的做法。"></textarea></label>
+        <label class="check-row"><input type="checkbox" name="collaborate" checked /><span>邀请其他人一起共创</span></label>
+        <div class="modal-actions"><button class="secondary-button" type="button" data-close-modal>取消</button><button class="primary-button" type="submit"><i data-lucide="arrow-right" aria-hidden="true"></i><span>创建草稿</span></button></div>
+      </form>
+    </dialog>
+
+    <dialog class="modal install-modal" id="install-modal" aria-labelledby="install-title">
+      <section class="modal-card install-card">
+        <div class="modal-header">
+          <div>
+            <p class="kicker">一键使用</p>
+            <h2 id="install-title">安装包已准备好。</h2>
+            <p class="install-intro">先完成安装，再把调用范式复制到 Agent 中使用。</p>
+          </div>
+          <button class="icon-button" type="button" data-close-install aria-label="关闭安装指引" title="关闭"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+        <div class="install-package-card">
+          <span class="install-package-icon"><i data-lucide="package" aria-hidden="true"></i></span>
+          <div>
+            <strong id="install-package-name">design-spec-check-v1.4.zip</strong>
+            <span id="install-package-meta">最新版本 v1.4 · 06.21 更新</span>
+          </div>
+          <a class="icon-button install-download-button" id="install-redownload" href="#" download aria-label="下载安装包" title="下载安装包"><i data-lucide="download" aria-hidden="true"></i></a>
+        </div>
+        <section class="install-block">
+          <div class="install-block-heading">
+            <p class="install-section-title">给同事的安装一行命令</p>
+            <button class="text-button" type="button" data-copy-command><i data-lucide="copy" aria-hidden="true"></i><span>复制命令</span></button>
+          </div>
+          <pre class="code-block"><code id="install-command">unzip design-spec-check-v1.4.zip -d ~/.claude/skills/</code></pre>
+          <p class="install-note">macOS / Linux / WSL 都通用。Claude Code 下次启动会话时会自动加载。</p>
+        </section>
+        <section class="install-block">
+          <div class="install-block-heading">
+            <p class="install-section-title">可参考的调用范式</p>
+            <button class="text-button" type="button" data-copy-prompt><i data-lucide="copy" aria-hidden="true"></i><span>复制到 Agent</span></button>
+          </div>
+          <pre class="prompt-block"><code id="install-prompt"></code></pre>
+        </section>
+        <div class="modal-actions"><button class="primary-button" type="button" data-install-copy><i data-lucide="download" aria-hidden="true"></i><span>下载并复制安装命令</span></button></div>
+      </section>
+    </dialog>
+
+    <dialog class="modal philosophy-modal" id="philosophy-modal" aria-labelledby="philosophy-title">
+      <section class="modal-card philosophy-card">
+        <div class="modal-header">
+          <div>
+            <p class="kicker">社区机制</p>
+            <h2 id="philosophy-title">一个 Skill 如何被共建与迭代。</h2>
+            <p class="philosophy-intro">每个被采纳的想法、每次共建、每个真实测试与反馈，都会成为公共 Skill 成长的一部分。</p>
+          </div>
+          <button class="icon-button" type="button" data-close-philosophy aria-label="关闭社区机制" title="关闭"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+        <div class="philosophy-grid">
+          <section class="philosophy-panel lifecycle-panel" aria-labelledby="lifecycle-title">
+            <div class="philosophy-panel-heading">
+              <p class="kicker">生命周期</p>
+              <h3 id="lifecycle-title">Skill 共建机制</h3>
+            </div>
+            <div class="mechanism-flow" aria-label="Skills 提效工具生命周期机制图">
+              <ol class="mechanism-steps">
+                <li class="mechanism-step mechanism-step-signal">
+                  <span class="mechanism-index">01</span>
+                  <p class="mechanism-caption">/ 发现公共信号 /</p>
+                  <div class="mechanism-orb mechanism-orb-dark">
+                    <span>Public Skill</span>
+                    <strong>公共信号</strong>
+                  </div>
+                </li>
+                <li class="mechanism-step mechanism-step-judge">
+                  <span class="mechanism-index">02</span>
+                  <p class="mechanism-caption">/ Leader 判断 /</p>
+                  <div class="mechanism-orb mechanism-orb-light">
+                    <strong>判断路径</strong>
+                    <span>成熟度与公共价值</span>
+                  </div>
+                  <div class="mechanism-split">
+                    <article>
+                      <strong>已成熟</strong>
+                      <span>明确公共 Skill 牵头人</span>
+                    </article>
+                    <article>
+                      <strong>需探索</strong>
+                      <span>继续探索方案，充分讨论</span>
+                    </article>
+                  </div>
+                  <div class="mechanism-stack">
+                    <div><strong>成立专项小组</strong><span>建群 / 同步进展 / 讨论</span></div>
+                    <div><strong>牵头人负责</strong><span>Skill 推进 / 后续分工</span></div>
+                  </div>
+                </li>
+                <li class="mechanism-step mechanism-step-release">
+                  <span class="mechanism-index">03</span>
+                  <div class="mechanism-orb mechanism-orb-dark">
+                    <span>Version 01</span>
+                    <strong>创建发布</strong>
+                  </div>
+                </li>
+                <li class="mechanism-step mechanism-step-verify">
+                  <span class="mechanism-index">04</span>
+                  <p class="mechanism-caption">/ 真实验证 / 优化提案 /</p>
+                  <div class="mechanism-split mechanism-split-feedback">
+                    <article>
+                      <strong>使用验证</strong>
+                      <span>提交 issue 反馈</span>
+                    </article>
+                    <article>
+                      <strong>优化提案</strong>
+                      <span>提交 PR 优化方案</span>
+                    </article>
+                  </div>
+                  <div class="mechanism-orb mechanism-orb-light mechanism-orb-small">
+                    <strong>优化 Skill</strong>
+                    <span>牵头人 &amp; 共建人</span>
+                  </div>
+                </li>
+                <li class="mechanism-step mechanism-step-maintain">
+                  <span class="mechanism-index">05</span>
+                  <p class="mechanism-caption">/ 迭代发布 / 长期维护 /</p>
+                  <div class="mechanism-orb mechanism-orb-dark mechanism-orb-small">
+                    <span>Version next</span>
+                    <strong>重新发布</strong>
+                  </div>
+                  <div class="mechanism-end-copy">
+                    <strong>Skills 长期维护</strong>
+                    <span>反馈回到下一轮迭代，让贡献持续产生影响。</span>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+          <section class="philosophy-panel" aria-labelledby="co-build-title">
+            <div class="philosophy-panel-heading">
+              <p class="kicker">共建方式</p>
+              <h3 id="co-build-title">多种贡献都会被看见</h3>
+            </div>
+            <div class="contribution-map contribution-list" aria-label="Skill 共建角色">
+              <article>
+                <span>01</span>
+                <div><strong>发布者</strong><p>把成熟经验发布成可复用的 Skill。</p></div>
+              </article>
+              <article>
+                <span>02</span>
+                <div><strong>协作者</strong><p>一起补全场景、规则和边界情况。</p></div>
+              </article>
+              <article>
+                <span>03</span>
+                <div><strong>贡献者</strong><p>提交可合并建议，让 Skill 继续变好。</p></div>
+              </article>
+              <article>
+                <span>04</span>
+                <div><strong>验证者</strong><p>在真实工作中使用，并提交反馈证据。</p></div>
+              </article>
+              <article>
+                <span>05</span>
+                <div><strong>维护者</strong><p>接力维护版本，让能力长期可用。</p></div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+    </dialog>
+
+    <dialog class="drawer" id="skill-drawer" aria-labelledby="drawer-title">
+      <section class="drawer-card">
+        <div class="drawer-scroll">
+          <div class="drawer-header"><div class="drawer-label"><span id="drawer-category">设计走查</span><span class="verified"><i data-lucide="badge-check" aria-hidden="true"></i> 已验证</span></div><button class="icon-button" type="button" data-close-drawer aria-label="关闭详情" title="关闭"><i data-lucide="x" aria-hidden="true"></i></button></div>
+          <h2 id="drawer-title">规范巡检</h2>
+          <p class="drawer-description" id="drawer-description">快速检查设计稿中的间距、颜色与组件使用问题。</p>
+          <div class="drawer-stats"><div class="drawer-contributor-stat"><span>共创者</span><div class="drawer-contributor-avatars" id="drawer-contributor-avatars" aria-label="所有贡献者头像"></div></div></div>
+          <section class="drawer-cases" aria-labelledby="drawer-cases-title">
+            <div class="drawer-cases-heading">
+              <div><p class="kicker">真实使用案例</p><h3 id="drawer-cases-title">AI 提炼的使用摘要</h3></div>
+              <span id="drawer-case-count">2 个案例</span>
+            </div>
+            <div class="drawer-case-list" id="drawer-case-list"></div>
+          </section>
+          <div class="drawer-section"><p class="kicker" id="drawer-preparation-title">使用前准备</p><ul id="drawer-preparation"><li>选择一个设计文件或页面</li><li>确认使用的组件与规范版本</li><li>运行后逐条确认建议</li></ul></div>
+          <section class="drawer-package" aria-labelledby="drawer-package-title">
+            <div class="package-heading">
+              <div><p class="kicker">最新安装包</p><h3 id="drawer-package-title">给 Agent 使用的 Skill 包</h3></div>
+              <a class="icon-button" id="drawer-package-download" href="#" download aria-label="下载最新安装包" title="下载最新安装包"><i data-lucide="download" aria-hidden="true"></i></a>
+            </div>
+            <div class="package-card">
+              <span class="package-icon"><i data-lucide="package" aria-hidden="true"></i></span>
+              <div><strong id="drawer-package-name">design-spec-check-v1.4.zip</strong><span id="drawer-package-meta">最新版本 v1.4 · 06.21 更新</span></div>
+            </div>
+          </section>
+          <section class="drawer-lifecycle" aria-labelledby="drawer-lifecycle-title">
+            <div class="lifecycle-heading"><h3 id="drawer-lifecycle-title">迭代过程</h3><span id="drawer-version-count">4 次改版</span></div>
+            <div class="lifecycle-list" id="drawer-lifecycle-list"></div>
+          </section>
+        </div>
+        <div class="drawer-actions"><button class="secondary-button" type="button" data-open-repo-detail><i data-lucide="arrow-up-right" aria-hidden="true"></i><span>查看详情</span></button><button class="primary-button" type="button" data-run-skill><i data-lucide="download" aria-hidden="true"></i><span>一键使用</span></button></div>
+      </section>
+    </dialog>
+
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true" id="toast"><i data-lucide="check" aria-hidden="true"></i><span id="toast-text">已完成</span></div>
+  </body>
+</html>

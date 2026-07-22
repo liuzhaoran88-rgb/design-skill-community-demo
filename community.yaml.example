@@ -1,0 +1,81 @@
+# Skill 社区化 Input 协议示例
+# 人工必填字段应由仓库校验；可推导字段可由 Agent 生成后交人工确认。
+
+schema_version: "1.0"                 # 必填：社区协议版本
+content_type: "skill"                 # 必填：资产类型
+
+id: "component-check"                 # 必填：唯一 ID，建议与目录名一致
+name: "组件规范检查"                    # 必填：社区展示名称
+summary: "检查设计稿中的组件、间距、颜色和状态使用问题。" # 必填：一句话简介
+category: "设计走查"                   # 必填：所属分类
+version: "1.0.0"                      # 必填：当前版本
+
+owner:                                  # 必填：创建 / 牵头人
+  name: "@creator"
+  role: "Skill 创建人"
+
+contributors:                           # 必填：可为空数组
+  - name: "@contributor"
+    contribution: "补充组件检查规则"
+
+updated_at: "2026-07-15"              # 必填：最近更新时间
+problem: "设计走查依赖人工判断，容易遗漏组件、颜色和状态问题。" # 必填
+
+scenarios:                              # 必填：适用场景
+  - "设计稿走查"
+  - "改版验收"
+  - "交付前自查"
+
+usage:                                 # 必填：使用方式
+  entry: "Agent / Zero"
+  install: "unzip component-check.zip -d ~/.claude/skills/"
+  invoke: "用组件规范检查 Skill，检查这个设计稿：{设计稿链接}"
+
+source:                                # 推荐：形成背景，可由 Agent 起草
+  project: "16.0 设计系统升级"
+  background: "来源于真实设计走查中的高频组件规范问题。"
+
+relations:                             # 可选：与知识资产建立连接
+  wiki:
+    - "16.0 设计系统"
+  zones:
+    - "设计规范"
+  related_skills: []
+
+validation:                            # 可选：没有真实证据时不要伪造
+  status: "待验证"
+  evidence: []
+
+package:                               # 可选：存在可下载包时填写
+  file: "component-check-v1.0.zip"
+  version: "v1.0"
+  updated: "07.15 更新"
+
+feedback:                              # 推荐：用户无需理解仓库概念
+  issue_prompt: "帮我反馈这个问题"
+  suggestion_prompt: "帮我提一个优化建议"
+  contribution_prompt: "帮我把这次优化贡献回去"
+
+contributions:                         # 过程字段：仅记录可核验的已合并贡献
+  - name: "@contributor"
+    type: "共建"
+    version: "v1.0.1"
+    date: "2026-07-15"
+    pr: "#100"
+    pr_author: "@contributor"
+    commit: "abcdef0"
+    summary: "补充组件状态和异常场景检查规则。"
+
+cases:                                 # 可选：由 Agent 生成草稿，人工确认后入库
+  - title: "结算页改版交付前自查"
+    summary: "在交付前识别组件状态与间距问题。"
+    contributor: "@designer"
+
+metrics:                               # 可选：只允许填写有可靠数据源的指标
+  usage_count: ""
+  source: ""
+
+cover:                                 # 可选：社区封面
+  image: ""
+  alt: "组件规范检查使用场景"
+  icon: "scan-search"

@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>社区化内容框架 · 仓库驱动版</title>
+    <style>
+      :root {
+        --canvas: #f5f5f7;
+        --paper: #fff;
+        --ink: #111114;
+        --sub: #4d4f56;
+        --muted: #777981;
+        --line: #d9dbe1;
+        --soft: #ececef;
+        --blue: #1473e6;
+        --green: #238a50;
+        --orange: #d96a16;
+        --purple: #7158bd;
+        --teal: #148a87;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; background: var(--canvas); color: var(--ink); }
+      button { font: inherit; }
+
+      .page {
+        width: min(1380px, calc(100vw - 64px));
+        margin: 0 auto;
+        padding: 54px 0 80px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 760;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(320px, .6fr);
+        gap: 48px;
+        align-items: end;
+        padding-bottom: 42px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 900px;
+        font-size: 68px;
+        line-height: .98;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        margin: 22px 0 0;
+        max-width: 850px;
+        color: var(--sub);
+        font-size: 19px;
+        line-height: 1.55;
+      }
+
+      .hero-note {
+        padding: 20px 0 4px 24px;
+        border-left: 2px solid var(--ink);
+      }
+
+      .hero-note strong { display: block; font-size: 22px; line-height: 1.3; }
+      .hero-note span { display: block; margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+      .snapshot {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 20px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .snapshot div { min-height: 90px; padding: 18px 22px; border-right: 1px solid var(--line); }
+      .snapshot div:first-child { padding-left: 0; }
+      .snapshot div:last-child { border-right: 0; }
+      .snapshot strong { display: block; font-size: 27px; line-height: 1; }
+      .snapshot span { display: block; margin-top: 11px; color: var(--muted); font-size: 13px; }
+
+      .snapshot-caption { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+
+      .section { margin-top: 70px; }
+      .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 520px); gap: 44px; align-items: end; margin-bottom: 24px; }
+      .section-head h2 { margin: 0; font-size: 38px; line-height: 1.1; }
+      .section-head > p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+      .source-note { color: var(--muted); font-size: 12px; font-weight: 650; }
+
+      .operations { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
+      .operation-row {
+        display: grid;
+        grid-template-columns: 150px minmax(240px, 1.25fr) 100px minmax(220px, 1fr) minmax(240px, 1.1fr);
+        gap: 22px;
+        align-items: start;
+        padding: 22px 24px;
+        border-bottom: 1px solid var(--soft);
+      }
+      .operation-row:last-child { border-bottom: 0; }
+      .operation-row.header { padding-top: 13px; padding-bottom: 13px; color: var(--muted); font-size: 11px; font-weight: 760; }
+      .operation-row strong { display: block; font-size: 16px; line-height: 1.4; }
+      .operation-row p { margin: 0; color: var(--sub); font-size: 13px; line-height: 1.55; }
+      .operation-row time { color: var(--muted); font-size: 12px; font-weight: 700; line-height: 1.5; }
+
+      .operation-cycle {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        margin-top: 14px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .cycle-step { position: relative; min-height: 112px; padding: 20px 28px 20px 20px; border-right: 1px solid var(--line); }
+      .cycle-step:last-child { border-right: 0; }
+      .cycle-step:not(:last-child)::after { content: "\2192"; position: absolute; top: 19px; right: 9px; color: var(--muted); font-size: 13px; }
+      .cycle-step small { color: var(--muted); font-size: 11px; font-weight: 760; }
+      .cycle-step strong { display: block; margin-top: 14px; font-size: 16px; }
+      .cycle-step span { display: block; margin-top: 7px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+
+      .operation-boundary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 14px; border-bottom: 1px solid var(--line); }
+      .boundary-item { padding: 20px; border-right: 1px solid var(--line); }
+      .boundary-item:last-child { border-right: 0; }
+      .boundary-item strong { display: block; font-size: 16px; }
+      .boundary-item p { margin: 8px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+      .weekly-band {
+        display: grid;
+        grid-template-columns: 1.05fr 1.7fr;
+        min-height: 330px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      .weekly-lead { display: flex; flex-direction: column; justify-content: space-between; padding: 30px; border-right: 1px solid var(--line); }
+      .weekly-lead h3 { margin: 0; max-width: 420px; font-size: 36px; line-height: 1.12; }
+      .weekly-lead p { margin: 14px 0 0; max-width: 440px; color: var(--sub); font-size: 15px; line-height: 1.55; }
+      .weekly-lead .source-note { margin-top: 36px; }
+
+      .weekly-stream { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .weekly-item { min-height: 164px; padding: 28px; border-right: 1px solid var(--soft); border-bottom: 1px solid var(--soft); }
+      .weekly-item:nth-child(2n) { border-right: 0; }
+      .weekly-item:nth-child(n + 3) { border-bottom: 0; }
+      .weekly-item small { color: var(--muted); font-size: 12px; font-weight: 750; }
+      .weekly-item strong { display: block; margin-top: 18px; font-size: 21px; }
+      .weekly-item p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+      .theme-story {
+        display: grid;
+        grid-template-columns: 1.1fr .9fr;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .theme-main { padding: 34px 38px 38px; border-right: 1px solid var(--line); }
+      .theme-main h3 { margin: 6px 0 0; font-size: 38px; line-height: 1.12; }
+      .theme-main > p { margin: 14px 0 0; max-width: 660px; color: var(--sub); font-size: 16px; line-height: 1.55; }
+
+      .theme-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 34px; border-top: 1px solid var(--soft); border-left: 1px solid var(--soft); }
+      .theme-link { min-height: 120px; padding: 18px; border-right: 1px solid var(--soft); border-bottom: 1px solid var(--soft); }
+      .theme-link span { color: var(--muted); font-size: 11px; font-weight: 750; }
+      .theme-link strong { display: block; margin-top: 11px; font-size: 16px; line-height: 1.35; }
+
+      .theme-visual { position: relative; min-height: 430px; overflow: hidden; background: #0e1829; }
+      .theme-visual img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.88) contrast(.98); }
+      .theme-visual::after { content: "垂类 AI 工作台 · 商详大脑"; position: absolute; left: 24px; bottom: 22px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.28); border-radius: 5px; background: rgba(11,20,35,.7); color: white; font-size: 12px; font-weight: 720; backdrop-filter: blur(12px); }
+
+      .shelf { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .shelf-column { min-height: 360px; padding: 28px; border-right: 1px solid var(--line); }
+      .shelf-column:last-child { border-right: 0; }
+      .shelf-column > span { color: var(--muted); font-size: 12px; font-weight: 760; letter-spacing: 0; }
+      .shelf-column h3 { margin: 10px 0 0; font-size: 27px; }
+      .shelf-column > p { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+      .asset-list { display: grid; gap: 0; margin-top: 24px; border-top: 1px solid var(--soft); }
+      .asset { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--soft); }
+      .asset strong { font-size: 16px; line-height: 1.3; }
+      .asset small { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+      .asset em { color: var(--muted); font-size: 12px; font-style: normal; white-space: nowrap; }
+
+      .zone-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+      .zone-row { display: grid; grid-template-columns: 50px minmax(0, 1fr) auto; gap: 18px; align-items: center; min-height: 116px; padding: 20px 22px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
+      .zone-index { color: var(--muted); font-size: 13px; font-weight: 760; }
+      .zone-row h3 { margin: 0; font-size: 19px; }
+      .zone-row p { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+      .status { min-width: 78px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--sub); font-size: 11px; font-weight: 720; text-align: center; }
+      .status.active { border-color: #a7d6bd; color: var(--green); }
+      .status.growing { border-color: #a9c9f5; color: var(--blue); }
+
+      .v16-board {
+        display: grid;
+        grid-template-columns: .78fr 1.22fr;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      .v16-lead { display: flex; flex-direction: column; justify-content: space-between; min-height: 500px; padding: 34px; border-right: 1px solid var(--line); }
+      .v16-mark { font-size: 96px; font-weight: 760; line-height: .9; }
+      .v16-lead h3 { margin: 20px 0 0; max-width: 440px; font-size: 32px; line-height: 1.15; }
+      .v16-lead p { margin: 14px 0 0; max-width: 460px; color: var(--sub); font-size: 15px; line-height: 1.55; }
+      .v16-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 32px; border-top: 1px solid var(--soft); }
+      .v16-stat { padding: 18px 12px 0 0; }
+      .v16-stat strong { display: block; font-size: 25px; }
+      .v16-stat span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+
+      .v16-progress { display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); }
+      .progress-row { display: grid; grid-template-columns: 42px minmax(0, 1fr) 94px; gap: 18px; align-items: center; min-height: 112px; padding: 24px 28px; border-bottom: 1px solid var(--soft); }
+      .progress-row:last-child { border-bottom: 0; }
+      .progress-row b { color: var(--muted); font-size: 12px; }
+      .progress-row strong { display: block; font-size: 18px; }
+      .progress-row p { margin: 7px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+      .progress-state { padding: 8px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--sub); font-size: 11px; font-weight: 720; text-align: center; }
+      .progress-state.done { border-color: #a7d6bd; color: var(--green); }
+      .progress-state.working { border-color: #a9c9f5; color: var(--blue); }
+      .progress-state.pending { border-color: #e4c99e; color: #9a641e; }
+
+      .v16-weekly {
+        display: grid;
+        grid-template-columns: 180px repeat(4, minmax(0, 1fr));
+        margin-top: 12px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .v16-weekly > div { min-height: 92px; padding: 18px; border-right: 1px solid var(--line); }
+      .v16-weekly > div:first-child { padding-left: 0; }
+      .v16-weekly > div:last-child { border-right: 0; }
+      .v16-weekly strong { display: block; font-size: 14px; line-height: 1.35; }
+      .v16-weekly span { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+
+      .case-board { display: grid; grid-template-columns: 1.2fr .8fr; gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); }
+      .case-list { border-right: 1px solid var(--line); }
+      .case-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) 130px; gap: 18px; align-items: center; min-height: 108px; padding: 20px 24px; border-bottom: 1px solid var(--soft); }
+      .case-row:last-child { border-bottom: 0; }
+      .case-row b { color: var(--muted); font-size: 12px; }
+      .case-row strong { display: block; font-size: 17px; line-height: 1.35; }
+      .case-row span { color: var(--muted); font-size: 12px; line-height: 1.4; text-align: right; }
+      .case-explain { display: flex; flex-direction: column; justify-content: space-between; padding: 30px; background: #fafafc; }
+      .case-explain h3 { margin: 0; font-size: 29px; line-height: 1.2; }
+      .case-explain p { margin: 15px 0 0; color: var(--sub); font-size: 14px; line-height: 1.55; }
+      .case-explain ol { margin: 28px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+
+      .collab {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .collab-panel { min-height: 400px; padding: 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+      .collab-panel h3 { margin: 0; font-size: 28px; }
+      .collab-panel > p { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+      .event-list { margin-top: 24px; border-top: 1px solid var(--soft); }
+      .event { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--soft); }
+      .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+      .event strong { display: block; font-size: 14px; line-height: 1.4; }
+      .event span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+
+      .opportunity { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--soft); }
+      .opportunity:first-of-type { margin-top: 20px; border-top: 1px solid var(--soft); }
+      .opportunity b { color: var(--purple); font-size: 12px; }
+      .opportunity strong { display: block; font-size: 16px; }
+      .opportunity span { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+
+      .expression-table { border-top: 1px solid var(--line); }
+      .expression-row { display: grid; grid-template-columns: 160px 1.1fr 1.15fr .8fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+      .expression-row.header { padding: 12px 0; color: var(--muted); font-size: 11px; font-weight: 760; letter-spacing: 0; text-transform: uppercase; }
+      .expression-row h3 { margin: 0; font-size: 17px; }
+      .expression-row p { margin: 0; color: var(--sub); font-size: 13px; line-height: 1.5; }
+      .expression-row code { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 1.55; }
+
+      .rule-band { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 70px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .rule { min-height: 154px; padding: 24px; border-right: 1px solid var(--line); }
+      .rule:first-child { padding-left: 0; }
+      .rule:last-child { border-right: 0; }
+      .rule strong { display: block; font-size: 18px; }
+      .rule p { margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+      @media (max-width: 980px) {
+        .page { width: min(100% - 32px, 760px); padding-top: 32px; }
+        .hero, .section-head, .weekly-band, .theme-story, .case-board, .collab { grid-template-columns: 1fr; }
+        .snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .snapshot div { border-bottom: 1px solid var(--line); }
+        .operation-row { grid-template-columns: 130px minmax(0, 1fr); gap: 10px 20px; }
+        .operation-row.header { display: none; }
+        .operation-row p::before, .operation-row time::before { display: block; margin-bottom: 5px; color: var(--muted); font-size: 10px; font-weight: 760; }
+        .operation-row p:nth-of-type(1)::before { content: "运营内容"; }
+        .operation-row time::before { content: "节奏"; }
+        .operation-row p:nth-of-type(2)::before { content: "系统生成"; }
+        .operation-row p:nth-of-type(3)::before { content: "人工判断"; }
+        .operation-cycle { grid-template-columns: 1fr; }
+        .cycle-step { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+        .cycle-step:last-child { border-bottom: 0; }
+        .cycle-step:not(:last-child)::after { content: "\2193"; top: auto; right: 18px; bottom: 8px; }
+        .operation-boundary { grid-template-columns: 1fr; }
+        .boundary-item { border-right: 0; border-bottom: 1px solid var(--line); }
+        .boundary-item:last-child { border-bottom: 0; }
+        .weekly-lead, .theme-main, .case-list { border-right: 0; border-bottom: 1px solid var(--line); }
+        .shelf, .zone-grid, .rule-band, .v16-board { grid-template-columns: 1fr; }
+        .v16-lead { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+        .v16-weekly { grid-template-columns: 1fr 1fr; }
+        .v16-weekly > div { border-bottom: 1px solid var(--line); }
+        .shelf-column, .rule { border-right: 0; border-bottom: 1px solid var(--line); }
+        .expression-row { grid-template-columns: 1fr; gap: 10px; }
+        .expression-row.header { display: none; }
+      }
+
+      @media (max-width: 620px) {
+        h1 { font-size: 44px; }
+        .weekly-stream, .theme-links, .zone-grid, .v16-stats, .v16-weekly { grid-template-columns: 1fr; }
+        .progress-row { grid-template-columns: 32px minmax(0, 1fr); }
+        .progress-state { grid-column: 2; width: max-content; }
+        .weekly-item { border-right: 0; border-bottom: 1px solid var(--soft) !important; }
+        .weekly-item:last-child { border-bottom: 0 !important; }
+        .case-row { grid-template-columns: 32px minmax(0, 1fr); }
+        .case-row span { grid-column: 2; text-align: left; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Repository-driven community content model</p>
+          <h1>社区首页不是仓库目录，<br />而是共同能力的运营界面。</h1>
+          <p class="hero-copy">社区要回答五个问题：这周发生了什么、什么值得使用、16.0 规范更新到哪里、现在还缺什么，以及谁推动了这一切。</p>
+        </div>
+        <aside class="hero-note">
+          <strong>重新组织仓库内容，而不是复制文件树。</strong>
+          <span>所有展示都来自仓库结构化记录；推荐理由由运营补充；使用回流只有在 Agent / Zero 产生真实记录后才展示。</span>
+        </aside>
+      </header>
+
+      <section class="snapshot" aria-label="仓库内容快照">
+        <div><strong>7</strong><span>V16 基础规范类</span></div>
+        <div><strong>25</strong><span>Skill 目录</span></div>
+        <div><strong>30</strong><span>组件 design.md</span></div>
+        <div><strong>49</strong><span>CHANGELOG</span></div>
+      </section>
+      <p class="snapshot-caption">仓库快照：本地 2C-DesignWiki，2026-07-10。这里只表示当前资产规模，不等同于使用量或影响力。</p>
+
+      <section class="section" aria-labelledby="operation-title">
+        <div class="section-head">
+          <div><p class="eyebrow">Operating model</p><h2 id="operation-title">社区需要持续运营什么，而不只是展示什么</h2></div>
+          <p>仓库负责提供事实，运营负责判断价值。每周不需要重新编辑所有页面，而是围绕变化、重点工程、精选内容、贡献和共建机会完成一次增量更新。</p>
+        </div>
+
+        <div class="operations" aria-label="社区运营内容矩阵">
+          <div class="operation-row header"><span>运营对象</span><span>具体运营内容</span><span>更新节奏</span><span>系统自动完成</span><span>运营者需要判断</span></div>
+          <div class="operation-row">
+            <strong>本周变化</strong>
+            <p>新增或更新的规范、知识、Skill、工具，以及本周真实贡献。</p>
+            <time>每周</time>
+            <p>读取上次同步后的合并记录，生成数量、对象与变化摘要草稿。</p>
+            <p>确认哪些变化值得被突出，补充标题、价值说明与发布顺序。</p>
+          </div>
+          <div class="operation-row">
+            <strong>16.0 设计规范</strong>
+            <p>本周更新的规范、受影响组件、版本变化和待确认问题。</p>
+            <time>每周常驻</time>
+            <p>读取 design bundle、CHANGELOG 和关联 PR，生成增量清单。</p>
+            <p>选择关键更新，解释对设计工作的影响，明确下一步建设缺口。</p>
+          </div>
+          <div class="operation-row">
+            <strong>本期精选</strong>
+            <p>围绕一个真实任务，组合相关规范、知识、Skill、工具或工作台。</p>
+            <time>每周 / 双周</time>
+            <p>根据近期更新、关联关系和维护状态生成候选内容。</p>
+            <p>确定主题、推荐理由和内容组合，避免按文件类型机械罗列。</p>
+          </div>
+          <div class="operation-row">
+            <strong>贡献与共建</strong>
+            <p>已经发生的贡献、最近贡献人，以及当前可以认领的明确任务。</p>
+            <time>每周</time>
+            <p>依据已合并 PR 归因贡献，并从开放 Issue 和内容缺口生成候选任务。</p>
+            <p>核对贡献类型，把缺口改写为有角色、有产出、有完成标准的共建任务。</p>
+          </div>
+          <div class="operation-row">
+            <strong>真实使用案例</strong>
+            <p>经确认可公开的调用摘要、问题反馈、优化建议与结果案例。</p>
+            <time>有回流时更新</time>
+            <p>接收 Agent / Zero 形成并进入仓库的结构化使用记录。</p>
+            <p>审核真实性、隐私与代表性，决定是否进入首页或对应内容详情。</p>
+          </div>
+          <div class="operation-row">
+            <strong>内容治理</strong>
+            <p>重复、长期无人维护、低价值或可升级为标准流程的公共能力。</p>
+            <time>每月</time>
+            <p>根据更新、使用和维护记录生成待治理对象清单。</p>
+            <p>决定合并、拆分、归档或升级，并同步维护责任与后续动作。</p>
+          </div>
+        </div>
+
+        <div class="operation-cycle" aria-label="周度运营闭环">
+          <div class="cycle-step"><small>01</small><strong>增量同步</strong><span>只读取上次成功同步后的变化。</span></div>
+          <div class="cycle-step"><small>02</small><strong>事实校验</strong><span>核对来源、版本、贡献人与状态。</span></div>
+          <div class="cycle-step"><small>03</small><strong>价值筛选</strong><span>选出本周重点、精选与共建机会。</span></div>
+          <div class="cycle-step"><small>04</small><strong>编排发布</strong><span>更新首页楼层、详情与贡献呈现。</span></div>
+          <div class="cycle-step"><small>05</small><strong>反馈入库</strong><span>真实使用记录先结构化，再进入下一轮。</span></div>
+        </div>
+
+        <div class="operation-boundary">
+          <div class="boundary-item"><strong>自动化负责事实整理</strong><p>拉取变化、字段校验、贡献归因、关联匹配、数量统计和摘要草稿。</p></div>
+          <div class="boundary-item"><strong>运营负责价值判断</strong><p>选题、推荐理由、优先级、共建任务设计、隐私审核和治理决策。</p></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="weekly-title">
+        <div class="section-head">
+          <div><p class="eyebrow">01 · Weekly pulse</p><h2 id="weekly-title">先告诉大家：这周共同能力发生了什么变化</h2></div>
+          <p>周更不该只报“新增多少篇”，还要说明更新对象、解决的问题、关联的业务场景和贡献人。数字负责建立节奏，变化摘要负责建立价值感。</p>
+        </div>
+        <div class="weekly-band">
+          <div class="weekly-lead">
+            <div><p class="eyebrow">本周变化摘要</p><h3>从本周合并记录，自动生成一段能读懂的社区周报。</h3><p>示例结构：本周新增哪些公共能力、哪些规范完成升级、哪些知识完成更新，以及哪些方向仍在等待共建。</p></div>
+            <span class="source-note">数据源：本周 merged PR + community.yaml + CHANGELOG</span>
+          </div>
+          <div class="weekly-stream">
+            <div class="weekly-item"><small>规范建设</small><strong>新增 / 更新的组件规范</strong><p>不仅显示篇数，还突出组件名、版本和本次变化。</p></div>
+            <div class="weekly-item"><small>知识沉淀</small><strong>新增与更新的设计知识</strong><p>按主题归纳，说明知识解决的问题与适用范围。</p></div>
+            <div class="weekly-item"><small>能力发布</small><strong>Skill、工具与工作台更新</strong><p>说明解决什么任务、谁共建、如何进入使用现场。</p></div>
+            <div class="weekly-item"><small>社区协作</small><strong>贡献人数与关键合并</strong><p>只统计真实合并记录，展开贡献摘要而非只报 PR 数。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="theme-title">
+        <div class="section-head">
+          <div><p class="eyebrow">02 · Editorial story</p><h2 id="theme-title">用一个主题，把分散资产串成完整能力</h2></div>
+          <p>精选不应按“Skill、规范、工具”各推一个孤立卡片。更有价值的方式，是围绕一个正在发生的设计任务，把相关知识、工具、规范和工作台组合起来。</p>
+        </div>
+        <div class="theme-story">
+          <div class="theme-main">
+            <p class="eyebrow">本期主题 · 16.0 设计系统升级</p>
+            <h3>从设计稿录入，到 AI 可理解、可检查、可发布。</h3>
+            <p>这是仓库里最清楚的一条能力链：基础 Token 和组件规范提供知识，Relay 转 Wiki Skill 完成结构化录入，spec-page 形成发布物，垂类工作台继续消费这些上下文。</p>
+            <div class="theme-links">
+              <div class="theme-link"><span>规范</span><strong>V16 Token 与组件 bundles</strong></div>
+              <div class="theme-link"><span>Skill</span><strong>Relay 转 Design Wiki</strong></div>
+              <div class="theme-link"><span>发布</span><strong>Design MD → Spec Page</strong></div>
+            </div>
+          </div>
+          <div class="theme-visual"><img src="assets/business-brain-home.png" alt="商详大脑工作台界面" /></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="shelf-title">
+        <div class="section-head">
+          <div><p class="eyebrow">03 · Capability shelf</p><h2 id="shelf-title">按“怎么被使用”组织能力，而不是按文件后缀分类</h2></div>
+          <p>首页只呈现可直接进入任务的能力。设计知识和规范在这里作为能力的上下文出现，完整建设情况则放到后面的 Wiki 地图。</p>
+        </div>
+        <div class="shelf">
+          <article class="shelf-column">
+            <span>AGENT SKILLS</span><h3>可调用 Skill</h3><p>自然语言触发，有清晰输入、输出和迭代记录。</p>
+            <div class="asset-list">
+              <div class="asset"><div><strong>Relay 转 Design Wiki</strong><small>设计稿结构化录入</small></div><em>查看详情 ↗</em></div>
+              <div class="asset"><div><strong>Design Review</strong><small>V15 / V16 规范检查</small></div><em>调用 ↗</em></div>
+              <div class="asset"><div><strong>Design MD → Spec Page</strong><small>规范文档生成发布页</small></div><em>调用 ↗</em></div>
+            </div>
+          </article>
+          <article class="shelf-column">
+            <span>LIGHTWEIGHT TOOLS</span><h3>Vibe Coding 小工具</h3><p>单点解决高频问题，强调入口、截图、维护人与适用边界。</p>
+            <div class="asset-list">
+              <div class="asset"><div><strong>Zero → JoySpace</strong><small>设计稿转可编辑草稿</small></div><em>打开 ↗</em></div>
+              <div class="asset"><div><strong>Motion Handoff Export</strong><small>动效交付导出</small></div><em>打开 ↗</em></div>
+              <div class="asset"><div><strong>Coding Repo Sync</strong><small>设计知识仓库同步</small></div><em>打开 ↗</em></div>
+            </div>
+          </article>
+          <article class="shelf-column">
+            <span>VERTICAL AI WORKSPACES</span><h3>垂类 AI 工作台</h3><p>围绕一个业务场域，组合知识库、Skill 和工具。</p>
+            <div class="asset-list">
+              <div class="asset"><div><strong>商详大脑</strong><small>商详知识与设计工具</small></div><em>6 位共创人</em></div>
+              <div class="asset"><div><strong>搜推 Design Wiki</strong><small>领域知识与场景决策</small></div><em>查看空间 ↗</em></div>
+              <div class="asset"><div><strong>PLUS / 新频道</strong><small>组件、场景与审核能力</small></div><em>查看空间 ↗</em></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="map-title">
+        <div class="section-head">
+          <div><p class="eyebrow">04 · V16 design system progress</p><h2 id="map-title">把 16.0 设计规范更新，作为社区首页的常驻主轴</h2></div>
+          <p>这是当前最重要的公共工程。页面既要呈现整体建设进度，也要让大家看懂本周更新了哪些规范、影响哪些组件、还有哪些问题等待确认。</p>
+        </div>
+        <div class="v16-board">
+          <div class="v16-lead">
+            <div>
+              <div class="v16-mark">16.0</div>
+              <h3>从基础 Token 到业务组件，把设计规范变成 AI 可理解、可检查、可发布的公共能力。</h3>
+              <p>首页重点展示规范更新本身，而不是 Wiki 目录状态。所有进展都应能追溯到对应文档、版本和贡献记录。</p>
+            </div>
+            <div class="v16-stats">
+              <div class="v16-stat"><strong>7</strong><span>已结构化基础规范类</span></div>
+              <div class="v16-stat"><strong>30</strong><span>组件 design.md</span></div>
+              <div class="v16-stat"><strong>49</strong><span>组件变更记录</span></div>
+            </div>
+          </div>
+          <div class="v16-progress">
+            <div class="progress-row"><b>01</b><div><strong>基础规范结构化</strong><p>色彩、文本、圆角、线、材质、空间布局与图标已形成机器可读文档。</p></div><span class="progress-state done">基础完成</span></div>
+            <div class="progress-row"><b>02</b><div><strong>组件规范持续落地</strong><p>组件按 design / spec / variants / behaviors / CHANGELOG 形成统一 bundle。</p></div><span class="progress-state working">持续录入</span></div>
+            <div class="progress-row"><b>03</b><div><strong>检查与发布链路</strong><p>Relay 录入、规范检查、spec-page 与总站聚合已经形成完整工具链。</p></div><span class="progress-state done">链路可用</span></div>
+            <div class="progress-row"><b>04</b><div><strong>待确认设计源</strong><p>Error 色谱缺值、字体字重去向和 full 胶囊圆角等仍需设计侧确认。</p></div><span class="progress-state pending">待决策</span></div>
+          </div>
+        </div>
+        <div class="v16-weekly" aria-label="16.0 规范周更新口径">
+          <div><strong>每周更新要回答</strong><span>由本周合并记录自动生成</span></div>
+          <div><strong>更新了哪些规范</strong><span>规范名、版本、变化摘要</span></div>
+          <div><strong>影响了哪些组件</strong><span>关联组件与业务场景</span></div>
+          <div><strong>谁参与了共建</strong><span>提交人、贡献类型、PR</span></div>
+          <div><strong>下一步还缺什么</strong><span>待确认、待验证、待补充</span></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="collab-title">
+        <div class="section-head">
+          <div><p class="eyebrow">05 · Contribution & co-building</p><h2 id="collab-title">一边呈现已经发生的贡献，一边给出下一步参与入口</h2></div>
+          <p>贡献动态来自已合并 PR；共建机会来自仓库缺口、待验证状态和开放 Issue。两者结合，社区才不只是荣誉墙。</p>
+        </div>
+        <div class="collab">
+          <article class="collab-panel">
+            <h3>贡献动态</h3><p>以下是已接入社区协议的 Relay Skill 真实合并记录样例。</p>
+            <div class="event-list">
+              <div class="event"><img class="avatar" src="assets/avatars/liuzhaoran.jpg" alt="@liuzhaoran88-rgb" /><div><strong>@liuzhaoran88-rgb · 加入 outline confirmation gate</strong><span>PR #48 · v0.5.2 · 共建</span></div></div>
+              <div class="event"><img class="avatar" src="assets/hero-avatars/orbit-01.jpg" alt="@ShuaiMXu" /><div><strong>@ShuaiMXu · 加入稿件预检门</strong><span>PR #58 · v0.5.3 · 共建</span></div></div>
+              <div class="event"><img class="avatar" src="assets/hero-avatars/orbit-01.jpg" alt="@ShuaiMXu" /><div><strong>@ShuaiMXu · 修正 Step 4 契约字段</strong><span>PR #59 · v0.5.3 · 维护</span></div></div>
+            </div>
+          </article>
+          <article class="collab-panel">
+            <h3>现在可以共建什么</h3><p>不是泛泛地“欢迎贡献”，而是给出清晰缺口、需要的角色和完成标准。</p>
+            <div class="opportunity"><b>知识空间</b><div><strong>补充通用设计方法与研究洞察</strong><span>需要知识作者、验证者；形成结构化知识条目。</span></div></div>
+            <div class="opportunity"><b>子 App</b><div><strong>补齐子 App 清单与规范差异</strong><span>需要各业务设计师认领所属 App。</span></div></div>
+            <div class="opportunity"><b>横向专项</b><div><strong>建设用研与设计走查公共能力</strong><span>需要检查规则、方法说明和可复用 Skill。</span></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="expression-title">
+        <div class="section-head">
+          <div><p class="eyebrow">Content expression rules</p><h2 id="expression-title">不同内容对象，需要不同的社区化表达</h2></div>
+          <p>不再把所有内容都塞进同一种卡片。页面表达应顺着用户的判断方式：它是什么、什么时候有用、依据是什么、谁维护、怎么继续参与。</p>
+        </div>
+        <div class="expression-table">
+          <div class="expression-row header"><span>内容类型</span><span>首页表达</span><span>详情重点</span><span>事实源</span></div>
+          <div class="expression-row"><h3>设计规范</h3><p>版本变化摘要 + 代表组件，不做图片卡片墙。</p><p>使用边界、Token、正反例、CHANGELOG、贡献人。</p><code>design.md<br />spec.md<br />CHANGELOG.md</code></div>
+          <div class="expression-row"><h3>设计知识</h3><p>问题式标题 + 一句话结论 + 适用场景。</p><p>知识来源、核心方法、适用边界、关联规范。</p><code>frontmatter<br />knowledge/*.md</code></div>
+          <div class="expression-row"><h3>Skill / 工具</h3><p>解决任务 + 使用入口 + 最近贡献。</p><p>输入输出、调用范式、版本、贡献记录、反馈方式。</p><code>SKILL.md<br />community.yaml</code></div>
+          <div class="expression-row"><h3>垂类工作台</h3><p>一张真实界面 + 能力构成 + 共创团队。</p><p>知识覆盖、内置 Skill / 工具与维护机制。</p><code>workspace metadata<br />目录索引</code></div>
+        </div>
+      </section>
+
+      <section class="rule-band" aria-label="社区页面三条底线">
+        <div class="rule"><strong>事实与运营分开</strong><p>名称、版本、贡献和更新记录来自仓库；推荐理由和专题编排可以由运营补充。</p></div>
+        <div class="rule"><strong>没有数据就不展示</strong><p>使用次数、评分、节省时间、验证状态必须有真实来源，不能用 demo 数字代替。</p></div>
+        <div class="rule"><strong>首页永远指向行动</strong><p>每个内容最终都应落到“去使用、去阅读、去验证或去共建”中的一个明确动作。</p></div>
+      </section>
+    </main>
+  </body>
+</html>
