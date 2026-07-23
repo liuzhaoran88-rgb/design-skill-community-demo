@@ -9,7 +9,7 @@
     />
     <title>Nudge - 设计 Skill 共创社区</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=202607221200" />
+    <link rel="stylesheet" href="styles.css?v=202607231430" />
     <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
     <script src="assets/community-skills.js?v=202607081810" defer></script>
     <script src="app.js?v=202607221200" defer></script>
@@ -350,7 +350,94 @@
             </div>
           </section>
 
-          <section class="intro-row" aria-label="本周动态">
+          <section class="scenario-recommend-section" aria-labelledby="scenario-recommend-title">
+            <div class="section-heading scenario-recommend-heading">
+              <div>
+                <p class="kicker">SCENARIO PICKS</p>
+                <h2 id="scenario-recommend-title">场景提效推荐</h2>
+                <p class="section-subtitle">按真实任务场景组织提效应用，让设计师更快找到适合当前工作的 Skill 与工具。</p>
+              </div>
+            </div>
+
+            <div class="scenario-recommend-grid">
+              <article class="scenario-card">
+                <div class="scenario-card-cover">
+                  <img src="assets/scenario-experience.png" alt="C端设计提效场景图">
+                </div>
+                <div class="scenario-card-body">
+                  <div class="scenario-card-title-row">
+                    <span>01</span>
+                    <h3>C端设计提效</h3>
+                  </div>
+                  <p class="scenario-card-desc">覆盖走查、评审、交付和知识沉淀，把重复判断变成可复用流程。</p>
+                  <div class="scenario-app-list">
+                    <div class="scenario-app">
+                      <h4>Relay 转 Design Wiki</h4>
+                      <span>创建人 ShuaiMXu</span>
+                      <p>把设计稿链接转成结构化 design.md，并同步 Wiki 追溯信息。</p>
+                    </div>
+                    <div class="scenario-app">
+                      <h4>Design Review</h4>
+                      <span>创建人 liuzhaoran88-rgb</span>
+                      <p>基于 16.0 规范检查设计稿的一致性、组件和体验问题。</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="scenario-card">
+                <div class="scenario-card-cover">
+                  <img src="assets/scenario-marketing.png" alt="B端设计提效场景图">
+                </div>
+                <div class="scenario-card-body">
+                  <div class="scenario-card-title-row">
+                    <span>02</span>
+                    <h3>B端设计提效</h3>
+                  </div>
+                  <p class="scenario-card-desc">面向活动页、弹窗、素材和运营节奏，提升从需求到落地的协作效率。</p>
+                  <div class="scenario-app-list">
+                    <div class="scenario-app">
+                      <h4>全球竞品分析</h4>
+                      <span>创建人 待认领</span>
+                      <p>快速整理海外竞品页面、能力差异与设计机会点。</p>
+                    </div>
+                    <div class="scenario-app">
+                      <h4>专家设计审核</h4>
+                      <span>创建人 待认领</span>
+                      <p>结合规范和专家经验，检查方案风险与优化建议。</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="scenario-card">
+                <div class="scenario-card-cover">
+                  <img src="assets/scenario-brand.png" alt="品牌营销设计提效场景图">
+                </div>
+                <div class="scenario-card-body">
+                  <div class="scenario-card-title-row">
+                    <span>03</span>
+                    <h3>品牌营销设计提效</h3>
+                  </div>
+                  <p class="scenario-card-desc">围绕品牌一致性、图标生成和视觉延展，让风格资产可复用。</p>
+                  <div class="scenario-app-list">
+                    <div class="scenario-app">
+                      <h4>AI 极简 Icon 生成</h4>
+                      <span>创建人 待认领</span>
+                      <p>按品牌风格生成可编辑的功能性矢量图标。</p>
+                    </div>
+                    <div class="scenario-app">
+                      <h4>品牌视觉规范检查</h4>
+                      <span>创建人 待认领</span>
+                      <p>检查色彩、字体与品牌表达的一致性。</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="intro-row" aria-label="本周动态" hidden>
             <div>
               <p class="kicker">Skill</p>
               <h2>本月精选</h2>
@@ -358,7 +445,7 @@
             </div>
           </section>
 
-          <section class="skill-grid" id="skill-grid" aria-label="精选 Skill">
+          <section class="skill-grid" id="skill-grid" aria-label="精选 Skill" hidden>
             <article class="skill-card" data-category="review" data-skill="spec-check">
               <button class="cover-button" type="button" data-open-skill="spec-check" aria-label="查看规范巡检 Skill 详情">
                 <img
@@ -426,77 +513,191 @@
             </article>
           </section>
 
+          <section class="collection-zone" aria-labelledby="collection-zone-title" hidden>
+            <div class="intro-row collection-zone-heading">
+              <div>
+                <p class="kicker">Skill · 按设计场景</p>
+                <h2 id="collection-zone-title">场景精选专区</h2>
+                <p class="section-subtitle">把重复的设计工作，按你的领域一键开始。</p>
+              </div>
+            </div>
+
+            <div class="collection-grid-3">
+              <!-- 体验设计 -->
+              <article class="collection-col" data-domain="experience">
+                <button class="collection-head" type="button" data-collection="experience" aria-label="查看体验设计场景全部能力">
+                  <span class="collection-head-media">
+                    <img src="assets/collections/experience.png" alt="体验设计场景主视觉" />
+                  </span>
+                  <span class="collection-head-bar">
+                    <span class="collection-head-copy">
+                      <strong>体验设计</strong>
+                      <small>为产品体验与交付提效</small>
+                    </span>
+                    <i class="collection-head-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <ul class="collection-list">
+                  <li class="collection-item" data-skill="relay-to-design-md" data-open-skill="relay-to-design-md" role="button" tabindex="0">
+                    <span class="collection-item-title">Relay 转 Design Wiki</span>
+                    <p class="collection-item-desc">给一个 Relay 设计稿链接，自动产出 design.md、分配 Wiki 路径并生成交接摘要。</p>
+                  </li>
+                  <li class="collection-item" data-skill="spec-check" data-open-skill="spec-check" role="button" tabindex="0">
+                    <span class="collection-item-title">规范巡检</span>
+                    <p class="collection-item-desc">快速检查设计稿中的间距、颜色与组件使用问题，交付前一键自查。</p>
+                  </li>
+                  <li class="collection-item" data-skill="design-review" data-open-skill="design-review" role="button" tabindex="0">
+                    <span class="collection-item-title">Design Review</span>
+                    <p class="collection-item-desc">基于 15.0 / 16.0 规范，对 Relay 稿或 design.md 做 Token 合规与体验评判。</p>
+                  </li>
+                </ul>
+              </article>
+
+              <!-- 营销设计 -->
+              <article class="collection-col" data-domain="marketing">
+                <button class="collection-head" type="button" data-collection="marketing" aria-label="查看营销设计场景全部能力">
+                  <span class="collection-head-media">
+                    <img src="assets/collections/marketing.png" alt="营销设计场景主视觉" />
+                  </span>
+                  <span class="collection-head-bar">
+                    <span class="collection-head-copy">
+                      <strong>营销设计</strong>
+                      <small>为营销与活动场景提效</small>
+                    </span>
+                    <i class="collection-head-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <ul class="collection-list">
+                  <li class="collection-item is-recruit" data-recruit="活动氛围走查" role="button" tabindex="0">
+                    <span class="collection-item-title">活动氛围走查</span>
+                    <p class="collection-item-desc">校验活动会场的氛围、色彩与节奏一致性，正在招募共建。</p>
+                  </li>
+                  <li class="collection-item is-recruit" data-recruit="营销物料尺寸适配" role="button" tabindex="0">
+                    <span class="collection-item-title">营销物料尺寸适配</span>
+                    <p class="collection-item-desc">一套物料自动适配多端多尺寸投放规格，正在招募共建。</p>
+                  </li>
+                </ul>
+              </article>
+
+              <!-- 品牌设计 -->
+              <article class="collection-col" data-domain="brand">
+                <button class="collection-head" type="button" data-collection="brand" aria-label="查看品牌设计场景全部能力">
+                  <span class="collection-head-media">
+                    <img src="assets/collections/brand.png" alt="品牌设计场景主视觉" />
+                  </span>
+                  <span class="collection-head-bar">
+                    <span class="collection-head-copy">
+                      <strong>品牌设计</strong>
+                      <small>为品牌一致性提效</small>
+                    </span>
+                    <i class="collection-head-arrow" data-lucide="arrow-right" aria-hidden="true"></i>
+                  </span>
+                </button>
+                <ul class="collection-list">
+                  <li class="collection-item" data-skill="icon-generator" data-open-skill="icon-generator" role="button" tabindex="0">
+                    <span class="collection-item-title">Icon 规范生成器</span>
+                    <p class="collection-item-desc">基于 16.0 规范生成线性图标方案，并检查描边、圆角与视觉重心一致性。</p>
+                  </li>
+                  <li class="collection-item is-recruit" data-recruit="品牌色板检查" role="button" tabindex="0">
+                    <span class="collection-item-title">品牌色板检查</span>
+                    <p class="collection-item-desc">校验设计稿用色是否落在品牌色板与可访问性范围内，正在招募共建。</p>
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
           <section class="contribution-pulse-section" aria-labelledby="contribution-pulse-title">
             <div class="section-heading contribution-pulse-heading">
               <div>
                 <p class="kicker">CONTRIBUTING</p>
                 <h2 id="contribution-pulse-title">社区贡献动态</h2>
-                <p class="section-subtitle">基于 Coding 主分支的真实提交，呈现最近一个月的活跃贡献与本周新参与者。</p>
+                <p class="section-subtitle">过去 7 天，有 <b>xx</b> 位设计师，贡献了 <b class="contribution-count" data-contribution-count>xx</b> 项提效能力。</p>
               </div>
             </div>
 
-            <div class="contribution-pulse-grid">
-              <article class="active-contributors" aria-labelledby="active-contributors-title">
-                <div class="contribution-panel-heading">
-                  <h3 id="active-contributors-title">近 30 天活跃贡献者</h3>
-                  <span><i aria-hidden="true"></i>提交次数</span>
-                </div>
-                <ol class="contribution-list">
-                  <li>
-                    <span class="contribution-rank">01</span>
-                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/wangyutong.jpg?v=202607091310" alt="wangyutong.72" />
-                    <strong>wangyutong.72</strong>
-                    <b>111</b>
-                  </li>
-                  <li>
-                    <span class="contribution-rank">02</span>
-                    <img class="avatar contribution-avatar photo-avatar" src="assets/hero-avatars/orbit-01.jpg?v=20260714" alt="xushuai.133" />
-                    <strong>xushuai.133</strong>
-                    <b>64</b>
-                  </li>
-                  <li>
-                    <span class="contribution-rank">03</span>
-                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/gaojiamin.jpg?v=202607091310" alt="gaojiamin.10" />
-                    <strong>gaojiamin.10</strong>
-                    <b>59</b>
-                  </li>
-                  <li>
-                    <span class="contribution-rank">04</span>
-                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/tonglingxi.jpg?v=202607091310" alt="tonglingxi.1" />
-                    <strong>tonglingxi.1</strong>
-                    <b>39</b>
-                  </li>
-                  <li>
-                    <span class="contribution-rank">05</span>
-                    <img class="avatar contribution-avatar photo-avatar" src="assets/avatars/liuyewei.jpg?v=202607091310" alt="liuyewei.5" />
-                    <strong>liuyewei.5</strong>
-                    <b>21</b>
-                  </li>
-                </ol>
-              </article>
-
-              <article class="new-contributors" aria-labelledby="new-contributors-title">
-                <div class="contribution-panel-heading">
-                  <h3 id="new-contributors-title">本周新贡献者</h3>
-                  <span>首次提交</span>
-                </div>
-                <strong class="new-contributor-count">2</strong>
-                <div class="new-contributor-list">
-                  <div>
-                    <span class="new-contributor-avatar" aria-hidden="true">Y</span>
-                    <p><strong>yanghanhui.1</strong><small>首次贡献于 07.08</small></p>
-                  </div>
-                  <div>
-                    <span class="new-contributor-avatar" aria-hidden="true">W</span>
-                    <p><strong>wangyanglong</strong><small>首次贡献于 07.14</small></p>
-                  </div>
-                </div>
-                <p class="contribution-method" title="统计 Coding main 分支最近 30 天的非合并提交，并排除 spec-bot 与 skip-ci 自动提交。">
-                  <i data-lucide="info" aria-hidden="true"></i>
-                  已排除合并与自动化提交
-                </p>
-              </article>
+            <div class="contribution-wall" aria-label="社区共创动态">
+        <div class="contribution-wall-copy contribution-weekly-summary">
+          <span class="contribution-wall-eyebrow">WEEKLY SUMMARY</span>
+          <strong>本周贡献摘要</strong>
+          <p>过去 7 天，社区把分散的推进动作整理成可追踪的更新。</p>
+          <div class="contribution-summary-list" aria-label="本周贡献摘要">
+            <div class="contribution-summary-item">
+              <span>16.0 规范</span>
+              <b>新增 md</b>
+              <em>组件规范与目录结构持续入库</em>
             </div>
+            <div class="contribution-summary-item">
+              <span>提效应用</span>
+              <b>Skill / Tool 更新</b>
+              <em>补充使用说明、示例与适用边界</em>
+            </div>
+            <div class="contribution-summary-item">
+              <span>社区记录</span>
+              <b>贡献与版本沉淀</b>
+              <em>进入仓库记录后同步到社区呈现</em>
+            </div>
+          </div>
+        </div>
+
+              <div class="contribution-people-cloud" aria-label="贡献者头像互动墙">
+                <article class="contribution-person contribution-person-large contribution-person-a" tabindex="0">
+                  <div class="contribution-avatar-wrap">
+                    <img class="photo-avatar" src="assets/avatars/wangyutong.jpg?v=202607091310" alt="wangyutong.72" />
+                    <span class="contribution-like" aria-hidden="true">♥</span>
+                  </div>
+                  <span class="contribution-name-pill">wangyutong.72</span>
+                  <span class="contribution-popover"><b>111 次提交</b><em>持续推进规范与知识入库</em></span>
+                </article>
+                <article class="contribution-person contribution-person-b" tabindex="0">
+                  <div class="contribution-avatar-wrap">
+                  <img class="photo-avatar" src="assets/avatars/xushuai.jpg?v=202607151830" alt="xushuai.133" />
+                    <span class="contribution-like" aria-hidden="true">♥</span>
+                  </div>
+                  <span class="contribution-name-pill">xushuai.133</span>
+                  <span class="contribution-popover"><b>64 次提交</b><em>规范框架与目录结构</em></span>
+                </article>
+                <article class="contribution-person contribution-person-c" tabindex="0">
+                  <div class="contribution-avatar-wrap">
+                    <img class="photo-avatar" src="assets/avatars/gaojiamin.jpg?v=202607091310" alt="gaojiamin.10" />
+                    <span class="contribution-like" aria-hidden="true">♥</span>
+                  </div>
+                  <span class="contribution-name-pill">gaojiamin.10</span>
+                  <span class="contribution-popover"><b>59 次提交</b><em>规范内容与知识补齐</em></span>
+                </article>
+                <article class="contribution-person contribution-person-d" tabindex="0">
+                  <div class="contribution-avatar-wrap">
+                    <img class="photo-avatar" src="assets/avatars/tonglingxi.jpg?v=202607091310" alt="tonglingxi.1" />
+                    <span class="contribution-like" aria-hidden="true">♥</span>
+                  </div>
+                  <span class="contribution-name-pill">tonglingxi.1</span>
+                  <span class="contribution-popover"><b>39 次提交</b><em>设计规范协同更新</em></span>
+                </article>
+                <article class="contribution-person contribution-person-e" tabindex="0">
+                  <div class="contribution-avatar-wrap">
+                    <img class="photo-avatar" src="assets/avatars/liuyewei.jpg?v=202607091310" alt="liuyewei.5" />
+                    <span class="contribution-like" aria-hidden="true">♥</span>
+                  </div>
+                  <span class="contribution-name-pill">liuyewei.5</span>
+                  <span class="contribution-popover"><b>21 次提交</b><em>内容协作与案例补充</em></span>
+                </article>
+                <article class="contribution-person contribution-person-f contribution-name-node" tabindex="0">
+                  <div class="contribution-name-block">李艺</div>
+                  <span class="contribution-like" aria-hidden="true">♥</span>
+                  <span class="contribution-popover"><b>新增共建</b><em>Skill 更新与示例补充</em></span>
+                </article>
+                <article class="contribution-person contribution-person-g contribution-name-node" tabindex="0">
+                  <div class="contribution-name-block">明越</div>
+                  <span class="contribution-like" aria-hidden="true">♥</span>
+                  <span class="contribution-popover"><b>案例补充</b><em>提效场景整理</em></span>
+                </article>
+              </div>
+            </div>
+
+            <p class="contribution-method" title="统计 Coding main 分支最近的非合并提交，并排除 spec-bot 与 skip-ci 自动提交。">
+              <i data-lucide="info" aria-hidden="true"></i>
+              基于 Coding 真实提交，已排除合并与自动化提交
+            </p>
           </section>
 
         </section>
