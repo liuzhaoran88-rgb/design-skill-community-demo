@@ -557,6 +557,10 @@ function registerRepoSkill(record) {
 function renderFeaturedRepoSkill(record) {
   const card = document.querySelector("#skill-grid .skill-card:first-child");
   if (!card || !record) return;
+  // 专区里的 relay 条目：同步真实标题（选择器命中失败也不影响原卡）
+  document.querySelectorAll(`.collection-item[data-skill="${record.id}"] .collection-item-title`).forEach((el) => {
+    el.textContent = record.name;
+  });
   const skillButton = card.querySelector(".cover-button");
   const coverImage = card.querySelector(".cover-button img");
   const coverOverlay = card.querySelector(".cover-overlay");
@@ -889,6 +893,20 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", () => {
       showToast(button.title === "认领需求" ? "已认领该需求" : "已加入共创项目");
     });
+  });
+
+  const domainLabels = { experience: "体验设计", marketing: "营销设计", brand: "品牌设计" };
+  document.querySelectorAll(".collection-item.is-recruit").forEach((item) => {
+    const trigger = () => showToast(`「${item.dataset.recruit || "该能力"}」正在招募共建，欢迎贡献`);
+    item.addEventListener("click", trigger);
+    item.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      trigger();
+    });
+  });
+  document.querySelectorAll("[data-collection]").forEach((button) => {
+    button.addEventListener("click", () => showToast(`${domainLabels[button.dataset.collection] || "该场景"}场景能力清单整理中`));
   });
 
   document.querySelectorAll("[data-open-modal]").forEach((button) => {
