@@ -816,10 +816,37 @@ function openDrawer(id) {
   drawer.showModal();
 }
 
+function applyCodingCommunitySnapshot() {
+  const snapshot = window.codingCommunitySnapshot;
+  if (!snapshot?.weekly || !snapshot?.windows?.week) return;
+
+  const { weekly, windows } = snapshot;
+  const monthDay = (windows.week.end || "").slice(5).replace("-", ".");
+
+  document.querySelectorAll("[data-snapshot-updated]").forEach((element) => {
+    element.textContent = `更新于 ${monthDay}`;
+  });
+  document.querySelectorAll("[data-weekly-contributors]").forEach((element) => {
+    element.textContent = weekly.contributor_count;
+  });
+  document.querySelectorAll("[data-weekly-skills]").forEach((element) => {
+    element.textContent = weekly.changed_skill_count;
+  });
+
+  const total = document.querySelector("[data-core-design-total]");
+  if (total) total.textContent = weekly.design_system.core_design_md_added;
+
+  document.querySelectorAll("[data-design-category]").forEach((element) => {
+    const value = weekly.design_system.categories?.[element.dataset.designCategory];
+    if (Number.isFinite(value)) element.textContent = value;
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderIcons();
   renderDongLogo();
   initRepoCommunitySkills();
+  applyCodingCommunitySnapshot();
 
   const weeklyUpdateTabs = [...document.querySelectorAll("[data-weekly-filter]")];
   const weeklyUpdateItems = [...document.querySelectorAll(".weekly-app-update")];
