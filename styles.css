@@ -243,6 +243,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .contribution-name-pill { padding: 6px 10px; border: 1px solid rgba(0,0,0,.06); border-radius: 999px; background: rgba(255,255,255,.9); color: #303238; font-size: 13px; font-weight: 800; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
 .contribution-name-block { display: grid; min-width: 70px; height: 54px; padding: 0 14px; place-items: center; border: 3px solid #fff; border-radius: 18px; background: linear-gradient(135deg, #f6d365, #fda085); color: #111; font-weight: 900; box-shadow: 0 18px 36px rgba(0,0,0,.12); }
 .contribution-person-g .contribution-name-block { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+.contribution-name-pill[data-display-name]::before { content: attr(data-display-name); }
 .contribution-popover { position: absolute; left: 50%; top: calc(100% + 8px); width: 178px; padding: 10px 12px; border: 1px solid rgba(0,0,0,.07); border-radius: 12px; background: rgba(255,255,255,.96); box-shadow: 0 18px 36px rgba(0,0,0,.10); opacity: 0; pointer-events: none; text-align: left; transform: translateX(-50%) translateY(6px); transition: opacity .2s ease, transform .2s ease; }
 .contribution-popover b { display: block; color: #111; font-size: 13px; line-height: 1.4; }
 .contribution-popover em { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; font-style: normal; line-height: 1.35; }

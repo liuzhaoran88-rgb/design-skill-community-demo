@@ -11,8 +11,9 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css?v=202607231430" />
     <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
-    <script src="assets/community-skills.js?v=202607081810" defer></script>
-    <script src="app.js?v=202607221200" defer></script>
+    <script src="assets/community-skills.js?v=202607241349" defer></script>
+    <script src="assets/coding-community-snapshot.js?v=202607241349" defer></script>
+    <script src="app.js?v=202607241349" defer></script>
   </head>
   <body>
     <div class="app-shell">
@@ -23,7 +24,7 @@
               <img class="product-logo" id="dong-logo" src="assets/dong-design-logo-source.png" alt="" />
               <span class="brand-name">Dong Design</span>
             </div>
-            <span class="page-updated-at">更新于 07.16</span>
+            <span class="page-updated-at" data-snapshot-updated>更新于 07.24</span>
           </div>
           <div class="hero-main">
             <div class="hero-copy">
@@ -31,7 +32,7 @@
               <h1 id="community-title">设计与用研提效社区</h1>
               <p class="hero-slogan">让经验被共享，<br />让贡献被看见。</p>
               <p class="hero-metrics" aria-label="社区数据">
-                过去 7 天，有 <strong>xx</strong> 位设计师，贡献了 <strong>xx</strong> 项提效能力。
+                过去 7 天，有 <strong data-weekly-contributors>11</strong> 位设计师，贡献了 <strong data-weekly-skills>11</strong> 项提效能力。
               </p>
               <button class="hero-learn-link" type="button" data-open-philosophy>
                 <span>了解 Skill 如何共建与迭代</span>
@@ -85,41 +86,41 @@
               <div>
                 <p class="kicker">WEEKLY UPDATE</p>
                 <h2 id="design-system-progress-title">16.0 设计规范 MD 进展</h2>
-                <p class="section-subtitle">本周仓库新增 248 份核心规范 MD，并完成中文分类树与目录结构整理。</p>
+                <p class="section-subtitle">过去 7 天，仓库新增 149 份核心规范 MD，持续推进规范 bundle 化与结构化入库。</p>
               </div>
             </div>
 
             <div class="design-system-progress">
               <div class="design-system-overview">
                 <span class="design-system-overview-label">本周新增核心规范</span>
-                <strong>248</strong>
+                <strong data-core-design-total>149</strong>
                 <small>份规范 MD</small>
                 <div class="design-system-week-note">
                   <span>仓库进展</span>
-                  <p>批量录入规范框架，并完成中文分类树与目录结构整理</p>
+                  <p>持续推进组件、场域与品牌规范 bundle 化，并补齐结构化交付文件</p>
                 </div>
               </div>
 
               <div class="design-system-categories" aria-label="16.0 五类核心规范本周新增数量">
                 <div class="design-system-category">
                   <span>场域特性规范</span>
-                  <strong>126</strong>
+                  <strong data-design-category="场域特性规范">81</strong>
                 </div>
                 <div class="design-system-category">
                   <span>基础组件规范</span>
-                  <strong>49</strong>
+                  <strong data-design-category="基础组件库（功能型组件）">22</strong>
                 </div>
                 <div class="design-system-category">
                   <span>品牌与运营规范</span>
-                  <strong>38</strong>
+                  <strong data-design-category="品牌与运营规范">37</strong>
                 </div>
                 <div class="design-system-category">
                   <span>业务组件规范</span>
-                  <strong>29</strong>
+                  <strong data-design-category="业务组件库（业务型组件）">9</strong>
                 </div>
                 <div class="design-system-category">
                   <span>多端多人群适配</span>
-                  <strong>6</strong>
+                  <strong data-design-category="多端多人群适配规范">0</strong>
                 </div>
               </div>
 
@@ -168,6 +169,53 @@
             </div>
 
             <div class="weekly-app-updates-grid">
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Findustry-market-analysis" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看行业市场分析目录">
+                <h3 data-scene="竞品研究">行业市场分析</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">从行业趋势、竞品、频道体验和设计策略四个维度支撑垂类频道改版决策。</p>
+                  <p class="weekly-app-update-progress"><strong>liuxi1269</strong><span aria-hidden="true">·</span>新增三档深度、七阶段执行流程与可离线汇报的 HTML 报告交付。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprd-design-brief" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看 PRD 设计简报目录">
+                <h3 data-scene="研究规划">PRD 设计简报</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">读取 PRD 并定位受影响的场域、页面与组件，形成可追溯的设计 Brief。</p>
+                  <p class="weekly-app-update-progress"><strong>xuzhongwei1</strong><span aria-hidden="true">·</span>新增迭代/创意判断、结构化模块清单和下游出稿确认门。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update tool-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fsearch-recommend-foundation%2Fskills%26tools%2Fdesign-cleanup" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看设计稿清洗目录">
+                <h3 data-scene="规范建设">设计稿清洗</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">为准备交付或入库的 Zero / Relay 设计稿清理隐藏、透明和空节点噪音。</p>
+                  <p class="weekly-app-update-progress"><strong>zhenshaoan.kong</strong><span aria-hidden="true">·</span>新增保真副本、分界面清洗、失败证据保留与交付验收流程。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fhuangliu-design%2Fproduct-details%2FJD-ProductDetails-web%2Fbrain-frontend%2Fpublic%2Fdesign-kb%2Fskills%2Finstance-manage" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看实例标签管理目录">
+                <h3 data-scene="规范建设">实例标签管理</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">把待审核实例的新增、修改、删除与合并操作沉淀为可执行的标签管理流程。</p>
+                  <p class="weekly-app-update-progress"><strong>wangyutong.72</strong><span aria-hidden="true">·</span>补充待审核标记、关键词引用、操作归档与场景数据同步。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+
+              <a class="weekly-app-update tool-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fhuangliu-design%2Fproduct-details%2FJD-ProductDetails-web%2Fbrain-frontend%2Fpublic%2Fai-friendly-design" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看 AI Friendly Design 目录">
+                <h3 data-scene="体验评估">AI Friendly Design 修复工作流</h3>
+                <div class="weekly-app-update-details">
+                  <p class="weekly-app-update-summary">将设计规范审查、问题定位、安全修复和复审串成可追踪的闭环。</p>
+                  <p class="weekly-app-update-progress"><strong>liuyewei.5</strong><span aria-hidden="true">·</span>更新修复规划、依赖排序、AI 分析复用与 33 项验收记录。</p>
+                </div>
+                <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <div class="weekly-app-updates-grid" hidden aria-hidden="true">
               <a class="weekly-app-update tool-update" href="http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Fresearch-screenshot-analyzer" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看设计透视目录">
                 <h3 data-scene="竞品研究">设计透视（DesignPeek）</h3>
                 <div class="weekly-app-update-details">
@@ -612,7 +660,7 @@
               <div>
                 <p class="kicker">CONTRIBUTING</p>
                 <h2 id="contribution-pulse-title">社区贡献动态</h2>
-                <p class="section-subtitle">过去 7 天，有 <b>xx</b> 位设计师，贡献了 <b class="contribution-count" data-contribution-count>xx</b> 项提效能力。</p>
+                <p class="section-subtitle">过去 7 天，有 <b data-weekly-contributors>11</b> 位设计师，贡献了 <b class="contribution-count" data-weekly-skills>11</b> 项提效能力。</p>
               </div>
             </div>
 
@@ -624,18 +672,18 @@
           <div class="contribution-summary-list" aria-label="本周贡献摘要">
             <div class="contribution-summary-item">
               <span>16.0 规范</span>
-              <b>新增 md</b>
-              <em>组件规范与目录结构持续入库</em>
+              <b>新增 149 份核心 MD</b>
+              <em>组件、场域与品牌规范持续 bundle 化入库</em>
             </div>
             <div class="contribution-summary-item">
               <span>提效应用</span>
-              <b>Skill / Tool 更新</b>
-              <em>补充使用说明、示例与适用边界</em>
+              <b>11 项 Skill 发生变更</b>
+              <em>新增行业分析、PRD 简报与设计稿清洗等能力</em>
             </div>
             <div class="contribution-summary-item">
               <span>社区记录</span>
-              <b>贡献与版本沉淀</b>
-              <em>进入仓库记录后同步到社区呈现</em>
+              <b>124 次非合并提交</b>
+              <em>11 位设计师参与，已排除自动化提交</em>
             </div>
           </div>
         </div>
@@ -647,7 +695,7 @@
                     <span class="contribution-like" aria-hidden="true">♥</span>
                   </div>
                   <span class="contribution-name-pill">wangyutong.72</span>
-                  <span class="contribution-popover"><b>111 次提交</b><em>持续推进规范与知识入库</em></span>
+                  <span class="contribution-popover"><b>99 次提交</b><em>持续推进规范与知识入库</em></span>
                 </article>
                 <article class="contribution-person contribution-person-b" tabindex="0">
                   <div class="contribution-avatar-wrap">
@@ -655,35 +703,35 @@
                     <span class="contribution-like" aria-hidden="true">♥</span>
                   </div>
                   <span class="contribution-name-pill">xushuai.133</span>
-                  <span class="contribution-popover"><b>64 次提交</b><em>规范框架与目录结构</em></span>
+                  <span class="contribution-popover"><b>72 次提交</b><em>规范框架与目录结构</em></span>
                 </article>
                 <article class="contribution-person contribution-person-c" tabindex="0">
-                  <div class="contribution-avatar-wrap">
-                    <img class="photo-avatar" src="assets/avatars/gaojiamin.jpg?v=202607091310" alt="gaojiamin.10" />
-                    <span class="contribution-like" aria-hidden="true">♥</span>
-                  </div>
-                  <span class="contribution-name-pill">gaojiamin.10</span>
-                  <span class="contribution-popover"><b>59 次提交</b><em>规范内容与知识补齐</em></span>
-                </article>
-                <article class="contribution-person contribution-person-d" tabindex="0">
                   <div class="contribution-avatar-wrap">
                     <img class="photo-avatar" src="assets/avatars/tonglingxi.jpg?v=202607091310" alt="tonglingxi.1" />
                     <span class="contribution-like" aria-hidden="true">♥</span>
                   </div>
                   <span class="contribution-name-pill">tonglingxi.1</span>
-                  <span class="contribution-popover"><b>39 次提交</b><em>设计规范协同更新</em></span>
+                  <span class="contribution-popover"><b>55 次提交</b><em>设计规范协同更新</em></span>
                 </article>
-                <article class="contribution-person contribution-person-e" tabindex="0">
+                <article class="contribution-person contribution-person-d" tabindex="0">
                   <div class="contribution-avatar-wrap">
-                    <img class="photo-avatar" src="assets/avatars/liuyewei.jpg?v=202607091310" alt="liuyewei.5" />
+                    <img class="photo-avatar" src="assets/avatars/gaojiamin.jpg?v=202607091310" alt="gaojiamin.10" />
                     <span class="contribution-like" aria-hidden="true">♥</span>
                   </div>
-                  <span class="contribution-name-pill">liuyewei.5</span>
-                  <span class="contribution-popover"><b>21 次提交</b><em>内容协作与案例补充</em></span>
+                  <span class="contribution-name-pill">gaojiamin.10</span>
+                  <span class="contribution-popover"><b>46 次提交</b><em>规范内容与知识补齐</em></span>
                 </article>
-                <article class="contribution-person contribution-person-f contribution-name-node" tabindex="0">
-                  <div class="contribution-name-block">李艺</div>
+                <article class="contribution-person contribution-person-e contribution-name-node" tabindex="0">
+                  <div class="contribution-name-block">zhenshaoan.kong</div>
                   <span class="contribution-like" aria-hidden="true">♥</span>
+                  <span class="contribution-popover"><b>21 次提交</b><em>Skill 与工具交付形态建设</em></span>
+                </article>
+                <article class="contribution-person contribution-person-f" tabindex="0">
+                  <div class="contribution-avatar-wrap">
+                    <img class="photo-avatar" src="assets/avatars/liyi285.jpg?v=20260724" alt="李艺" />
+                    <span class="contribution-like" aria-hidden="true">♥</span>
+                  </div>
+                  <span class="contribution-name-pill" data-display-name="李艺"></span>
                   <span class="contribution-popover"><b>新增共建</b><em>Skill 更新与示例补充</em></span>
                 </article>
                 <article class="contribution-person contribution-person-g contribution-name-node" tabindex="0">
@@ -694,7 +742,7 @@
               </div>
             </div>
 
-            <p class="contribution-method" title="统计 Coding main 分支最近的非合并提交，并排除 spec-bot 与 skip-ci 自动提交。">
+            <p class="contribution-method" title="统计 Coding main 分支 2026-06-25 至 2026-07-24 的非合并提交，并排除 spec-bot 与 skip-ci 自动提交。">
               <i data-lucide="info" aria-hidden="true"></i>
               基于 Coding 真实提交，已排除合并与自动化提交
             </p>
@@ -936,5 +984,6 @@
     </dialog>
 
     <div class="toast" role="status" aria-live="polite" aria-atomic="true" id="toast"><i data-lucide="check" aria-hidden="true"></i><span id="toast-text">已完成</span></div>
-  </body>
+
+</body>
 </html>
