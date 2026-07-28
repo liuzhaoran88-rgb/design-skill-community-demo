@@ -149,6 +149,7 @@ const snapshot = {
   weekly: {
     contributor_count: new Set(weeklyAuthors).size,
     non_merge_commit_count: weeklyAuthors.length,
+    contributors: countValues(weeklyAuthors),
     changed_skill_count: changedSkills.length,
     changed_skills: changedSkills,
     new_contributors: newContributors,

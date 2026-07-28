@@ -1,80 +1,152 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-07-24T05:49:25.667Z",
+  "generated_at": "2026-07-28T08:06:23.708Z",
   "source": {
     "repository": "JD-Design-Wiki/2C-DesignWiki",
     "branch": "main",
-    "head": "d2c2a72c4d22b359c7c445d7767ee5c2d6952520",
-    "committed_at": "2026-07-24T13:43:46+08:00",
-    "author": "wangyutong.72",
-    "subject": "Merge request #210 from JD-Design-Wiki:feat/liuyewei5-task-20260723-150406 on 2026-07-24 13:43:46"
+    "head": "6c6f99f3df084084723a54c61326fa2049c0126d",
+    "committed_at": "2026-07-28T14:53:28+08:00",
+    "author": "xushuai.133",
+    "subject": "Merge request #235 from JD-Design-Wiki:jd-sync/message-2-20260728 on 2026-07-28 14:53:28"
   },
   "windows": {
     "week": {
-      "start": "2026-07-18",
-      "end": "2026-07-24",
-      "base_commit": "56fb38ea0423dfd4de1affd0428221df3c31ca3d"
+      "start": "2026-07-22",
+      "end": "2026-07-28",
+      "base_commit": "7296e2976bb64814830cef536ea55d3066f2cf2b"
     },
     "month": {
-      "start": "2026-06-25",
-      "end": "2026-07-24"
+      "start": "2026-06-29",
+      "end": "2026-07-28"
     }
   },
   "weekly": {
-    "contributor_count": 11,
-    "non_merge_commit_count": 124,
-    "changed_skill_count": 11,
+    "contributor_count": 10,
+    "non_merge_commit_count": 153,
+    "contributors": [
+      {
+        "email": "xushuai.133@jd.com",
+        "name": "xushuai.133",
+        "commits": 92
+      },
+      {
+        "email": "wangyutong.72@jd.com",
+        "name": "wangyutong.72",
+        "commits": 24
+      },
+      {
+        "email": "tonglingxi.1@jd.com",
+        "name": "tonglingxi.1",
+        "commits": 13
+      },
+      {
+        "email": "gaojiamin.10@jd.com",
+        "name": "gaojiamin.10",
+        "commits": 7
+      },
+      {
+        "email": "liuyewei.5@jd.com",
+        "name": "liuyewei.5",
+        "commits": 7
+      },
+      {
+        "email": "kongyifei.3@jd.com",
+        "name": "kongyifei.3",
+        "commits": 4
+      },
+      {
+        "email": "yanghanhui.1@jd.com",
+        "name": "yanghanhui.1",
+        "commits": 3
+      },
+      {
+        "email": "liuxi1269@jd.com",
+        "name": "liuxi1269",
+        "commits": 1
+      },
+      {
+        "email": "xuzhongwei1@jd.com",
+        "name": "xuzhongwei1",
+        "commits": 1
+      },
+      {
+        "email": "zhenshaoan.kong@jd.com",
+        "name": "zhenshaoan.kong",
+        "commits": 1
+      }
+    ],
+    "changed_skill_count": 35,
     "changed_skills": [
+      ".agents/skills/component-properties-admission/SKILL.md",
+      ".agents/skills/design-md-to-portal/SKILL.md",
+      ".agents/skills/design-md-to-relay/SKILL.md",
+      ".agents/skills/design-md-to-spec-page/SKILL.md",
+      ".agents/skills/design-review/SKILL.md",
+      ".agents/skills/jd-field-ppt-skill/SKILL.md",
+      ".agents/skills/livestream-cover-generator/SKILL.md",
+      ".agents/skills/plugin-api-key-ai/SKILL.md",
+      ".agents/skills/relay-component-set-architect/SKILL.md",
+      ".agents/skills/relay-component-variant-generator/SKILL.md",
+      ".agents/skills/relay-spec-longpage/SKILL.md",
+      ".agents/skills/relay-to-component-pipeline/SKILL.md",
+      ".agents/skills/relay-to-design-md/SKILL.md",
+      ".agents/skills/ruler-annotation/SKILL.md",
+      ".agents/skills/senior-adaptation-tool/SKILL.md",
+      ".agents/skills/zero-md-to-page-skill/SKILL.md",
+      ".agents/skills/zero-spec-to-md-skill-zero/SKILL.md",
+      ".agents/skills/zero-to-joyspace/SKILL.md",
       "jd-design-system-md-v16/horizontal/user-research/skills/industry-market-analysis/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/case-register/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/design-advisor/SKILL.md",
       "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/design-reasoning-input/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/git-workflow/SKILL.md",
       "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/instance-manage/SKILL.md",
-      "jd-design-system-md-v16/product-architecture/local-life/Channel 频道/Filter Tabs 筛选项/filter-tabs-design-skill/SKILL.md",
-      "jd-design-system-md-v16/product-architecture/local-life/Channel 频道/Mega Subsidy 百亿补贴/mega-subsidy-design-skill-bundle/mega-subsidy-design-skill/SKILL.md",
-      "jd-design-system-md-v16/product-architecture/local-life/Channel 频道/Page Header 头部/Navbar 导航栏/navbar-generation-bundle/navbar-generation/SKILL.md",
-      "jd-design-system-md-v16/product-architecture/local-life/Channel 频道/Page Header 头部/Nested Structure 父子嵌套Tab/nested-structure-generation-skill-backup/nested-structure-generation-skill/SKILL.md",
-      "jd-design-system-md-v16/product-architecture/local-life/Channel 频道/popup半弹层/SKILL.md",
-      "jd-design-system-md-v16/product-architecture/local-life/Home Service 家政频道/.cursor/skills/relay-demo-from-md/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/knowledge-preview/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/knowledge-update/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/leader-report/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/search/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/welcome/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/local-life/Logistics 物流/page/抢单大厅/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/local-life/Skill/joyspace-docs/SKILL.md",
       "jd-design-system-md-v16/product-architecture/local-life/Skill/prd-design-brief/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/local-life/Skill/prototype-generation/SKILL.md",
+      "jd-design-system-md-v16/product-architecture/local-life/Skill/voice-of-customer/skill/SKILL.md",
       "jd-design-system-md-v16/product-architecture/search-recommend-foundation/skills&tools/design-cleanup/SKILL.md"
     ],
     "new_contributors": [
       {
         "email": "liuxi1269@jd.com",
         "name": "liuxi1269"
-      },
-      {
-        "email": "wangruifeng.1212@jd.com",
-        "name": "wangruifeng.1212"
       }
     ],
     "design_system": {
-      "core_design_md_added": 149,
+      "core_design_md_added": 299,
       "categories": {
-        "场域特性规范": 81,
+        "场域特性规范": 213,
         "基础组件库（功能型组件）": 22,
-        "品牌与运营规范": 37,
-        "业务组件库（业务型组件）": 9,
+        "品牌与运营规范": 53,
+        "业务组件库（业务型组件）": 11,
         "多端多人群适配规范": 0
       },
-      "excluded_design_md_added": 0
+      "excluded_design_md_added": 14
     }
   },
   "monthly": {
     "contributors": [
       {
-        "email": "wangyutong.72@jd.com",
-        "name": "wangyutong.72",
-        "commits": 99
-      },
-      {
         "email": "xushuai.133@jd.com",
         "name": "xushuai.133",
-        "commits": 72
+        "commits": 115
+      },
+      {
+        "email": "wangyutong.72@jd.com",
+        "name": "wangyutong.72",
+        "commits": 96
       },
       {
         "email": "tonglingxi.1@jd.com",
         "name": "tonglingxi.1",
-        "commits": 55
+        "commits": 49
       },
       {
         "email": "gaojiamin.10@jd.com",
@@ -82,38 +154,33 @@
         "commits": 46
       },
       {
+        "email": "liuyewei.5@jd.com",
+        "name": "liuyewei.5",
+        "commits": 21
+      },
+      {
         "email": "zhenshaoan.kong@jd.com",
         "name": "zhenshaoan.kong",
         "commits": 21
       },
       {
-        "email": "liuyewei.5@jd.com",
-        "name": "liuyewei.5",
-        "commits": 19
-      },
-      {
-        "email": "zhaiyouyi1@jd.com",
-        "name": "zhaiyouyi1",
+        "email": "kongyifei.3@jd.com",
+        "name": "kongyifei.3",
         "commits": 12
       },
       {
         "email": "xuzhongwei1@jd.com",
         "name": "xuzhongwei1",
-        "commits": 11
+        "commits": 12
       },
       {
-        "email": "kongyifei.3@jd.com",
-        "name": "kongyifei.3",
-        "commits": 8
+        "email": "zhaiyouyi1@jd.com",
+        "name": "zhaiyouyi1",
+        "commits": 10
       },
       {
         "email": "leixiaoming3@jd.com",
         "name": "leixiaoming3",
-        "commits": 7
-      },
-      {
-        "email": "zhangfengyi.687@jd.com",
-        "name": "zhangfengyi.687",
         "commits": 7
       },
       {
@@ -127,6 +194,11 @@
         "commits": 2
       },
       {
+        "email": "zhangfengyi.687@jd.com",
+        "name": "zhangfengyi.687",
+        "commits": 2
+      },
+      {
         "email": "hujinrui.axin@jd.com",
         "name": "hujinrui.axin",
         "commits": 1
@@ -137,16 +209,6 @@
         "commits": 1
       },
       {
-        "email": "huyao@jd.com",
-        "name": "huyao",
-        "commits": 1
-      },
-      {
-        "email": "liuhaining3@jd.com",
-        "name": "liuhaining3",
-        "commits": 1
-      },
-      {
         "email": "liuxi1269@jd.com",
         "name": "liuxi1269",
         "commits": 1
@@ -154,11 +216,6 @@
       {
         "email": "liyi285@jd.com",
         "name": "liyi285",
-        "commits": 1
-      },
-      {
-        "email": "niusiying.19@jd.com",
-        "name": "niusiying.19",
         "commits": 1
       },
       {
