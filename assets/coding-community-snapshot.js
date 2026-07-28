@@ -1,13 +1,13 @@
 window.codingCommunitySnapshot = {
   "schema_version": "1.0",
-  "generated_at": "2026-07-28T08:06:23.708Z",
+  "generated_at": "2026-07-28T10:42:00.696Z",
   "source": {
     "repository": "JD-Design-Wiki/2C-DesignWiki",
     "branch": "main",
-    "head": "6c6f99f3df084084723a54c61326fa2049c0126d",
-    "committed_at": "2026-07-28T14:53:28+08:00",
-    "author": "xushuai.133",
-    "subject": "Merge request #235 from JD-Design-Wiki:jd-sync/message-2-20260728 on 2026-07-28 14:53:28"
+    "head": "e3225917368e3107e47186d5433b62bc4bdff19a",
+    "committed_at": "2026-07-28T18:01:20+08:00",
+    "author": "yanghanhui.1",
+    "subject": "chore(skill): 更新 prototype-generation 原型生成 Skill(新增 PRD分析/KV头图/图标库/同步脚本 + 42文件更新)"
   },
   "windows": {
     "week": {
@@ -22,7 +22,7 @@ window.codingCommunitySnapshot = {
   },
   "weekly": {
     "contributor_count": 10,
-    "non_merge_commit_count": 153,
+    "non_merge_commit_count": 154,
     "contributors": [
       {
         "email": "xushuai.133@jd.com",
@@ -57,7 +57,7 @@ window.codingCommunitySnapshot = {
       {
         "email": "yanghanhui.1@jd.com",
         "name": "yanghanhui.1",
-        "commits": 3
+        "commits": 4
       },
       {
         "email": "liuxi1269@jd.com",
@@ -186,7 +186,7 @@ window.codingCommunitySnapshot = {
       {
         "email": "yanghanhui.1@jd.com",
         "name": "yanghanhui.1",
-        "commits": 5
+        "commits": 6
       },
       {
         "email": "chenlinyue1@jd.com",
