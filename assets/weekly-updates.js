@@ -62,7 +62,7 @@ window.weeklyUpdates = {
           "version": "e322591",
           "updated": "2026-07-28",
           "size": "26KB",
-          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprototype-generation",
+          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprototype-generation%2FSKILL.md",
           "prompt": "用 prototype-generation skill，将 PRD、低保真原型或需求说明转为可编辑的高保真 Relay 原型。"
         },
         "category": "设计交付"
@@ -110,7 +110,7 @@ window.weeklyUpdates = {
           "version": "f03ff64",
           "updated": "2026-07-23",
           "size": "8KB",
-          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Findustry-market-analysis",
+          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Findustry-market-analysis%2FSKILL.md",
           "prompt": "用 industry-market-analysis skill，从行业趋势、竞品、频道体验和设计策略四个维度支撑垂类频道改版决策。"
         },
         "category": "研究与分析"
@@ -163,7 +163,7 @@ window.weeklyUpdates = {
           "version": "c00a610",
           "updated": "2026-07-28",
           "size": "12KB",
-          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprd-design-brief",
+          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprd-design-brief%2FSKILL.md",
           "prompt": "用 prd-design-brief skill，读取 PRD 并定位受影响的场域、页面与组件，形成可追溯的设计 Brief。"
         },
         "category": "研究与分析"
@@ -211,7 +211,7 @@ window.weeklyUpdates = {
           "version": "3bc3579",
           "updated": "2026-07-23",
           "size": "19KB",
-          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fsearch-recommend-foundation%2Fskills%26tools%2Fdesign-cleanup",
+          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/jd-design-system-md-v16%2Fproduct-architecture%2Fsearch-recommend-foundation%2Fskills%26tools%2Fdesign-cleanup%2FSKILL.md",
           "prompt": "用 design-cleanup skill，为准备交付或入库的 Zero / Relay 设计稿清理隐藏、透明和空节点噪音。"
         },
         "category": "设计交付"
@@ -286,7 +286,7 @@ window.weeklyUpdates = {
           "version": "7732191",
           "updated": "2026-07-23",
           "size": "6KB",
-          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fhuangliu-design%2Fproduct-details%2FJD-ProductDetails-web%2Fbrain-frontend%2Fpublic%2Fdesign-kb%2Fskills%2Finstance-manage",
+          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/jd-design-system-md-v16%2Fproduct-architecture%2Fhuangliu-design%2Fproduct-details%2FJD-ProductDetails-web%2Fbrain-frontend%2Fpublic%2Fdesign-kb%2Fskills%2Finstance-manage%2FSKILL.md",
           "prompt": "用 instance-manage skill，把待审核实例的新增、修改、删除与合并操作沉淀为可执行的标签管理流程。"
         },
         "category": "设计交付"
@@ -334,7 +334,7 @@ window.weeklyUpdates = {
           "version": "c00a610",
           "updated": "2026-07-28",
           "size": "40KB",
-          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fvoice-of-customer%2Fskill",
+          "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fvoice-of-customer%2Fskill%2FSKILL.md",
           "prompt": "用 voice-of-customer skill，将评价、工单和开放反馈整理为主题、趋势与可行动的问题线索。"
         },
         "category": "研究与分析"

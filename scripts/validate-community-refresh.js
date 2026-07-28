@@ -88,7 +88,8 @@ assert(
     && item.detail.lifecycle.length <= 5
     && item.detail.source?.type === "skill-md"
     && item.detail.source?.path === item.path
-    && item.detail.source?.url === item.url
+    && item.detail.source?.url.includes("/blob/main/")
+    && item.detail.source?.url.endsWith(encodeURIComponent(item.path))
     && item.detail.source?.prompt
   )),
   "本周更新存在无法打开完整 Skill 弹层的项目",

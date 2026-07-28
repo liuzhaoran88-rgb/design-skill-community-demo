@@ -1089,7 +1089,7 @@ function registerWeeklySkill(item) {
     category: detail.category || item.scene,
     badge: detail.badge || "本周已更新",
     description: detail.description || item.summary,
-    detailUrl: detail.source?.url || item.url,
+    detailUrl: item.url,
     usage: "本周更新",
     contributors,
     preparationTitle: detail.preparation_title || "使用提示",

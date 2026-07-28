@@ -95,6 +95,10 @@ function codingUrl(skillPath) {
   return `http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/${encodeURIComponent(directory)}`;
 }
 
+function codingFileUrl(skillPath) {
+  return `http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/blob/main/${encodeURIComponent(skillPath)}`;
+}
+
 function skillId(skillPath) {
   const directory = path.dirname(skillPath);
   const folder = path.basename(directory);
@@ -266,7 +270,7 @@ function detailRecord({ id, skillPath, content, title, summary, scene, url, hist
       version: latest.commit.slice(0, 7),
       updated: latest.committed_at.slice(0, 10),
       size: formatBytes(fs.statSync(sourcePath).size),
-      url,
+      url: codingFileUrl(skillPath),
       prompt: `用 ${id} skill，${summary}`,
     },
     category: scene,
