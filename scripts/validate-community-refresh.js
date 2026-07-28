@@ -57,6 +57,11 @@ assert(categoryTotal === weekly.design_system.core_design_md_added, "核心规�
 assert(Array.isArray(communitySkills) && communitySkills.length > 0, "社区 Skill 数据不能为空");
 assert(Array.isArray(weeklyUpdates.items), "本周更新列表缺失");
 assert(weeklyUpdates.items.length > 0 && weeklyUpdates.items.length <= 6, "本周更新应展示 1–6 项");
+assert(weeklyUpdates.schema_version === "1.1", "本周更新数据必须使用支持 Skill 弹层的 1.1 结构");
+assert(
+  new Set(weeklyUpdates.items.map((item) => item.id)).size === weeklyUpdates.items.length,
+  "本周更新包含重复的 Skill id",
+);
 assert(
   weeklyUpdates.items.every((item) => weekly.changed_skills.includes(item.path)),
   "本周更新包含不在本周期变更列表中的 Skill",
@@ -68,6 +73,38 @@ assert(
 assert(
   weeklyUpdates.items.every((item) => item.title && item.summary && item.author && item.progress && item.url),
   "本周更新存在缺少标题、说明、作者、进展或链接的项目",
+);
+assert(
+  weeklyUpdates.items.every((item) => (
+    item.detail
+    && item.detail.description
+    && Array.isArray(item.detail.contributors)
+    && item.detail.contributors.length > 0
+    && Array.isArray(item.detail.preparation)
+    && item.detail.preparation.length > 0
+    && Array.isArray(item.detail.cases)
+    && Array.isArray(item.detail.lifecycle)
+    && item.detail.lifecycle.length > 0
+    && item.detail.lifecycle.length <= 5
+    && item.detail.source?.type === "skill-md"
+    && item.detail.source?.path === item.path
+    && item.detail.source?.url.includes("/blob/main/")
+    && item.detail.source?.url.endsWith(encodeURIComponent(item.path))
+    && item.detail.source?.prompt
+  )),
+  "本周更新存在无法打开完整 Skill 弹层的项目",
+);
+assert(
+  weeklyUpdates.items.every((item) => item.detail.lifecycle.every((event) => (
+    event.version && event.date && event.name && event.action && event.outcome
+  ))),
+  "本周更新的迭代记录存在缺失字段",
+);
+assert(
+  weeklyUpdates.items.every((item) => item.detail.cases.every((itemCase) => (
+    itemCase.title && itemCase.summary && itemCase.source && itemCase.result
+  ))),
+  "本周更新的真实案例存在缺失字段",
 );
 
 assert(indexHtml.includes("assets/weekly-updates.js?v="), "index.html 未加载 weekly-updates.js");
