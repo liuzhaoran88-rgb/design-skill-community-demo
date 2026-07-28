@@ -887,6 +887,8 @@ function renderContributorWall(contributors = []) {
     const classes = [
       "contribution-person",
       index === 0 ? "contribution-person-large" : "",
+      position.left <= 8 ? "contribution-person-left" : "",
+      position.left >= 76 ? "contribution-person-right" : "",
       position.row === position.rows - 1 ? "contribution-person-bottom" : ""
     ].filter(Boolean).join(" ");
 
