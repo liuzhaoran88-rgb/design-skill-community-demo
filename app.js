@@ -462,8 +462,7 @@ function getAvatarFor(name) {
   return designerAvatars[normalized]
     ?? designerAvatars[noAt]
     ?? designerAvatars[`@${noAt}`]
-    ?? designerAvatars["子然"]
-    ?? designerAvatars["林默"];
+    ?? "default-contributor.jpg?v=20260728";
 }
 
 function getMergedPrContributions(record) {
@@ -729,10 +728,15 @@ function renderInstallModal(id) {
   redownload.download = packageInfo.file;
 }
 
-function useSkill(id) {
+async function useSkill(id) {
   const packageInfo = skillPackages[id];
   if (!packageInfo) return;
   activeSkillId = id;
+  if (packageInfo.sourceOnly) {
+    const copied = await copyText(packageInfo.prompt);
+    showToast(copied ? "调用方式已复制" : "请手动复制调用方式");
+    return;
+  }
   renderInstallModal(id);
   drawer.close();
   installModal.showModal();
@@ -775,44 +779,74 @@ function openDrawer(id) {
   const cases = skillCases[id] ?? [];
   const caseSection = document.querySelector(".drawer-cases");
   caseSection.hidden = !cases.length;
+  caseSection.querySelector(".kicker").textContent = skill.caseKicker || "真实使用案例";
+  document.querySelector("#drawer-cases-title").textContent = skill.caseTitle || "AI 提炼的使用摘要";
   document.querySelector("#drawer-case-count").textContent = `${cases.length} 个案例`;
   document.querySelector("#drawer-case-list").innerHTML = cases.map((item, index) => {
     const owner = getCaseOwner(skill, index);
     return `
     <article class="drawer-case">
-      <img class="avatar drawer-case-avatar photo-avatar" src="assets/avatars/${owner.avatar}" alt="${owner.name}" />
+      <img class="avatar drawer-case-avatar photo-avatar" src="assets/avatars/${escapeHtml(owner.avatar)}" alt="${escapeHtml(owner.name)}" />
       <div>
-        <span>${owner.name} · ${item.source}</span>
-        <h4>${item.title}</h4>
-        <p>${item.summary}</p>
+        <span>${escapeHtml(owner.name)} · ${escapeHtml(item.source)}</span>
+        <h4>${escapeHtml(item.title)}</h4>
+        <p>${escapeHtml(item.summary)}</p>
       </div>
-      <strong>${item.result}</strong>
+      <strong>${escapeHtml(item.result)}</strong>
     </article>
   `;
   }).join("");
-  document.querySelector("#drawer-preparation").innerHTML = skill.preparation.map((item) => `<li>${item}</li>`).join("");
+  document.querySelector("#drawer-preparation").innerHTML = skill.preparation.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  const packageSection = document.querySelector(".drawer-package");
+  const packageKicker = packageSection.querySelector(".package-heading .kicker");
+  const packageTitle = document.querySelector("#drawer-package-title");
+  const packageDownload = document.querySelector("#drawer-package-download");
+  const runSkillButton = document.querySelector("[data-run-skill]");
+  packageSection.hidden = !packageInfo;
   if (packageInfo) {
     document.querySelector("#drawer-package-name").textContent = packageInfo.file;
-    document.querySelector("#drawer-package-meta").textContent = `最新版本 ${packageInfo.version} · ${packageInfo.updated} · ${packageInfo.size}`;
-    const download = document.querySelector("#drawer-package-download");
-    download.href = getPackageUrl(packageInfo);
-    download.download = packageInfo.file;
+    if (packageInfo.sourceOnly) {
+      packageKicker.textContent = "仓库源文件";
+      packageTitle.textContent = "给 Agent 使用的 Skill 说明";
+      document.querySelector("#drawer-package-meta").textContent = `提交 ${packageInfo.version} · ${packageInfo.updated} · ${packageInfo.size}`;
+      packageDownload.href = packageInfo.repoUrl;
+      packageDownload.target = "_blank";
+      packageDownload.rel = "noopener noreferrer";
+      packageDownload.removeAttribute("download");
+      packageDownload.setAttribute("aria-label", "在 Coding 中查看 SKILL.md");
+      packageDownload.title = "在 Coding 中查看 SKILL.md";
+      packageDownload.innerHTML = '<i data-lucide="arrow-up-right" aria-hidden="true"></i>';
+      runSkillButton.innerHTML = '<i data-lucide="copy" aria-hidden="true"></i><span>复制调用方式</span>';
+    } else {
+      packageKicker.textContent = "最新安装包";
+      packageTitle.textContent = "给 Agent 使用的 Skill 包";
+      document.querySelector("#drawer-package-meta").textContent = `最新版本 ${packageInfo.version} · ${packageInfo.updated} · ${packageInfo.size}`;
+      packageDownload.href = getPackageUrl(packageInfo);
+      packageDownload.download = packageInfo.file;
+      packageDownload.removeAttribute("target");
+      packageDownload.removeAttribute("rel");
+      packageDownload.setAttribute("aria-label", "下载最新安装包");
+      packageDownload.title = "下载最新安装包";
+      packageDownload.innerHTML = '<i data-lucide="download" aria-hidden="true"></i>';
+      runSkillButton.innerHTML = '<i data-lucide="download" aria-hidden="true"></i><span>一键使用</span>';
+    }
   }
   document.querySelector("#drawer-version-count").textContent = skill.lifecycleLabel || `${skill.lifecycle.length} 次改版`;
   document.querySelector("#drawer-lifecycle-list").innerHTML = skill.lifecycle.map((event, index) => `
     <article class="lifecycle-item">
       <div class="lifecycle-marker">
-        <img class="avatar lifecycle-avatar photo-avatar" src="assets/avatars/${event.avatar}" alt="${event.name}" />
+        <img class="avatar lifecycle-avatar photo-avatar" src="assets/avatars/${escapeHtml(event.avatar)}" alt="${escapeHtml(event.name)}" />
         ${index < skill.lifecycle.length - 1 ? '<span class="lifecycle-line" aria-hidden="true"></span>' : ''}
       </div>
       <div class="lifecycle-content">
-        <div class="lifecycle-meta"><span>${event.version}</span><time>${event.date}</time></div>
-        <p><strong>${event.name}</strong> · ${event.action}</p>
-        <span class="lifecycle-outcome">${event.outcome}</span>
+        <div class="lifecycle-meta"><span>${escapeHtml(event.version)}</span><time>${escapeHtml(event.date)}</time></div>
+        <p><strong>${escapeHtml(event.name)}</strong> · ${escapeHtml(event.action)}</p>
+        <span class="lifecycle-outcome">${escapeHtml(event.outcome)}</span>
       </div>
     </article>
   `).join("");
   document.querySelector(".drawer-scroll").scrollTop = 0;
+  renderIcons();
   drawer.showModal();
 }
 
@@ -1042,6 +1076,63 @@ function initContributorLikes() {
   });
 }
 
+function registerWeeklySkill(item) {
+  const detail = item.detail;
+  if (!detail) return;
+  const lifecycle = Array.isArray(detail.lifecycle) ? detail.lifecycle : [];
+  const contributors = Array.isArray(detail.contributors) && detail.contributors.length
+    ? detail.contributors
+    : [item.author].filter(Boolean);
+
+  skills[item.id] = {
+    title: item.title,
+    category: detail.category || item.scene,
+    badge: detail.badge || "本周已更新",
+    description: detail.description || item.summary,
+    detailUrl: detail.source?.url || item.url,
+    usage: "本周更新",
+    contributors,
+    preparationTitle: detail.preparation_title || "使用提示",
+    preparation: Array.isArray(detail.preparation) && detail.preparation.length
+      ? detail.preparation
+      : [item.summary],
+    caseKicker: "文档示例",
+    caseTitle: "SKILL.md 中的使用方式",
+    lifecycleLabel: detail.lifecycle_label || `${lifecycle.length} 条仓库记录`,
+    lifecycle: lifecycle.map((event) => ({
+      version: event.version,
+      date: formatLifecycleDate(event.date),
+      name: event.name,
+      action: event.action,
+      outcome: event.outcome,
+      avatar: getAvatarFor(event.name),
+    })),
+  };
+
+  skillCases[item.id] = Array.isArray(detail.cases)
+    ? detail.cases.map((itemCase) => ({
+        title: itemCase.title,
+        summary: itemCase.summary,
+        source: itemCase.source,
+        result: itemCase.result,
+      }))
+    : [];
+
+  const source = detail.source;
+  if (source) {
+    skillPackages[item.id] = {
+      sourceOnly: true,
+      skillName: item.id,
+      file: source.name || "SKILL.md",
+      version: source.version || item.commit.slice(0, 7),
+      updated: formatRepoDate(source.updated || item.committed_at.slice(0, 10)),
+      size: source.size || "仓库源文件",
+      prompt: source.prompt || `用 ${item.id} skill，${item.summary}`,
+      repoUrl: source.url || item.url,
+    };
+  }
+}
+
 function renderWeeklyUpdates() {
   const grid = document.querySelector("[data-weekly-updates]");
   if (!grid) return;
@@ -1052,8 +1143,9 @@ function renderWeeklyUpdates() {
     return;
   }
 
+  items.forEach(registerWeeklySkill);
   grid.innerHTML = items.map((item) => `
-    <a class="weekly-app-update${item.is_tool ? " tool-update" : ""}" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看${escapeHtml(item.title)}目录">
+    <a class="weekly-app-update${item.is_tool ? " tool-update" : ""}" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" data-open-weekly-skill="${escapeHtml(item.id)}" aria-label="查看${escapeHtml(item.title)} Skill 详情">
       <h3 data-scene="${escapeHtml(item.scene)}">${escapeHtml(item.title)}</h3>
       <div class="weekly-app-update-details">
         <p class="weekly-app-update-summary">${escapeHtml(item.summary)}</p>
@@ -1062,6 +1154,13 @@ function renderWeeklyUpdates() {
       <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
     </a>
   `).join("");
+  grid.querySelectorAll("[data-open-weekly-skill]").forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      openDrawer(card.dataset.openWeeklySkill);
+    });
+  });
 
   const delivery = items.find((item) => item.scene === "设计交付") || items[0];
   const scenario = document.querySelector("[data-latest-delivery-skill]");

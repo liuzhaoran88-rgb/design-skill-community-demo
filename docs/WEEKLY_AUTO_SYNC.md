@@ -8,8 +8,13 @@
 - 变更 Skill 数量与贡献者头像墙
 - 五类核心规范更新数量
 - 社区 Skill 元数据、验证信息与案例
-- 首页“本周更新”卡片
+- 首页“本周更新”卡片及对应 Skill 弹层
 - 场景推荐中的最新设计交付能力
+
+“本周更新”弹层与卡片来自同一份 `assets/weekly-updates.json`。生成器会从对应
+`SKILL.md` 和该文件的 Git 历史同步简介、贡献者、使用提示、文档示例、最近 5 条
+迭代记录及 Coding 源文件入口。只有 `SKILL.md` 明确提供示例时才展示示例区；
+没有真实安装包的仓库 Skill 展示源文件与“复制调用方式”，不会生成虚假的 zip。
 
 ## 手动刷新
 
@@ -62,5 +67,6 @@ launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.liuzhaoran.community-w
 - Coding 与 Demo 都使用独立 `git worktree`，不会切换当前工作分支。
 - 通过原子锁避免定时和手动任务并发运行。
 - 数据校验失败时不会 push，也不会创建 PR。
+- 任一本周 Skill 缺少弹层详情、贡献者、使用提示、迭代记录或 Coding 源文件时，校验会阻止 push。
 - 相同 Coding HEAD 已有开放 PR 时，不重复创建。
 - 自动任务绝不合并 `main`，由人工确认贡献者、头像、文案和排版后合并。
