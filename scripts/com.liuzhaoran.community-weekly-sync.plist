@@ -19,7 +19,8 @@
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/liuzhaoran/design-skill-community-demo/scripts/weekly-auto-sync.sh</string>
+        <string>/Users/liuzhaoran/design-skill-community-demo/scripts/refresh-community.sh</string>
+        <string>--scheduled</string>
     </array>
 
     <key>WorkingDirectory</key>
@@ -29,7 +30,7 @@
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
-        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/liuzhaoran/.local/bin</string>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/liuzhaoran/bin:/Users/liuzhaoran/.local/bin</string>
     </dict>
 
     <!-- 兜底日志（脚本内部已写 community-weekly-sync.log，这里捕获未预期的 stderr） -->

@@ -88,6 +88,9 @@ const [headCommittedAt, headAuthor, headSubject] = lines(
 const endDate = shanghaiDate(headCommittedAt);
 const weekStart = daysBefore(headCommittedAt, 6);
 const monthStart = daysBefore(headCommittedAt, 29);
+const sourceBranch = process.env.CODING_SOURCE_BRANCH
+  || runGit(["branch", "--show-current"])
+  || "main";
 const weekBase = runGit([
   "rev-list",
   "-1",
@@ -136,7 +139,7 @@ const snapshot = {
   generated_at: new Date().toISOString(),
   source: {
     repository: "JD-Design-Wiki/2C-DesignWiki",
-    branch: runGit(["branch", "--show-current"]),
+    branch: sourceBranch,
     head,
     committed_at: headCommittedAt,
     author: headAuthor,

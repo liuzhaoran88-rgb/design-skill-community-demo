@@ -6,8 +6,10 @@ const path = require("path");
 const repoRoot = path.resolve(process.argv[2] || "/Users/liuzhaoran/Desktop/2C-DesignWiki");
 const demoRoot = path.resolve(__dirname, "..");
 const skillsRoot = path.join(repoRoot, ".agents", "skills");
+const fallbackSkillsRoot = path.join(demoRoot, "data", "community-skills");
 const outputJson = path.join(demoRoot, "assets", "community-skills.json");
 const outputJs = path.join(demoRoot, "assets", "community-skills.js");
+const repoName = process.env.CODING_SOURCE_REPOSITORY || "2C-DesignWiki";
 
 function unquote(value = "") {
   return value.trim().replace(/^["']|["']$/g, "");
@@ -97,7 +99,7 @@ function formatUsageDisplay(metrics) {
   return metrics.usage || "仓库同步";
 }
 
-function buildRecord(skillDir) {
+function buildRecord(skillDir, sourceType = "coding") {
   const communityPath = path.join(skillDir, "community.yaml");
   if (!fs.existsSync(communityPath)) return null;
 
@@ -149,9 +151,13 @@ function buildRecord(skillDir) {
     },
     feedback: getObject(yaml, "feedback"),
     repo: {
-      name: path.basename(repoRoot),
-      path: path.relative(repoRoot, skillDir),
-      community_yaml: path.relative(repoRoot, communityPath),
+      name: repoName,
+      path: sourceType === "coding"
+        ? path.relative(repoRoot, skillDir)
+        : path.join(".agents", "skills", id),
+      community_yaml: sourceType === "coding"
+        ? path.relative(repoRoot, communityPath)
+        : path.join(".agents", "skills", id, "community.yaml"),
     },
     display: {
       usage: formatUsageDisplay(metrics),
@@ -163,15 +169,22 @@ function buildRecord(skillDir) {
 }
 
 function sync() {
-  if (!fs.existsSync(skillsRoot)) {
-    throw new Error(`Skill directory not found: ${skillsRoot}`);
-  }
+  const recordsById = new Map();
+  const collect = (root, sourceType) => {
+    if (!fs.existsSync(root)) return;
+    fs.readdirSync(root, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => buildRecord(path.join(root, entry.name), sourceType))
+      .filter(Boolean)
+      .forEach((record) => recordsById.set(record.id, record));
+  };
 
-  const records = fs
-    .readdirSync(skillsRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => buildRecord(path.join(skillsRoot, entry.name)))
-    .filter(Boolean);
+  // Demo 中的社区元数据是稳定兜底；Coding main 一旦正式提交 community.yaml，
+  // 同 id 记录会覆盖兜底，自动切换到仓库真相源。
+  collect(fallbackSkillsRoot, "fallback");
+  collect(skillsRoot, "coding");
+  const records = [...recordsById.values()]
+    .sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
 
   fs.mkdirSync(path.dirname(outputJson), { recursive: true });
   fs.writeFileSync(outputJson, `${JSON.stringify(records, null, 2)}\n`);
