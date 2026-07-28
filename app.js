@@ -1042,7 +1042,41 @@ function initContributorLikes() {
   });
 }
 
+function renderWeeklyUpdates() {
+  const grid = document.querySelector("[data-weekly-updates]");
+  if (!grid) return;
+  const items = Array.isArray(window.weeklyUpdates?.items) ? window.weeklyUpdates.items : [];
+
+  if (!items.length) {
+    grid.innerHTML = '<p class="weekly-updates-loading">本周期暂无可展示的 Skill 更新</p>';
+    return;
+  }
+
+  grid.innerHTML = items.map((item) => `
+    <a class="weekly-app-update${item.is_tool ? " tool-update" : ""}" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="在 Coding 中查看${escapeHtml(item.title)}目录">
+      <h3 data-scene="${escapeHtml(item.scene)}">${escapeHtml(item.title)}</h3>
+      <div class="weekly-app-update-details">
+        <p class="weekly-app-update-summary">${escapeHtml(item.summary)}</p>
+        <p class="weekly-app-update-progress"><strong>${escapeHtml(item.author)}</strong><span aria-hidden="true">·</span>${escapeHtml(item.progress)}</p>
+      </div>
+      <i class="weekly-app-update-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+    </a>
+  `).join("");
+
+  const delivery = items.find((item) => item.scene === "设计交付") || items[0];
+  const scenario = document.querySelector("[data-latest-delivery-skill]");
+  if (scenario && delivery) {
+    const title = scenario.querySelector("[data-latest-delivery-title]");
+    const author = scenario.querySelector("[data-latest-delivery-author]");
+    const summary = scenario.querySelector("[data-latest-delivery-summary]");
+    if (title) title.textContent = delivery.title;
+    if (author) author.textContent = `更新人 ${delivery.author}`;
+    if (summary) summary.textContent = delivery.summary;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  renderWeeklyUpdates();
   renderIcons();
   renderDongLogo();
   initRepoCommunitySkills();
@@ -1050,7 +1084,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initContributorLikes();
 
   const weeklyUpdateTabs = [...document.querySelectorAll("[data-weekly-filter]")];
-  const weeklyUpdateItems = [...document.querySelectorAll(".weekly-app-update")];
+  const weeklyUpdateItems = [...document.querySelectorAll("[data-weekly-updates] .weekly-app-update")];
   const selectWeeklyUpdateTab = (selectedTab) => {
     const filter = selectedTab.dataset.weeklyFilter;
 

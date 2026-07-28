@@ -1,0 +1,53 @@
+{
+  "jd-design-system-md-v16/product-architecture/local-life/Skill/prototype-generation/SKILL.md": {
+    "order": 10,
+    "title": "原型生成",
+    "scene": "设计交付",
+    "summary": "将 PRD、低保真原型或需求说明转为可编辑的高保真 Relay 原型。",
+    "progress": "补充 PRD 前置分析、KV 头图、JD16 图标库与规范同步脚本。"
+  },
+  "jd-design-system-md-v16/horizontal/user-research/skills/industry-market-analysis/SKILL.md": {
+    "order": 20,
+    "title": "行业市场分析",
+    "scene": "研究与分析",
+    "summary": "从行业趋势、竞品、频道体验和设计策略四个维度支撑垂类频道改版决策。",
+    "progress": "新增三档深度、七阶段执行流程与可离线汇报的 HTML 报告交付。"
+  },
+  "jd-design-system-md-v16/product-architecture/local-life/Skill/prd-design-brief/SKILL.md": {
+    "order": 30,
+    "title": "PRD 设计简报",
+    "scene": "研究与分析",
+    "summary": "读取 PRD 并定位受影响的场域、页面与组件，形成可追溯的设计 Brief。",
+    "progress": "新增迭代/创意判断、结构化模块清单和下游出稿确认门。"
+  },
+  "jd-design-system-md-v16/product-architecture/search-recommend-foundation/skills&tools/design-cleanup/SKILL.md": {
+    "order": 40,
+    "title": "设计稿清洗",
+    "scene": "设计交付",
+    "summary": "为准备交付或入库的 Zero / Relay 设计稿清理隐藏、透明和空节点噪音。",
+    "progress": "新增保真副本、分界面清洗、失败证据保留与交付验收流程。",
+    "is_tool": true
+  },
+  "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/instance-manage/SKILL.md": {
+    "order": 50,
+    "title": "实例标签管理",
+    "scene": "设计交付",
+    "summary": "把待审核实例的新增、修改、删除与合并操作沉淀为可执行的标签管理流程。",
+    "progress": "补充待审核标记、关键词引用、操作归档与场景数据同步。"
+  },
+  "jd-design-system-md-v16/product-architecture/local-life/Skill/voice-of-customer/skill/SKILL.md": {
+    "order": 60,
+    "title": "用户之声分析",
+    "scene": "研究与分析",
+    "summary": "将评价、工单和开放反馈整理为主题、趋势与可行动的问题线索。",
+    "progress": "补充通用反馈分析框架与骑士端场景接入。"
+  },
+  "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/ai-friendly-design/SKILL.md": {
+    "order": 70,
+    "title": "AI Friendly Design 修复工作流",
+    "scene": "体验与优化",
+    "summary": "将设计规范审查、问题定位、安全修复和复审串成可追踪的闭环。",
+    "progress": "更新修复规划、依赖排序、AI 分析复用与验收记录。",
+    "is_tool": true
+  }
+}

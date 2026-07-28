@@ -1,0 +1,94 @@
+window.weeklyUpdates = {
+  "schema_version": "1.0",
+  "generated_at": "2026-07-28T10:42:00.696Z",
+  "source": {
+    "repository": "JD-Design-Wiki/2C-DesignWiki",
+    "branch": "main",
+    "head": "e3225917368e3107e47186d5433b62bc4bdff19a"
+  },
+  "period": {
+    "start": "2026-07-22",
+    "end": "2026-07-28",
+    "base_commit": "7296e2976bb64814830cef536ea55d3066f2cf2b"
+  },
+  "items": [
+    {
+      "id": "prototype-generation",
+      "path": "jd-design-system-md-v16/product-architecture/local-life/Skill/prototype-generation/SKILL.md",
+      "title": "原型生成",
+      "scene": "设计交付",
+      "summary": "将 PRD、低保真原型或需求说明转为可编辑的高保真 Relay 原型。",
+      "author": "yanghanhui.1",
+      "progress": "补充 PRD 前置分析、KV 头图、JD16 图标库与规范同步脚本。",
+      "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprototype-generation",
+      "is_tool": false,
+      "commit": "e3225917368e3107e47186d5433b62bc4bdff19a",
+      "committed_at": "2026-07-28T18:01:20+08:00"
+    },
+    {
+      "id": "industry-market-analysis",
+      "path": "jd-design-system-md-v16/horizontal/user-research/skills/industry-market-analysis/SKILL.md",
+      "title": "行业市场分析",
+      "scene": "研究与分析",
+      "summary": "从行业趋势、竞品、频道体验和设计策略四个维度支撑垂类频道改版决策。",
+      "author": "liuxi1269",
+      "progress": "新增三档深度、七阶段执行流程与可离线汇报的 HTML 报告交付。",
+      "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fhorizontal%2Fuser-research%2Fskills%2Findustry-market-analysis",
+      "is_tool": false,
+      "commit": "f03ff640ce4bdcf64318ce8e03314ae72ce35111",
+      "committed_at": "2026-07-23T20:29:42+08:00"
+    },
+    {
+      "id": "prd-design-brief",
+      "path": "jd-design-system-md-v16/product-architecture/local-life/Skill/prd-design-brief/SKILL.md",
+      "title": "PRD 设计简报",
+      "scene": "研究与分析",
+      "summary": "读取 PRD 并定位受影响的场域、页面与组件，形成可追溯的设计 Brief。",
+      "author": "xuzhongwei1",
+      "progress": "新增迭代/创意判断、结构化模块清单和下游出稿确认门。",
+      "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fprd-design-brief",
+      "is_tool": false,
+      "commit": "c00a6100491f021c743143cee39df75cf527b653",
+      "committed_at": "2026-07-28T13:43:13+08:00"
+    },
+    {
+      "id": "design-cleanup",
+      "path": "jd-design-system-md-v16/product-architecture/search-recommend-foundation/skills&tools/design-cleanup/SKILL.md",
+      "title": "设计稿清洗",
+      "scene": "设计交付",
+      "summary": "为准备交付或入库的 Zero / Relay 设计稿清理隐藏、透明和空节点噪音。",
+      "author": "zhenshaoan.kong",
+      "progress": "新增保真副本、分界面清洗、失败证据保留与交付验收流程。",
+      "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fsearch-recommend-foundation%2Fskills%26tools%2Fdesign-cleanup",
+      "is_tool": true,
+      "commit": "3bc3579ab888761ab0cd4a25fe7422b1684ea48e",
+      "committed_at": "2026-07-23T10:48:02+08:00"
+    },
+    {
+      "id": "instance-manage",
+      "path": "jd-design-system-md-v16/product-architecture/huangliu-design/product-details/JD-ProductDetails-web/brain-frontend/public/design-kb/skills/instance-manage/SKILL.md",
+      "title": "实例标签管理",
+      "scene": "设计交付",
+      "summary": "把待审核实例的新增、修改、删除与合并操作沉淀为可执行的标签管理流程。",
+      "author": "wangyutong.72",
+      "progress": "补充待审核标记、关键词引用、操作归档与场景数据同步。",
+      "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Fhuangliu-design%2Fproduct-details%2FJD-ProductDetails-web%2Fbrain-frontend%2Fpublic%2Fdesign-kb%2Fskills%2Finstance-manage",
+      "is_tool": false,
+      "commit": "7732191ec13235e9b3a9943856ea4d9ba13fad8a",
+      "committed_at": "2026-07-23T10:44:00+08:00"
+    },
+    {
+      "id": "voice-of-customer",
+      "path": "jd-design-system-md-v16/product-architecture/local-life/Skill/voice-of-customer/skill/SKILL.md",
+      "title": "用户之声分析",
+      "scene": "研究与分析",
+      "summary": "将评价、工单和开放反馈整理为主题、趋势与可行动的问题线索。",
+      "author": "xuzhongwei1",
+      "progress": "补充通用反馈分析框架与骑士端场景接入。",
+      "url": "http://jagile.jd.com/codingRoot/JD-Design-Wiki/2C-DesignWiki/tree/main/jd-design-system-md-v16%2Fproduct-architecture%2Flocal-life%2FSkill%2Fvoice-of-customer%2Fskill",
+      "is_tool": false,
+      "commit": "c00a6100491f021c743143cee39df75cf527b653",
+      "committed_at": "2026-07-28T13:43:13+08:00"
+    }
+  ]
+};

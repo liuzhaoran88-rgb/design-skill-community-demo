@@ -276,6 +276,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .weekly-app-updates { margin-top: 44px; }
 .weekly-app-updates-heading { align-items: flex-end; }
+.weekly-updates-loading { grid-column: 1 / -1; margin: 0; padding: 28px 0; color: var(--muted); font-size: 13px; }
 .weekly-update-tabs { display: flex; align-items: center; gap: 30px; min-height: 48px; margin-top: 16px; border-bottom: 1px solid var(--line); }
 .weekly-update-tab { position: relative; align-self: stretch; padding: 0; border: 0; background: transparent; color: #8e8e93; font: inherit; font-size: 13px; font-weight: 650; letter-spacing: 0; white-space: nowrap; cursor: pointer; transition: color .2s ease; }
 .weekly-update-tab::after { content: ""; position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: #111; opacity: 0; transform: scaleX(.5); transition: opacity .2s ease, transform .2s ease; }

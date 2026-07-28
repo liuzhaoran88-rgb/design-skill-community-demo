@@ -19,7 +19,8 @@
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/liuzhaoran/design-skill-community-demo/scripts/weekly-auto-sync.sh</string>
+        <string>/Users/liuzhaoran/design-skill-community-demo/scripts/refresh-community.sh</string>
+        <string>--scheduled</string>
     </array>
 
     <key>WorkingDirectory</key>
