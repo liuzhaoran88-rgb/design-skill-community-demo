@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.liuzhaoran.community-weekly-sync</string>
+
+    <!-- 每周三 20:00 触发。电脑当时休眠/关机 → 唤醒后 launchd 自动补跑一次。 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>3</integer>
+        <key>Hour</key>
+        <integer>20</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/liuzhaoran/design-skill-community-demo/scripts/weekly-auto-sync.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/liuzhaoran/design-skill-community-demo</string>
+
+    <!-- launchd 的 PATH 很干净，显式补上 node / git / ssh 所在目录 -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/liuzhaoran/.local/bin</string>
+    </dict>
+
+    <!-- 兜底日志（脚本内部已写 community-weekly-sync.log，这里捕获未预期的 stderr） -->
+    <key>StandardOutPath</key>
+    <string>/Users/liuzhaoran/Library/Logs/community-weekly-sync.launchd.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/liuzhaoran/Library/Logs/community-weekly-sync.launchd.log</string>
+
+    <!-- 不随加载立即运行；只按日历触发 -->
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

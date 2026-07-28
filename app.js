@@ -816,12 +816,100 @@ function openDrawer(id) {
   drawer.showModal();
 }
 
+const contributorAvatarMap = {
+  "xushuai.133": "xushuai.jpg?v=202607151830",
+  "wangyutong.72": "wangyutong.jpg?v=202607091310",
+  "tonglingxi.1": "tonglingxi.jpg?v=202607091310",
+  "gaojiamin.10": "gaojiamin.jpg?v=202607091310",
+  "liuyewei.5": "liuyewei.jpg?v=202607091310"
+};
+
+const contributorFocusMap = {
+  "xushuai.133": "规范 Bundle、模板与 Skill 基础设施建设",
+  "wangyutong.72": "设计知识库、实例标签与 AI Friendly Design",
+  "tonglingxi.1": "设计知识库案例与体验能力建设",
+  "gaojiamin.10": "需求档案与规范内容补齐",
+  "kongyifei.3": "商详业务案例与服务场景补充",
+  "liuyewei.5": "AI Friendly Design 审核与修复流程",
+  xuzhongwei1: "本地生活规范、文案检测与 PRD 分析",
+  "yanghanhui.1": "图标资源与清单维护",
+  "zhenshaoan.kong": "设计稿清洗工具建设",
+  "wangruifeng.1212": "体验问题中心能力接入",
+  liuxi1269: "行业市场分析工作流建设"
+};
+
+function formatSnapshotPeriod(start, end) {
+  const format = (value) => (value || "").slice(5).replace("-", ".");
+  const startLabel = format(start);
+  const endLabel = format(end);
+  return startLabel && endLabel ? `${startLabel}–${endLabel}` : "最近 7 天";
+}
+
+function getContributorPosition(index, count) {
+  const columns = Math.min(4, Math.max(1, count));
+  const rows = Math.ceil(count / columns);
+  const row = Math.floor(index / columns);
+  const itemsInRow = row === rows - 1 ? count - row * columns : columns;
+  const column = index - row * columns;
+  const leftByCount = {
+    1: [45],
+    2: [24, 66],
+    3: [8, 42, 76],
+    4: [3, 28, 53, 78]
+  };
+  const left = leftByCount[itemsInRow][column];
+  const top = rows === 1
+    ? 30
+    : rows === 2
+      ? [14, 62][row]
+      : rows === 3
+        ? [5, 39, 73][row]
+        : 4 + row * (82 / (rows - 1));
+  return { left, top, row, rows };
+}
+
+function renderContributorWall(contributors = []) {
+  const wall = document.querySelector("[data-contributor-wall]");
+  if (!wall) return;
+  if (!contributors.length) {
+    wall.innerHTML = '<p class="contribution-wall-loading">本周期暂无贡献记录</p>';
+    return;
+  }
+
+  const rows = Math.ceil(contributors.length / 4);
+  wall.style.minHeight = `${Math.max(360, rows * 118)}px`;
+  wall.innerHTML = contributors.map((contributor, index) => {
+    const name = contributor.name || contributor.email?.replace(/@jd\.com$/i, "") || "未知贡献者";
+    const commits = Number.isFinite(contributor.commits) ? contributor.commits : 0;
+    const avatar = contributorAvatarMap[name] || "default-contributor.jpg?v=20260728";
+    const usesDefaultAvatar = !contributorAvatarMap[name];
+    const position = getContributorPosition(index, contributors.length);
+    const classes = [
+      "contribution-person",
+      index === 0 ? "contribution-person-large" : "",
+      position.row === position.rows - 1 ? "contribution-person-bottom" : ""
+    ].filter(Boolean).join(" ");
+
+    return `
+      <article class="${classes}" style="left:${position.left}%;top:${position.top}%;" tabindex="0">
+        <div class="contribution-avatar-wrap">
+          <img class="photo-avatar${usesDefaultAvatar ? " default-contributor-avatar" : ""}" src="assets/avatars/${escapeHtml(avatar)}" alt="${escapeHtml(usesDefaultAvatar ? `${name} 的默认头像` : name)}" />
+          <button class="contribution-like" type="button" data-contributor-like aria-label="为 ${escapeHtml(name)} 点赞" aria-pressed="false"><span aria-hidden="true">♥</span><span class="contribution-like-count" data-like-count>0</span></button>
+        </div>
+        <span class="contribution-name-pill">${escapeHtml(name)}</span>
+        <span class="contribution-popover"><b>${commits} 次共建更新</b><em>${escapeHtml(contributorFocusMap[name] || "参与本周期社区内容建设")}</em></span>
+      </article>
+    `;
+  }).join("");
+}
+
 function applyCodingCommunitySnapshot() {
   const snapshot = window.codingCommunitySnapshot;
   if (!snapshot?.weekly || !snapshot?.windows?.week) return;
 
   const { weekly, windows } = snapshot;
   const monthDay = (windows.week.end || "").slice(5).replace("-", ".");
+  const contributionPeriod = formatSnapshotPeriod(windows.week.start, windows.week.end);
 
   document.querySelectorAll("[data-snapshot-updated]").forEach((element) => {
     element.textContent = `更新于 ${monthDay}`;
@@ -832,13 +920,123 @@ function applyCodingCommunitySnapshot() {
   document.querySelectorAll("[data-weekly-skills]").forEach((element) => {
     element.textContent = weekly.changed_skill_count;
   });
+  document.querySelectorAll("[data-contribution-period]").forEach((element) => {
+    element.textContent = contributionPeriod;
+  });
+  document.querySelectorAll("[data-contribution-contributor-count]").forEach((element) => {
+    element.textContent = weekly.contributor_count;
+  });
+  document.querySelectorAll("[data-contribution-update-count]").forEach((element) => {
+    element.textContent = weekly.non_merge_commit_count;
+  });
+  document.querySelectorAll("[data-contribution-skill-count]").forEach((element) => {
+    element.textContent = weekly.changed_skill_count;
+  });
 
-  const total = document.querySelector("[data-core-design-total]");
-  if (total) total.textContent = weekly.design_system.core_design_md_added;
+  document.querySelectorAll("[data-core-design-total]").forEach((element) => {
+    element.textContent = weekly.design_system.core_design_md_added;
+  });
 
   document.querySelectorAll("[data-design-category]").forEach((element) => {
     const value = weekly.design_system.categories?.[element.dataset.designCategory];
     if (Number.isFinite(value)) element.textContent = value;
+  });
+
+  const method = document.querySelector("[data-contribution-method]");
+  if (method) {
+    method.title = `统计 Coding main 分支 ${windows.week.start} 至 ${windows.week.end} 的非合并提交，并排除 spec-bot 与 skip-ci 自动提交。`;
+  }
+  const methodText = document.querySelector("[data-contribution-method-text]");
+  if (methodText) {
+    methodText.textContent = `${contributionPeriod} Coding 真实提交；未确认真实头像的贡献者使用统一默认头像；点赞记录暂存于当前浏览器`;
+  }
+
+  renderContributorWall(weekly.contributors);
+}
+
+const contributorLikesStorageKey = "nudge-contributor-likes-v1";
+
+function readContributorLikes() {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(contributorLikesStorageKey) || "{}");
+    return stored && typeof stored === "object" ? stored : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveContributorLikes(likes) {
+  try {
+    window.localStorage.setItem(contributorLikesStorageKey, JSON.stringify(likes));
+  } catch {
+    // The interaction still works when local storage is unavailable.
+  }
+}
+
+function burstContributorHearts(person) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const avatarWrap = person.querySelector(".contribution-avatar-wrap");
+  if (!avatarWrap) return;
+
+  [
+    { x: -34, y: -58, scale: .8, rotate: -18, delay: 0 },
+    { x: -14, y: -78, scale: 1.05, rotate: 12, delay: 45 },
+    { x: 12, y: -66, scale: .72, rotate: -8, delay: 90 },
+    { x: 30, y: -50, scale: .92, rotate: 18, delay: 125 },
+    { x: 2, y: -92, scale: .62, rotate: 6, delay: 150 }
+  ].forEach(({ x, y, scale, rotate, delay }) => {
+    const heart = document.createElement("span");
+    heart.className = "contribution-heart-particle";
+    heart.textContent = "♥";
+    heart.setAttribute("aria-hidden", "true");
+    heart.style.setProperty("--heart-x", `${x}px`);
+    heart.style.setProperty("--heart-y", `${y}px`);
+    heart.style.setProperty("--heart-scale", scale);
+    heart.style.setProperty("--heart-rotate", `${rotate}deg`);
+    heart.style.setProperty("--heart-delay", `${delay}ms`);
+    avatarWrap.appendChild(heart);
+    window.setTimeout(() => heart.remove(), 1100);
+  });
+}
+
+function initContributorLikes() {
+  const buttons = [...document.querySelectorAll("[data-contributor-like]")];
+  if (!buttons.length) return;
+  const likes = readContributorLikes();
+
+  buttons.forEach((button) => {
+    const person = button.closest(".contribution-person");
+    const name = person?.querySelector(".contribution-name-pill")?.textContent.trim();
+    const countElement = button.querySelector("[data-like-count]");
+    if (!person || !name || !countElement) return;
+
+    const stored = likes[name];
+    const state = {
+      liked: stored?.liked === true,
+      count: Number.isFinite(stored?.count) ? Math.max(0, Math.floor(stored.count)) : 0
+    };
+
+    const render = () => {
+      button.setAttribute("aria-pressed", String(state.liked));
+      button.setAttribute("aria-label", state.liked ? `取消对 ${name} 的点赞` : `为 ${name} 点赞`);
+      countElement.textContent = state.count;
+    };
+
+    render();
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      state.liked = !state.liked;
+      state.count = Math.max(0, state.count + (state.liked ? 1 : -1));
+      likes[name] = { liked: state.liked, count: state.count };
+      saveContributorLikes(likes);
+      render();
+
+      person.classList.remove("is-like-pulsing");
+      void person.offsetWidth;
+      person.classList.add("is-like-pulsing");
+      window.setTimeout(() => person.classList.remove("is-like-pulsing"), 680);
+      if (state.liked) burstContributorHearts(person);
+    });
   });
 }
 
@@ -847,6 +1045,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDongLogo();
   initRepoCommunitySkills();
   applyCodingCommunitySnapshot();
+  initContributorLikes();
 
   const weeklyUpdateTabs = [...document.querySelectorAll("[data-weekly-filter]")];
   const weeklyUpdateItems = [...document.querySelectorAll(".weekly-app-update")];
