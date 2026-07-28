@@ -130,6 +130,11 @@
       "alt": "设计师用 Agent 把设计稿沉淀成文档",
       "icon": "book-open-check"
     },
+    "metrics": {
+      "usage_count": "10",
+      "trace_records": "10 份 Wiki 追溯记录",
+      "impact": "30-60 分钟沉淀 design.md"
+    },
     "package": {
       "file": "relay-to-design-md-v1.0.zip",
       "version": "v1.0",
@@ -137,10 +142,31 @@
       "size": "129KB",
       "prompt": "用 relay-to-design-md skill，把这个 Relay 设计稿整理成 design.md：{Relay 链接}"
     },
+    "validation": {
+      "status": "已在 16.0 设计规范建设中试用",
+      "evidence": [
+        "支持 Relay 节点解析、结构化 outline、design.md 写入",
+        "用于把设计规范录入 Design Wiki 仓库"
+      ]
+    },
     "source": {
       "project": "16.0 设计系统升级",
       "background": "来源于 16.0 APP 大改版后的设计规范建设需求，用于把设计稿中的规范、结构和经验沉淀为 AI 可理解的 Wiki 文档。"
     },
+    "cases": [
+      {
+        "title": "navbar-search-day 入库",
+        "summary": "将 Relay 节点转成单份 design.md，并写入双向追溯索引。",
+        "source": "Git commit f8a7fad · @ShuaiMXu",
+        "result": "2026.05.13"
+      },
+      {
+        "title": "channel-header-tabs 业务组件入库",
+        "summary": "验证业务组件 page-doc bundle 的路径推断、字段校验和 Wiki 关联。",
+        "source": "Git commit c3f69df · @ShuaiMXu",
+        "result": "2026.05.14"
+      }
+    ],
     "relations": {
       "wiki": [
         "16.0 设计系统",
@@ -165,6 +191,7 @@
       "community_yaml": ".agents/skills/relay-to-design-md/community.yaml"
     },
     "display": {
+      "usage": "10 次有效使用",
       "latest_contribution": "@ShuaiMXu · 修正 Step 4 契约块字段名，并关闭 issue #57。"
     }
   }
