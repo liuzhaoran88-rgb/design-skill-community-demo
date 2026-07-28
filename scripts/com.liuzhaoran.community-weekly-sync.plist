@@ -30,7 +30,7 @@
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
-        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/liuzhaoran/.local/bin</string>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/liuzhaoran/bin:/Users/liuzhaoran/.local/bin</string>
     </dict>
 
     <!-- 兜底日志（脚本内部已写 community-weekly-sync.log，这里捕获未预期的 stderr） -->
