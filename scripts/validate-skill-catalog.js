@@ -23,6 +23,14 @@ assert(new Set(catalog.items.map((item) => item.path)).size === catalog.total, "
 assert(new Set(catalog.items.map((item) => item.id.toLowerCase())).size === catalog.total, "候选目录包含重复 Skill id");
 assert(catalog.scanned_files >= catalog.total, "扫描文件数不能少于去重后的 Skill 数");
 assert(
+  catalog.items.reduce((count, item) => count + 1 + item.alternate_paths.length, 0) === catalog.scanned_files,
+  "扫描文件数与去重来源路径数不一致",
+);
+assert(
+  catalog.items.some((item) => /[^\x00-\x7F]/.test(item.path)),
+  "中文路径下的 Skill 未进入候选目录",
+);
+assert(
   catalog.items.every((item) => (
     item.title
     && item.description

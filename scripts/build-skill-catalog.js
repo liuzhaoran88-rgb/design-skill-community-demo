@@ -10,12 +10,16 @@ const outputDir = path.resolve(process.argv[3] || path.join(demoRoot, "artifacts
 const templatePath = path.join(demoRoot, "scripts", "templates", "scenario-skill-catalog.html");
 const git = "/Library/Developer/CommandLineTools/usr/bin/git";
 
-function runGit(args) {
+function runGitRaw(args) {
   return execFileSync(git, args, {
     cwd: repoRoot,
     encoding: "utf8",
     maxBuffer: 32 * 1024 * 1024,
-  }).trim();
+  });
+}
+
+function runGit(args) {
+  return runGitRaw(args).trim();
 }
 
 function stripMarkdown(value = "") {
@@ -219,8 +223,8 @@ function safeInlineJson(value) {
 function main() {
   const head = runGit(["rev-parse", "HEAD"]);
   const headCommittedAt = runGit(["show", "-s", "--format=%cI", "HEAD"]);
-  const skillPaths = runGit(["ls-files"])
-    .split(/\r?\n/)
+  const skillPaths = runGitRaw(["ls-files", "-z"])
+    .split("\0")
     .filter((file) => /(^|\/)skill\.md$/i.test(file))
     .sort((left, right) => left.localeCompare(right, "zh-CN"));
 
