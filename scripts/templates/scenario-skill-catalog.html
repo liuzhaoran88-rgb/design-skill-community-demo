@@ -386,10 +386,59 @@
       }
       .selection-list {
         max-height: calc(100vh - 390px);
-        min-height: 188px;
+        min-height: 360px;
         overflow: auto;
-        padding: 14px;
+        padding: 12px;
       }
+      .selection-group {
+        overflow: hidden;
+        border: 1px solid var(--soft-line);
+        border-radius: 15px;
+        background: #fbfbfc;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      }
+      .selection-group + .selection-group { margin-top: 10px; }
+      .selection-group.is-active {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.09);
+      }
+      .selection-group-heading {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 13px 14px;
+        border: 0;
+        border-bottom: 1px solid var(--soft-line);
+        background: transparent;
+        cursor: pointer;
+        text-align: left;
+      }
+      .selection-group-heading strong { font-size: 12px; }
+      .selection-group-heading span {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+      }
+      .selection-group.is-active .selection-group-heading {
+        background: var(--accent-soft);
+        color: #194eae;
+      }
+      .selection-group-body { padding: 8px; }
+      .selection-slot-empty {
+        display: grid;
+        min-height: 54px;
+        place-items: center;
+        padding: 10px;
+        border: 1px dashed #d2d2d8;
+        border-radius: 10px;
+        color: #8a8a91;
+        cursor: pointer;
+        font-size: 10px;
+        text-align: center;
+      }
+      .selection-slot-empty + .selection-slot-empty { margin-top: 7px; }
       .selection-empty {
         display: grid;
         min-height: 160px;
@@ -401,12 +450,12 @@
         text-align: center;
       }
       .selection-item {
-        padding: 14px;
+        padding: 11px;
         border: 1px solid var(--soft-line);
-        border-radius: 14px;
-        background: #fbfbfc;
+        border-radius: 11px;
+        background: #fff;
       }
-      .selection-item + .selection-item { margin-top: 10px; }
+      .selection-item + .selection-item { margin-top: 7px; }
       .selection-item-header {
         display: flex;
         justify-content: space-between;
@@ -429,6 +478,7 @@
       }
       .remove-button:hover { background: #eeeef1; color: var(--ink); }
       .selection-item .field { width: 100%; height: 38px; font-size: 11px; }
+      .move-field { margin-top: 2px; }
       .reason-field {
         min-height: 64px;
         margin-top: 8px;
@@ -460,6 +510,17 @@
         line-height: 1.5;
       }
       .notice.show { display: block; }
+      .template-warning {
+        max-width: 760px;
+        margin-top: 22px;
+        padding: 13px 15px;
+        border: 1px solid #e6b768;
+        border-radius: 12px;
+        background: #fff8e9;
+        color: #8a5410;
+        font-size: 12px;
+        line-height: 1.6;
+      }
       footer {
         padding: 24px clamp(24px, 5vw, 76px) 46px;
         border-top: 1px solid rgba(23, 23, 26, 0.08);
@@ -499,6 +560,10 @@
           <p class="eyebrow">On-demand Skill Catalog</p>
           <h1>从全量能力中，选出真正值得推荐的 Skill。</h1>
           <p>本目录来自 Coding 在线 main。资料完整度只用于帮助运营快速缩小范围，最终成熟度和推荐理由仍由人工判断。</p>
+          <div class="template-warning" id="template-warning" hidden>
+            当前打开的是页面模板，不包含真实候选数据。请运行“场景推荐选品.command”，或打开
+            artifacts/scenario-skill-catalog/index.html。
+          </div>
         </div>
         <div class="hero-stats" id="hero-stats"></div>
       </header>
@@ -537,7 +602,7 @@
           <div class="selection-heading">
             <p>MANUAL PICKS</p>
             <h2 id="selection-title">人工精选</h2>
-            <span>选择能力、分配展示场景并填写推荐理由。导出的配置不会自动修改线上页面。</span>
+            <span>先选择 C端、B端或品牌营销板块，再从左侧加入 Skill。每个板块固定 2 个推荐位置。</span>
           </div>
           <input class="field curator-field" id="curator" type="text" placeholder="运营负责人姓名" aria-label="运营负责人姓名" />
           <div class="notice" id="notice" role="status"></div>
@@ -555,10 +620,25 @@
       Source commit：__SOURCE_HEAD__
     </footer>
 
+    <script id="catalog-data" type="application/json">__CATALOG_DATA__</script>
     <script>
-      const CATALOG = __CATALOG_DATA__;
+      let catalogAvailable = true;
+      let CATALOG;
+      try {
+        CATALOG = JSON.parse(document.querySelector("#catalog-data").textContent);
+      } catch {
+        catalogAvailable = false;
+        CATALOG = {
+          generated_at: "",
+          source: { repository: "", branch: "main", head: "" },
+          total: 0,
+          scenes: {},
+          items: [],
+        };
+      }
       const DISPLAY_SCENES = ["C端设计提效", "B端设计提效", "品牌营销设计提效"];
       const selected = new Map();
+      let activeScene = DISPLAY_SCENES[0];
       const elements = {
         search: document.querySelector("#search"),
         scene: document.querySelector("#scene-filter"),
@@ -645,6 +725,7 @@
 
         elements.grid.innerHTML = items.map((item) => {
           const isSelected = selected.has(item.path);
+          const selectedScene = isSelected ? selected.get(item.path).scene : "";
           const progress = `${Math.round((item.readiness / item.readiness_total) * 360)}deg`;
           return `
             <article class="skill-card${isSelected ? " is-selected" : ""}">
@@ -667,7 +748,7 @@
               </div>
               <div class="card-actions">
                 <button class="button ${isSelected ? "selected" : "primary"}" type="button" data-select="${escapeHtml(item.path)}">
-                  ${isSelected ? "已加入推荐" : "加入推荐"}
+                  ${isSelected ? `已加入 · ${escapeHtml(selectedScene.replace("设计提效", ""))}` : `加入${escapeHtml(activeScene.replace("设计提效", ""))}`}
                 </button>
                 <a class="button" href="${escapeHtml(item.skill_md_url)}" target="_blank" rel="noopener noreferrer" aria-label="查看 ${escapeHtml(item.title)} 的 SKILL.md">SKILL.md ↗</a>
               </div>
@@ -678,10 +759,6 @@
 
       function countForScene(scene, exceptPath = "") {
         return [...selected.entries()].filter(([path, value]) => path !== exceptPath && value.scene === scene).length;
-      }
-
-      function nextAvailableScene() {
-        return DISPLAY_SCENES.find((scene) => countForScene(scene) < 2) || DISPLAY_SCENES[0];
       }
 
       function showNotice(message) {
@@ -699,31 +776,49 @@
             showNotice("最多选择 6 项 Skill。请先移除一项再继续。");
             return;
           }
+          if (countForScene(activeScene) >= 2) {
+            showNotice(`「${activeScene}」已经选满 2 项，请切换到其他板块。`);
+            return;
+          }
           const item = CATALOG.items.find((entry) => entry.path === path);
-          selected.set(path, { item, scene: nextAvailableScene(), reason: "" });
+          selected.set(path, { item, scene: activeScene, reason: "" });
         }
         renderCatalog();
         renderSelection();
       }
 
       function renderSelection() {
-        if (!selected.size) {
-          elements.selectionList.innerHTML = '<div class="selection-empty">从左侧候选中选择 Skill。<br>资料完整度只是辅助信号，不代表自动推荐结果。</div>';
-          return;
-        }
-
-        elements.selectionList.innerHTML = [...selected.entries()].map(([path, value], index) => `
-          <article class="selection-item">
-            <div class="selection-item-header">
-              <strong>${String(index + 1).padStart(2, "0")} · ${escapeHtml(value.item.title)}</strong>
-              <button class="remove-button" type="button" data-remove="${escapeHtml(path)}" aria-label="移除 ${escapeHtml(value.item.title)}">×</button>
-            </div>
-            <select class="field" data-scene-path="${escapeHtml(path)}" aria-label="${escapeHtml(value.item.title)} 展示场景">
-              ${DISPLAY_SCENES.map((scene) => `<option value="${scene}"${scene === value.scene ? " selected" : ""}>${scene}</option>`).join("")}
-            </select>
-            <textarea class="field reason-field" data-reason-path="${escapeHtml(path)}" placeholder="填写人工推荐理由">${escapeHtml(value.reason)}</textarea>
-          </article>
-        `).join("");
+        elements.selectionList.innerHTML = DISPLAY_SCENES.map((scene) => {
+          const items = [...selected.entries()].filter(([, value]) => value.scene === scene);
+          const emptySlots = 2 - items.length;
+          return `
+            <section class="selection-group${scene === activeScene ? " is-active" : ""}">
+              <button class="selection-group-heading" type="button" data-activate-scene="${scene}">
+                <strong>${scene}</strong>
+                <span>${items.length}/2 · ${scene === activeScene ? "正在选择" : "点击切换"}</span>
+              </button>
+              <div class="selection-group-body">
+                ${items.map(([path, value], index) => `
+                  <article class="selection-item">
+                    <div class="selection-item-header">
+                      <strong>${String(index + 1).padStart(2, "0")} · ${escapeHtml(value.item.title)}</strong>
+                      <button class="remove-button" type="button" data-remove="${escapeHtml(path)}" aria-label="移除 ${escapeHtml(value.item.title)}">×</button>
+                    </div>
+                    <select class="field move-field" data-move-path="${escapeHtml(path)}" aria-label="移动 ${escapeHtml(value.item.title)} 到其他板块">
+                      ${DISPLAY_SCENES.map((target) => `<option value="${target}"${target === value.scene ? " selected" : ""}>${target}</option>`).join("")}
+                    </select>
+                    <textarea class="field reason-field" data-reason-path="${escapeHtml(path)}" placeholder="填写人工推荐理由">${escapeHtml(value.reason)}</textarea>
+                  </article>
+                `).join("")}
+                ${Array.from({ length: emptySlots }, () => `
+                  <button class="selection-slot-empty" type="button" data-activate-scene="${scene}">
+                    ${scene === activeScene ? "从左侧加入 Skill" : "点击后为此板块选 Skill"}
+                  </button>
+                `).join("")}
+              </div>
+            </section>
+          `;
+        }).join("");
       }
 
       function exportConfiguration() {
@@ -753,7 +848,9 @@
             head: CATALOG.source.head,
             catalog_generated_at: CATALOG.generated_at,
           },
-          picks: [...selected.values()].map((value, index) => ({
+          picks: DISPLAY_SCENES.flatMap((scene) => (
+            [...selected.values()].filter((value) => value.scene === scene)
+          )).map((value, index) => ({
             order: index + 1,
             scene: value.scene,
             skill_path: value.item.path,
@@ -781,18 +878,31 @@
       });
       elements.selectionList.addEventListener("click", (event) => {
         const button = event.target.closest("[data-remove]");
-        if (button) toggleSelection(button.dataset.remove);
-      });
-      elements.selectionList.addEventListener("change", (event) => {
-        const path = event.target.dataset.scenePath;
-        if (!path) return;
-        const value = selected.get(path);
-        if (countForScene(event.target.value, path) >= 2) {
-          event.target.value = value.scene;
-          showNotice("每个展示场景最多选择 2 项 Skill。");
+        if (button) {
+          toggleSelection(button.dataset.remove);
           return;
         }
-        value.scene = event.target.value;
+        const sceneButton = event.target.closest("[data-activate-scene]");
+        if (sceneButton) {
+          activeScene = sceneButton.dataset.activateScene;
+          renderCatalog();
+          renderSelection();
+        }
+      });
+      elements.selectionList.addEventListener("change", (event) => {
+        const path = event.target.dataset.movePath;
+        if (!path) return;
+        const value = selected.get(path);
+        const targetScene = event.target.value;
+        if (countForScene(targetScene, path) >= 2) {
+          event.target.value = value.scene;
+          showNotice(`「${targetScene}」已经选满 2 项。`);
+          return;
+        }
+        value.scene = targetScene;
+        activeScene = value.scene;
+        renderCatalog();
+        renderSelection();
       });
       elements.selectionList.addEventListener("input", (event) => {
         const path = event.target.dataset.reasonPath;
@@ -800,6 +910,7 @@
       });
       document.querySelector("#export").addEventListener("click", exportConfiguration);
 
+      if (!catalogAvailable) document.querySelector("#template-warning").hidden = false;
       renderHeroStats();
       renderCatalog();
       renderSelection();
