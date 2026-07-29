@@ -17,7 +17,8 @@ bash scripts/scenario-curation.sh --scan
 ```
 
 脚本会先同步 Coding 在线 `main`，再在隔离 worktree 中扫描全部已跟踪的
-`SKILL.md`。它不会切换或读取 Coding 当前工作分支中的未提交内容。
+`SKILL.md`，随后启动仅绑定 `127.0.0.1` 的本地选品服务。它不会切换或读取
+Coding 当前工作分支中的未提交内容。
 
 ## 选品目录
 
@@ -34,7 +35,12 @@ artifacts/scenario-skill-catalog/index.html
 - 按资料完整度、文档示例和最近更新时间筛选
 - 查看每项 Skill 的真实 `SKILL.md`
 - 最多选择 6 项，并分配到三个展示场景
-- 填写人工推荐理由并导出 `scenario-picks-YYYY-MM-DD.json`
+- 选中后由 Codex 生成 1–2 句推荐理由，并支持重新生成和人工修改
+- 导出 `scenario-picks-YYYY-MM-DD.json`
+
+推荐理由生成只把当前选中 Skill 的名称、简介、所在目录和展示场景交给本机
+Codex CLI。若 Codex 暂时不可用，页面会自动填入内容摘要草稿，运营仍可直接修改。
+直接打开静态 `index.html` 时不会启动 AI 服务，应优先通过上述命令进入页面。
 
 “资料完整度”只表示 `SKILL.md` 是否包含简介、使用说明、案例示例、验证检查及
 持续维护信号，不等同于自动判断成熟度。

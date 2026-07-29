@@ -49,6 +49,8 @@ assert(
 assert(!html.includes("__CATALOG_DATA__"), "选品页面仍有数据占位符");
 assert(html.includes(catalog.source.head), "选品页面没有记录 Coding source HEAD");
 assert(html.includes("导出推荐配置"), "选品页面缺少导出操作");
+assert(html.includes("data-generate-reason"), "选品页面缺少 AI 推荐理由操作");
+assert(html.includes("/api/recommendation-reason"), "选品页面缺少 AI 推荐理由接口");
 
 console.log(JSON.stringify({
   source_head: catalog.source.head,

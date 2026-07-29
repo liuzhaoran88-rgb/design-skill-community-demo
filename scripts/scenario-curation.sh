@@ -58,6 +58,44 @@ echo "扫描全量 SKILL.md..."
 PAGE="${OUTPUT_DIR}/index.html"
 echo "候选目录已生成: $PAGE"
 
-if [ "$OPEN_PAGE" = "1" ]; then
-  /usr/bin/open "$PAGE"
+if [ -n "${SCENARIO_CATALOG_PORT:-}" ]; then
+  CATALOG_PORT="$SCENARIO_CATALOG_PORT"
+else
+  CATALOG_CHECKSUM="$(printf '%s' "$DEMO_REPO" | cksum)"
+  CATALOG_CHECKSUM="${CATALOG_CHECKSUM%% *}"
+  CATALOG_PORT=$((8766 + CATALOG_CHECKSUM % 1000))
+fi
+CATALOG_URL="http://127.0.0.1:${CATALOG_PORT}/"
+SERVER_LOG="${OUTPUT_DIR}/server.log"
+
+health_ready() {
+  local response
+  response="$(curl -fsS "${CATALOG_URL}api/health" 2>/dev/null || true)"
+  case "$response" in
+    *'"name":"scenario-skill-catalog"'*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+if ! health_ready; then
+  echo "启动本地 AI 推荐理由服务..."
+  SCENARIO_CATALOG_PORT="$CATALOG_PORT" nohup "$NODE" "$DEMO_REPO/scripts/serve-skill-catalog.js" "$OUTPUT_DIR" >"$SERVER_LOG" 2>&1 &
+  for _ in {1..30}; do
+    if health_ready; then
+      break
+    fi
+    sleep 0.2
+  done
+fi
+
+if health_ready; then
+  echo "选品页面（支持 AI 推荐理由）: $CATALOG_URL"
+  if [ "$OPEN_PAGE" = "1" ]; then
+    /usr/bin/open "$CATALOG_URL"
+  fi
+else
+  echo "本地 AI 服务未启动，改为打开静态页面；推荐理由将使用摘要草稿。" >&2
+  if [ "$OPEN_PAGE" = "1" ]; then
+    /usr/bin/open "$PAGE"
+  fi
 fi
