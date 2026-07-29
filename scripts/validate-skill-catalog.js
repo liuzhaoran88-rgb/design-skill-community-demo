@@ -26,6 +26,7 @@ assert(
   catalog.items.every((item) => (
     item.title
     && item.description
+    && item.domain
     && item.owner
     && item.updated_at
     && item.directory_url.includes("/tree/main/")

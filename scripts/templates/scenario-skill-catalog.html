@@ -142,7 +142,7 @@
         top: 0;
         z-index: 4;
         display: grid;
-        grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(130px, 0.65fr));
+        grid-template-columns: minmax(220px, 1.5fr) repeat(4, minmax(130px, 0.65fr));
         gap: 10px;
         margin-bottom: 18px;
         padding: 12px;
@@ -572,6 +572,9 @@
         <div class="catalog-pane">
           <div class="toolbar" aria-label="候选目录筛选">
             <input class="field" id="search" type="search" placeholder="搜索名称、说明、维护者或路径" aria-label="搜索 Skill" />
+            <select class="field" id="domain-filter" aria-label="按所在目录筛选">
+              <option value="all">全部所在目录</option>
+            </select>
             <select class="field" id="scene-filter" aria-label="按能力类型筛选">
               <option value="all">全部能力类型</option>
               <option value="研究与分析">研究与分析</option>
@@ -641,6 +644,7 @@
       let activeScene = DISPLAY_SCENES[0];
       const elements = {
         search: document.querySelector("#search"),
+        domain: document.querySelector("#domain-filter"),
         scene: document.querySelector("#scene-filter"),
         signal: document.querySelector("#signal-filter"),
         sort: document.querySelector("#sort"),
@@ -691,14 +695,26 @@
         `).join("");
       }
 
+      function renderDomainOptions() {
+        const domains = [...new Set(CATALOG.items.map((item) => item.domain))]
+          .filter(Boolean)
+          .sort((left, right) => left.localeCompare(right, "zh-CN"));
+        elements.domain.innerHTML = [
+          '<option value="all">全部所在目录</option>',
+          ...domains.map((domain) => `<option value="${escapeHtml(domain)}">${escapeHtml(domain)}</option>`),
+        ].join("");
+      }
+
       function filteredItems() {
         const query = elements.search.value.trim().toLowerCase();
+        const domain = elements.domain.value;
         const scene = elements.scene.value;
         const signal = elements.signal.value;
         const sort = elements.sort.value;
         const items = CATALOG.items.filter((item) => {
           const haystack = `${item.title} ${item.description} ${item.owner} ${item.domain} ${item.path}`.toLowerCase();
           if (query && !haystack.includes(query)) return false;
+          if (domain !== "all" && item.domain !== domain) return false;
           if (scene !== "all" && item.scene !== scene) return false;
           if (signal === "ready" && item.readiness < 4) return false;
           if (signal === "examples" && !item.readiness_checks.examples) return false;
@@ -869,7 +885,7 @@
         showNotice("推荐配置已导出。接下来交给 Codex 生成页面预览与审核 PR。");
       }
 
-      [elements.search, elements.scene, elements.signal, elements.sort].forEach((field) => {
+      [elements.search, elements.domain, elements.scene, elements.signal, elements.sort].forEach((field) => {
         field.addEventListener(field === elements.search ? "input" : "change", renderCatalog);
       });
       elements.grid.addEventListener("click", (event) => {
@@ -912,6 +928,7 @@
 
       if (!catalogAvailable) document.querySelector("#template-warning").hidden = false;
       renderHeroStats();
+      renderDomainOptions();
       renderCatalog();
       renderSelection();
     </script>
