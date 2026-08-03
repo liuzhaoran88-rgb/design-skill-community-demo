@@ -2,6 +2,9 @@
 
 社区 Demo 使用同一条流水线支持定时刷新和手动刷新。流水线只创建待审核 PR，不自动合并 `main`。
 
+“场景提效推荐”的全量 Skill 选品不属于本流水线。运营按需扫描与选品方式见
+[`SCENARIO_CURATION.md`](SCENARIO_CURATION.md)。
+
 ## 刷新范围
 
 - Coding main 最近 7 天贡献者与非合并提交
